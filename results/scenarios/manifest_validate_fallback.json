@@ -1,0 +1,39 @@
+{
+  "experiment": "level7_validate_fallback",
+  "seed": 42,
+  "started_at_utc": "2026-08-06T21:10:11.070313+00:00",
+  "ended_at_utc": "2026-08-06T21:17:36.451252+00:00",
+  "wall_clock_seconds": 445.381,
+  "git_commits": {
+    "Enigma-AIAgent": "4d2cdc0b065980bbafee80d318d503c47dea93d9-dirty",
+    "Enigma-ML-Layer": "15e70802ecdecc2e0f38d45d1fac71e55327315e-dirty",
+    "Enigma-Frontend": "5899d098eb39f05b38065f201ccf0bd74edcd1fb-dirty"
+  },
+  "config": {
+    "suite": "/mnt/f/XAI Project/results/scenarios/suite.jsonl",
+    "scenarios": 400
+  },
+  "model_artefact": {
+    "path": null,
+    "hash": "absent"
+  },
+  "dataset": {
+    "path": "/mnt/f/XAI Project/results/scenarios/suite.jsonl",
+    "hash": "78271245a4a1dd6e47d3cd11eeac9d681553afb15a9dc69e7a9d14fe7c125afd"
+  },
+  "environment": {
+    "os": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "processor": "x86_64",
+    "cpu_count": 12,
+    "python_version": "3.12.3",
+    "python_implementation": "CPython",
+    "tensorflow_version": "absent",
+    "langgraph_version": "1.0.6",
+    "langchain_core_version": "1.2.7",
+    "pydantic_version": "2.12.5"
+  },
+  "extra": {
+    "situations_scored": 625
+  }
+}

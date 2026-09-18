@@ -1,0 +1,94 @@
+{
+  "seed": 42,
+  "generated_at_utc": "2026-08-06T21:09:52.050850+00:00",
+  "suite_hash": "52b89293b37baff655f97a41a42b67962059c2c96c5a34a716c69af7202f0efc",
+  "scenario_count": 400,
+  "signal_count": 8832,
+  "situation_count_under_entity_grouping": 625,
+  "abstained_signal_count": 1994,
+  "abstained_signal_fraction": 0.2258,
+  "scenarios_per_regime": {
+    "ambiguous": 100,
+    "clear": 100,
+    "sparse": 100,
+    "unknown_attack": 100
+  },
+  "scenarios_per_expected_conclusion": {
+    "UNKNOWN": 300,
+    "brute_force_access": 15,
+    "data_exfiltration": 13,
+    "lateral_movement": 13,
+    "physical_intrusion": 20,
+    "reconnaissance_sweep": 22,
+    "service_denial": 17
+  },
+  "source_diversity_per_scenario": {
+    "1": 32,
+    "2": 77,
+    "3": 35,
+    "4": 106,
+    "6": 66,
+    "8": 54,
+    "9": 19,
+    "12": 11
+  },
+  "source_diversity_per_situation": {
+    "1": 64,
+    "2": 206,
+    "3": 186,
+    "4": 169
+  },
+  "source_diversity_per_situation_by_regime": {
+    "ambiguous": {
+      "2": 59,
+      "3": 62,
+      "4": 57
+    },
+    "clear": {
+      "2": 54,
+      "3": 64,
+      "4": 62
+    },
+    "sparse": {
+      "1": 64,
+      "2": 36
+    },
+    "unknown_attack": {
+      "2": 57,
+      "3": 60,
+      "4": 50
+    }
+  },
+  "situations_at_diversity_one": 64,
+  "situations_at_diversity_one_fraction": 0.1024,
+  "entity_count_distribution": {
+    "1": 255,
+    "2": 65,
+    "3": 80
+  },
+  "suite_path": "results/scenarios/suite.jsonl",
+  "entity_correlation": {
+    "generated_entities": {
+      "grouping": "scenario scoped entity",
+      "groups": 625,
+      "signals": 8832,
+      "cramers_v": 1.0,
+      "global_category_entropy_bits": 2.6962,
+      "mean_within_group_entropy_bits": 0.0,
+      "entropy_reduction_bits": 2.6962,
+      "pure_groups": 625,
+      "pure_group_fraction": 1.0
+    },
+    "level5_reconstruction": {
+      "grouping": "index modulo 16, as Level 5 assigned",
+      "groups": 16,
+      "signals": 8832,
+      "cramers_v": 0.0072,
+      "global_category_entropy_bits": 2.6962,
+      "mean_within_group_entropy_bits": 2.6959,
+      "entropy_reduction_bits": 0.0003,
+      "pure_groups": 0,
+      "pure_group_fraction": 0.0
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "seed": 42,
+  "generated_at_utc": "2026-08-04T18:41:48.146121Z",
+  "config": "closedset",
+  "ensemble_seeds": [
+    42,
+    123,
+    456,
+    789,
+    1024
+  ],
+  "records_scored": 5000,
+  "routed_downstream": 3374,
+  "routed_to_normal_sink": 1626,
+  "abstained": 575,
+  "abstention_policy": {
+    "config": "closedset",
+    "generated_at_utc": "2026-08-04T16:49:03.636368Z",
+    "fitted_on": "validation split only",
+    "temperature": 0.9477443609022556,
+    "target_coverage": 0.9,
+    "confidence_threshold": 0.45609402656555176,
+    "class_names": [
+      "Analysis",
+      "Backdoor",
+      "DoS",
+      "Exploits",
+      "Fuzzers",
+      "Generic",
+      "Normal",
+      "Reconnaissance",
+      "Shellcode",
+      "Worms"
+    ],
+    "ensemble_seeds": [
+      42,
+      123,
+      456,
+      789,
+      1024
+    ],
+    "measured_known_rejected_share": null,
+    "measured_holdout_rejected_share": null
+  },
+  "class_names": [
+    "Analysis",
+    "Backdoor",
+    "DoS",
+    "Exploits",
+    "Fuzzers",
+    "Generic",
+    "Normal",
+    "Reconnaissance",
+    "Shellcode",
+    "Worms"
+  ],
+  "replay_interval_seconds": 0.5,
+  "entity_pool_size": 16,
+  "output": "/mnt/f/XAI Project/results/baselines/replay_signals.jsonl"
+}

@@ -1,0 +1,59 @@
+{
+  "signals_ingested": 1000,
+  "situations_created": 100,
+  "analyses_run": 1000,
+  "analyses_failed": 0,
+  "iterations_logged": 3000,
+  "wall_clock_seconds": 47.0091,
+  "llm_calls": 3000,
+  "latency": {
+    "signal_ingest": {
+      "count": 1000,
+      "mean_ms": 0.055,
+      "p50_ms": 0.026,
+      "p95_ms": 0.14,
+      "p99_ms": 0.192,
+      "max_ms": 0.337
+    },
+    "situation_attach": {
+      "count": 1000,
+      "mean_ms": 0.046,
+      "p50_ms": 0.018,
+      "p95_ms": 0.129,
+      "p99_ms": 0.182,
+      "max_ms": 0.324
+    },
+    "deterministic_reasoning": {
+      "count": 1000,
+      "mean_ms": 0.105,
+      "p50_ms": 0.098,
+      "p95_ms": 0.145,
+      "p99_ms": 0.208,
+      "max_ms": 0.329
+    },
+    "langgraph_gemini": {
+      "count": 1000,
+      "mean_ms": 46.588,
+      "p50_ms": 45.697,
+      "p95_ms": 51.025,
+      "p99_ms": 70.432,
+      "max_ms": 101.881
+    },
+    "explanation_build": {
+      "count": 1000,
+      "mean_ms": 0.208,
+      "p50_ms": 0.201,
+      "p95_ms": 0.262,
+      "p99_ms": 0.327,
+      "max_ms": 0.521
+    }
+  },
+  "cache": null,
+  "seed": 42,
+  "tag": "s100",
+  "llm": "mock",
+  "clock_mode": "separated",
+  "run_log_dropped": 0,
+  "run_log_path": "/mnt/f/XAI Project/results/level6/run_log_s100.jsonl",
+  "correlation": "entity"
+}

@@ -1,0 +1,13 @@
+{
+  "label": "mnt_f_drvfs",
+  "seed": 42,
+  "data_dir": "/mnt/f/XAI Project/data",
+  "timestamp_utc": "2026-07-28T16:22:25.060029Z",
+  "caches_dropped": true,
+  "total_bytes": 586377596,
+  "total_megabytes": 559.2,
+  "raw_read_seconds": 6.277,
+  "raw_read_mb_per_second": 89.1,
+  "pandas_read_seconds": 33.339,
+  "pandas_rows": 2540047
+}

@@ -1,0 +1,136 @@
+{
+  "repo": "F:\\XAI Project\\Enigma-ML-Layer",
+  "requirements": "F:\\XAI Project\\Enigma-ML-Layer\\requirements.txt",
+  "pinned_count": 14,
+  "third_party_modules": [
+    "imblearn",
+    "joblib",
+    "keras",
+    "keras_tuner",
+    "numpy",
+    "pandas",
+    "sklearn",
+    "tensorflow",
+    "websockets"
+  ],
+  "covered": [
+    {
+      "module": "imblearn",
+      "distributions": [
+        "imbalanced-learn"
+      ]
+    },
+    {
+      "module": "joblib",
+      "distributions": [
+        "joblib"
+      ]
+    },
+    {
+      "module": "keras",
+      "distributions": [
+        "keras"
+      ]
+    },
+    {
+      "module": "keras_tuner",
+      "distributions": [
+        "keras-tuner"
+      ]
+    },
+    {
+      "module": "numpy",
+      "distributions": [
+        "numpy"
+      ]
+    },
+    {
+      "module": "pandas",
+      "distributions": [
+        "pandas"
+      ]
+    },
+    {
+      "module": "sklearn",
+      "distributions": [
+        "scikit-learn"
+      ]
+    },
+    {
+      "module": "tensorflow",
+      "distributions": [
+        "tensorflow"
+      ]
+    },
+    {
+      "module": "websockets",
+      "distributions": [
+        "websockets"
+      ]
+    }
+  ],
+  "uncovered": [],
+  "imports_by_file": {
+    "check_requirements.py": [
+      "argparse",
+      "ast",
+      "importlib",
+      "json",
+      "pathlib",
+      "sys"
+    ],
+    "dataset_manifest.py": [
+      "argparse",
+      "datetime",
+      "hashlib",
+      "json",
+      "pandas",
+      "pathlib",
+      "sys"
+    ],
+    "Frontend_listener.py": [
+      "asyncio",
+      "datetime",
+      "json",
+      "websockets"
+    ],
+    "main.py": [
+      "argparse",
+      "asyncio",
+      "datetime",
+      "joblib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "tensorflow",
+      "time",
+      "uuid",
+      "websockets"
+    ],
+    "Streamer.py": [
+      "argparse",
+      "asyncio",
+      "json",
+      "pandas",
+      "pathlib",
+      "websockets"
+    ],
+    "train.py": [
+      "argparse",
+      "datetime",
+      "gc",
+      "imblearn",
+      "joblib",
+      "json",
+      "keras",
+      "keras_tuner",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "random",
+      "sklearn",
+      "tensorflow"
+    ]
+  }
+}

@@ -1,0 +1,335 @@
+{
+  "repo": "F:\\XAI Project\\Enigma-AIAgent",
+  "requirements": "F:\\XAI Project\\Enigma-AIAgent\\requirements.txt",
+  "pinned_count": 12,
+  "third_party_modules": [
+    "fastapi",
+    "langchain_google_genai",
+    "langgraph",
+    "pydantic",
+    "pydantic_settings",
+    "pytest",
+    "websockets"
+  ],
+  "covered": [
+    {
+      "module": "fastapi",
+      "distributions": [
+        "fastapi"
+      ]
+    },
+    {
+      "module": "langchain_google_genai",
+      "distributions": [
+        "langchain-google-genai"
+      ]
+    },
+    {
+      "module": "langgraph",
+      "distributions": [
+        "langgraph",
+        "langgraph-checkpoint",
+        "langgraph-prebuilt"
+      ]
+    },
+    {
+      "module": "pydantic",
+      "distributions": [
+        "pydantic"
+      ]
+    },
+    {
+      "module": "pydantic_settings",
+      "distributions": [
+        "pydantic-settings"
+      ]
+    },
+    {
+      "module": "pytest",
+      "distributions": [
+        "pytest"
+      ]
+    },
+    {
+      "module": "websockets",
+      "distributions": [
+        "websockets"
+      ]
+    }
+  ],
+  "uncovered": [],
+  "imports_by_file": {
+    "check_requirements.py": [
+      "argparse",
+      "ast",
+      "importlib",
+      "json",
+      "pathlib",
+      "sys"
+    ],
+    "test_live.py": [
+      "asyncio",
+      "datetime",
+      "json",
+      "uuid",
+      "websockets"
+    ],
+    "enigma_reason\\config.py": [
+      "__future__",
+      "pydantic_settings"
+    ],
+    "enigma_reason\\main.py": [
+      "__future__",
+      "datetime",
+      "enigma_reason",
+      "fastapi",
+      "logging"
+    ],
+    "enigma_reason\\adapters\\auth.py": [
+      "__future__",
+      "enigma_reason",
+      "typing",
+      "uuid"
+    ],
+    "enigma_reason\\adapters\\base.py": [
+      "__future__",
+      "abc",
+      "enigma_reason",
+      "typing"
+    ],
+    "enigma_reason\\adapters\\network.py": [
+      "__future__",
+      "enigma_reason",
+      "typing",
+      "uuid"
+    ],
+    "enigma_reason\\adapters\\registry.py": [
+      "__future__",
+      "enigma_reason",
+      "logging",
+      "typing"
+    ],
+    "enigma_reason\\adapters\\unsw_threat.py": [
+      "__future__",
+      "datetime",
+      "enigma_reason",
+      "typing",
+      "uuid"
+    ],
+    "enigma_reason\\adapters\\video.py": [
+      "__future__",
+      "enigma_reason",
+      "typing",
+      "uuid"
+    ],
+    "enigma_reason\\adapters\\__init__.py": [
+      "enigma_reason"
+    ],
+    "enigma_reason\\api\\analyze.py": [
+      "__future__",
+      "asyncio",
+      "datetime",
+      "enigma_reason",
+      "fastapi",
+      "logging",
+      "typing",
+      "uuid"
+    ],
+    "enigma_reason\\api\\ws_dashboard.py": [
+      "__future__",
+      "asyncio",
+      "datetime",
+      "enigma_reason",
+      "fastapi",
+      "json",
+      "logging",
+      "typing",
+      "uuid"
+    ],
+    "enigma_reason\\api\\ws_raw_signal.py": [
+      "__future__",
+      "asyncio",
+      "enigma_reason",
+      "fastapi",
+      "logging"
+    ],
+    "enigma_reason\\api\\ws_signal.py": [
+      "__future__",
+      "asyncio",
+      "enigma_reason",
+      "fastapi",
+      "logging",
+      "pydantic"
+    ],
+    "enigma_reason\\core\\reasoning_engine.py": [
+      "__future__",
+      "dataclasses",
+      "datetime",
+      "enigma_reason"
+    ],
+    "enigma_reason\\core\\__init__.py": [
+      "enigma_reason"
+    ],
+    "enigma_reason\\domain\\enums.py": [
+      "__future__",
+      "enum"
+    ],
+    "enigma_reason\\domain\\explanation.py": [
+      "__future__",
+      "enigma_reason",
+      "enum",
+      "pydantic",
+      "typing"
+    ],
+    "enigma_reason\\domain\\hypothesis.py": [
+      "__future__",
+      "enigma_reason",
+      "enum",
+      "pydantic"
+    ],
+    "enigma_reason\\domain\\reasoning.py": [
+      "__future__",
+      "enum",
+      "pydantic"
+    ],
+    "enigma_reason\\domain\\signal.py": [
+      "__future__",
+      "datetime",
+      "enigma_reason",
+      "pydantic",
+      "typing",
+      "uuid"
+    ],
+    "enigma_reason\\domain\\situation.py": [
+      "__future__",
+      "datetime",
+      "enigma_reason",
+      "enum",
+      "uuid"
+    ],
+    "enigma_reason\\domain\\temporal.py": [
+      "__future__",
+      "pydantic"
+    ],
+    "enigma_reason\\explain\\builder.py": [
+      "__future__",
+      "enigma_reason",
+      "logging",
+      "typing"
+    ],
+    "enigma_reason\\explain\\formatter.py": [
+      "__future__",
+      "enigma_reason",
+      "logging",
+      "typing"
+    ],
+    "enigma_reason\\foundation\\clock.py": [
+      "__future__",
+      "datetime"
+    ],
+    "enigma_reason\\foundation\\identifiers.py": [
+      "__future__",
+      "uuid"
+    ],
+    "enigma_reason\\graph\\builder.py": [
+      "__future__",
+      "enigma_reason",
+      "langgraph",
+      "typing"
+    ],
+    "enigma_reason\\graph\\nodes.py": [
+      "__future__",
+      "enigma_reason",
+      "json",
+      "logging",
+      "typing",
+      "uuid"
+    ],
+    "enigma_reason\\graph\\runner.py": [
+      "__future__",
+      "enigma_reason",
+      "langchain_google_genai",
+      "logging",
+      "os",
+      "typing"
+    ],
+    "enigma_reason\\graph\\state.py": [
+      "__future__",
+      "typing"
+    ],
+    "enigma_reason\\store\\correlation.py": [
+      "__future__",
+      "enigma_reason",
+      "typing"
+    ],
+    "enigma_reason\\store\\situation_store.py": [
+      "__future__",
+      "asyncio",
+      "datetime",
+      "enigma_reason",
+      "logging",
+      "uuid"
+    ],
+    "tests\\test_adapters.py": [
+      "__future__",
+      "datetime",
+      "enigma_reason",
+      "pytest"
+    ],
+    "tests\\test_explanation.py": [
+      "__future__",
+      "enigma_reason",
+      "json",
+      "pytest",
+      "types",
+      "typing",
+      "unittest",
+      "uuid"
+    ],
+    "tests\\test_graph.py": [
+      "__future__",
+      "datetime",
+      "enigma_reason",
+      "json",
+      "pytest",
+      "types",
+      "typing",
+      "unittest",
+      "uuid"
+    ],
+    "tests\\test_reasoning.py": [
+      "__future__",
+      "datetime",
+      "enigma_reason",
+      "pytest",
+      "tests",
+      "unittest",
+      "uuid"
+    ],
+    "tests\\test_signal.py": [
+      "datetime",
+      "enigma_reason",
+      "pytest",
+      "uuid"
+    ],
+    "tests\\test_situation.py": [
+      "datetime",
+      "enigma_reason",
+      "tests"
+    ],
+    "tests\\test_store.py": [
+      "enigma_reason",
+      "pytest",
+      "tests",
+      "uuid"
+    ],
+    "tests\\test_temporal.py": [
+      "datetime",
+      "enigma_reason",
+      "pytest",
+      "tests",
+      "unittest",
+      "uuid"
+    ]
+  }
+}

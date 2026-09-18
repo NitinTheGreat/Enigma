@@ -1,0 +1,369 @@
+{
+  "generated_at_utc": "2026-07-27T22:06:45.153103Z",
+  "seed": 42,
+  "data_dir": "F:\\XAI Project\\data",
+  "python_version": "3.11.9",
+  "pandas_version": "3.0.2",
+  "variants_present": {
+    "raw_four_partition": true,
+    "official_pre_split": true
+  },
+  "raw_four_partition": {
+    "files": [
+      {
+        "file": "UNSW-NB15_1.csv",
+        "bytes": 168979718,
+        "sha256": "7d851bbeabd27894ce39c8e78835c73341fc946652fb7743b9eff193b55eb511",
+        "rows": 700001,
+        "columns": [
+          49
+        ],
+        "has_header_row": false,
+        "attack_cat_distribution": {
+          "__missing__": 677786,
+          "generic": 7522,
+          "exploits": 5409,
+          "fuzzers": 5051,
+          "reconnaissance": 1759,
+          "dos": 1167,
+          "backdoors": 534,
+          "analysis": 526,
+          "shellcode": 223,
+          "worms": 24
+        },
+        "label_distribution": {
+          "0": 677786,
+          "1": 22215
+        },
+        "stime_epoch_min": 1421927377.0,
+        "stime_epoch_max": 1421955842.0,
+        "stime_utc_min": "2015-01-22T11:49:37Z",
+        "stime_utc_max": "2015-01-22T19:44:02Z"
+      },
+      {
+        "file": "UNSW-NB15_2.csv",
+        "bytes": 165221021,
+        "sha256": "6130ad02873cc6069ae695cf2844f2e8c2e9a9a1b7532dd82ab8f202757cacf8",
+        "rows": 700001,
+        "columns": [
+          49
+        ],
+        "has_header_row": false,
+        "attack_cat_distribution": {
+          "__missing__": 647252,
+          "generic": 27883,
+          "exploits": 11103,
+          "fuzzers": 4668,
+          "dos": 4637,
+          "reconnaissance": 3116,
+          "analysis": 608,
+          "backdoor": 370,
+          "shellcode": 324,
+          "worms": 40
+        },
+        "label_distribution": {
+          "0": 647252,
+          "1": 52749
+        },
+        "stime_epoch_min": 1421955795.0,
+        "stime_epoch_max": 1424231129.0,
+        "stime_utc_min": "2015-01-22T19:43:15Z",
+        "stime_utc_max": "2015-02-18T03:45:29Z"
+      },
+      {
+        "file": "UNSW-NB15_3.csv",
+        "bytes": 154588103,
+        "sha256": "ae990a96c3dfcd425ce2801aadb1727a34d5e0ae6d8215dbcdae60dedfaef640",
+        "rows": 700001,
+        "columns": [
+          49
+        ],
+        "has_header_row": false,
+        "attack_cat_distribution": {
+          "__missing__": 542576,
+          "generic": 118198,
+          "exploits": 16574,
+          "fuzzers": 9137,
+          "dos": 5642,
+          "reconnaissance": 5582,
+          "analysis": 873,
+          "backdoor": 759,
+          "shellcode": 593,
+          "worms": 67
+        },
+        "label_distribution": {
+          "0": 542576,
+          "1": 157425
+        },
+        "stime_epoch_min": 1424231099.0,
+        "stime_epoch_max": 1424250009.0,
+        "stime_utc_min": "2015-02-18T03:44:59Z",
+        "stime_utc_max": "2015-02-18T09:00:09Z"
+      },
+      {
+        "file": "UNSW-NB15_4.csv",
+        "bytes": 97588754,
+        "sha256": "cdf563692d51d405541dd659ddcdad9fa01f001f05fe9fc4b67f00ca12fbc96a",
+        "rows": 440044,
+        "columns": [
+          49
+        ],
+        "has_header_row": false,
+        "attack_cat_distribution": {
+          "__missing__": 351150,
+          "generic": 61878,
+          "exploits": 11439,
+          "fuzzers": 5390,
+          "dos": 4907,
+          "reconnaissance": 3530,
+          "analysis": 670,
+          "backdoor": 666,
+          "shellcode": 371,
+          "worms": 43
+        },
+        "label_distribution": {
+          "0": 351150,
+          "1": 88894
+        },
+        "stime_epoch_min": 1424249984.0,
+        "stime_epoch_max": 1424262068.0,
+        "stime_utc_min": "2015-02-18T08:59:44Z",
+        "stime_utc_max": "2015-02-18T12:21:08Z"
+      }
+    ],
+    "total_rows": 2540047,
+    "column_count": 49,
+    "column_names": [
+      "srcip",
+      "sport",
+      "dstip",
+      "dsport",
+      "proto",
+      "state",
+      "dur",
+      "sbytes",
+      "dbytes",
+      "sttl",
+      "dttl",
+      "sloss",
+      "dloss",
+      "service",
+      "Sload",
+      "Dload",
+      "Spkts",
+      "Dpkts",
+      "swin",
+      "dwin",
+      "stcpb",
+      "dtcpb",
+      "smeansz",
+      "dmeansz",
+      "trans_depth",
+      "res_bdy_len",
+      "Sjit",
+      "Djit",
+      "Stime",
+      "Ltime",
+      "Sintpkt",
+      "Dintpkt",
+      "tcprtt",
+      "synack",
+      "ackdat",
+      "is_sm_ips_ports",
+      "ct_state_ttl",
+      "ct_flw_http_mthd",
+      "is_ftp_login",
+      "ct_ftp_cmd",
+      "ct_srv_src",
+      "ct_srv_dst",
+      "ct_dst_ltm",
+      "ct_src_ ltm",
+      "ct_src_dport_ltm",
+      "ct_dst_sport_ltm",
+      "ct_dst_src_ltm",
+      "attack_cat",
+      "Label"
+    ],
+    "combined_attack_cat_distribution": {
+      "__missing__": 2218764,
+      "generic": 215481,
+      "exploits": 44525,
+      "fuzzers": 24246,
+      "dos": 16353,
+      "reconnaissance": 13987,
+      "analysis": 2677,
+      "backdoor": 1795,
+      "shellcode": 1511,
+      "backdoors": 534,
+      "worms": 174
+    },
+    "stime_epoch_min": 1421927377.0,
+    "stime_epoch_max": 1424262068.0,
+    "stime_utc_min": "2015-01-22T11:49:37Z",
+    "stime_utc_max": "2015-02-18T12:21:08Z"
+  },
+  "official_pre_split": {
+    "files": [
+      {
+        "file": "UNSW_NB15_training-set.csv",
+        "bytes": 15380800,
+        "sha256": "734fe6642edf758f7c94d7d9149426b49d202fe8e7bf0bef47392489c3c0a559",
+        "rows": 82332,
+        "columns": 45,
+        "has_header_row": true,
+        "column_names": [
+          "id",
+          "dur",
+          "proto",
+          "service",
+          "state",
+          "spkts",
+          "dpkts",
+          "sbytes",
+          "dbytes",
+          "rate",
+          "sttl",
+          "dttl",
+          "sload",
+          "dload",
+          "sloss",
+          "dloss",
+          "sinpkt",
+          "dinpkt",
+          "sjit",
+          "djit",
+          "swin",
+          "stcpb",
+          "dtcpb",
+          "dwin",
+          "tcprtt",
+          "synack",
+          "ackdat",
+          "smean",
+          "dmean",
+          "trans_depth",
+          "response_body_len",
+          "ct_srv_src",
+          "ct_state_ttl",
+          "ct_dst_ltm",
+          "ct_src_dport_ltm",
+          "ct_dst_sport_ltm",
+          "ct_dst_src_ltm",
+          "is_ftp_login",
+          "ct_ftp_cmd",
+          "ct_flw_http_mthd",
+          "ct_src_ltm",
+          "ct_srv_dst",
+          "is_sm_ips_ports",
+          "attack_cat",
+          "label"
+        ],
+        "attack_cat_distribution": {
+          "normal": 37000,
+          "generic": 18871,
+          "exploits": 11132,
+          "fuzzers": 6062,
+          "dos": 4089,
+          "reconnaissance": 3496,
+          "analysis": 677,
+          "backdoor": 583,
+          "shellcode": 378,
+          "worms": 44
+        },
+        "label_distribution": {
+          "1": 45332,
+          "0": 37000
+        }
+      },
+      {
+        "file": "UNSW_NB15_testing-set.csv",
+        "bytes": 32293018,
+        "sha256": "bec7dd5ec88dc2a0ccc7a07879d338395ed7421750f675fd0339e07dfe0648fa",
+        "rows": 175341,
+        "columns": 45,
+        "has_header_row": true,
+        "column_names": [
+          "id",
+          "dur",
+          "proto",
+          "service",
+          "state",
+          "spkts",
+          "dpkts",
+          "sbytes",
+          "dbytes",
+          "rate",
+          "sttl",
+          "dttl",
+          "sload",
+          "dload",
+          "sloss",
+          "dloss",
+          "sinpkt",
+          "dinpkt",
+          "sjit",
+          "djit",
+          "swin",
+          "stcpb",
+          "dtcpb",
+          "dwin",
+          "tcprtt",
+          "synack",
+          "ackdat",
+          "smean",
+          "dmean",
+          "trans_depth",
+          "response_body_len",
+          "ct_srv_src",
+          "ct_state_ttl",
+          "ct_dst_ltm",
+          "ct_src_dport_ltm",
+          "ct_dst_sport_ltm",
+          "ct_dst_src_ltm",
+          "is_ftp_login",
+          "ct_ftp_cmd",
+          "ct_flw_http_mthd",
+          "ct_src_ltm",
+          "ct_srv_dst",
+          "is_sm_ips_ports",
+          "attack_cat",
+          "label"
+        ],
+        "attack_cat_distribution": {
+          "normal": 56000,
+          "generic": 40000,
+          "exploits": 33393,
+          "fuzzers": 18184,
+          "dos": 12264,
+          "reconnaissance": 10491,
+          "analysis": 2000,
+          "backdoor": 1746,
+          "shellcode": 1133,
+          "worms": 130
+        },
+        "label_distribution": {
+          "1": 119341,
+          "0": 56000
+        }
+      }
+    ],
+    "total_rows": 257673,
+    "larger_file_by_rows": "UNSW_NB15_testing-set.csv",
+    "smaller_file_by_rows": "UNSW_NB15_training-set.csv",
+    "filename_role_inverted": true
+  },
+  "auxiliary_files": {
+    "NUSW-NB15_features.csv": {
+      "bytes": 4044,
+      "sha256": "c55f19cceebb6360dc50f44f8a5f246ccefbcf8a6c604ac1ad46e643869cafce"
+    },
+    "UNSW-NB15_LIST_EVENTS.csv": {
+      "bytes": 4639,
+      "sha256": "5b40f8128e2c87e691157c76debde04c328b0eb66bab97f1e7e17625f84497f2"
+    }
+  },
+  "schema_compatibility": {
+    "raw_and_official_share_schema": false,
+    "note": "The raw four-partition files carry 49 unheadered columns named by NUSW-NB15_features.csv. The official pre-split files carry 45 headed columns with different names for the same quantities, for example Spkts against spkts, Sintpkt against sinpkt, smeansz against smean and res_bdy_len against response_body_len. A model trained on one variant cannot consume the other without an explicit column mapping."
+  }
+}

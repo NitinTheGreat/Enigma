@@ -1,0 +1,54 @@
+{
+  "seed": 42,
+  "generated_at_utc": "2026-08-04T17:00:48.983923Z",
+  "config": "openset",
+  "ensemble_seeds": [
+    42,
+    123,
+    456,
+    789,
+    1024
+  ],
+  "measurement": {
+    "sample_size": 4000,
+    "abstained_count": 356,
+    "abstention_rate": 0.089,
+    "confidence_threshold": 0.45415371656417847,
+    "temperature": 0.9477443609022556,
+    "abstention_rate_on_known": 0.0887943971985993,
+    "abstention_rate_on_holdout": 0.5,
+    "holdout_in_sample": 2
+  },
+  "delivery": {
+    "payloads_sent": 20,
+    "health_reached": true,
+    "accepted": 20,
+    "situation_count": 12,
+    "total_evidence": 20,
+    "abstained_evidence_total": 20,
+    "signal_types_seen": [
+      "unknown"
+    ],
+    "sample_situation": {
+      "situation_id": "aaa57fce-6317-47eb-9784-63235e1fadaa",
+      "created_at": "2026-08-04T17:00:46.765034+00:00",
+      "last_updated": "2026-08-04T17:00:43.662226+00:00",
+      "last_activity": "2026-08-04T17:00:43.662226+00:00",
+      "lifecycle": "active",
+      "version": 3,
+      "evidence_count": 2,
+      "signal_types": [
+        "unknown"
+      ],
+      "entities": [
+        "device:synthetic-device-04"
+      ],
+      "sources": [
+        "unsw-threat-detector"
+      ],
+      "abstained_evidence_count": 2,
+      "max_anomaly": 0.928354,
+      "mean_anomaly": 0.831489
+    }
+  }
+}

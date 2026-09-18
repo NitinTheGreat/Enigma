@@ -1,0 +1,24 @@
+{
+  "status": "blocked",
+  "task": "Level 5 Part B task 9, LLM-only variant",
+  "generated_at_utc": "2026-08-05T00:00:00Z",
+  "seed": 42,
+  "reason": "No Gemini API credential is available in this environment.",
+  "evidence": {
+    "GOOGLE_API_KEY_in_windows_environment": false,
+    "ENIGMA_GEMINI_API_KEY_in_windows_environment": false,
+    "dotenv_file_present": false,
+    "files_searched": [
+      "F:/XAI Project/**/.env",
+      "F:/XAI Project/Enigma-AIAgent/.env"
+    ],
+    "note": "Only .env.example exists, and it carries empty placeholder values."
+  },
+  "what_this_blocks": [
+    "The LLM-only variant, which needs live hypothesis generation.",
+    "Any comparison of the full hybrid system against the rule-only variant, because the full system also requires the LLM."
+  ],
+  "what_was_not_done": "No LLM calls were made and no LLM results are reported. Nothing was simulated or estimated in place of the missing measurement.",
+  "to_unblock": "Set GOOGLE_API_KEY in the environment, or place it in Enigma-AIAgent/.env, then run the variant. Budget the call volume first: the brief allows reducing from 5000 records to 1000 if cost requires it, and the 5000 record replay produced 3374 forwarded signals grouped into 16 situations, so a full run is bounded by situations analysed rather than by records replayed.",
+  "related_caveat": "Even with a credential, the situation-level ground truth available at this level is degenerate. See rule_only_comparison.json and appendix L5 section on the entity assignment artefact. Level 7 supplies real situation ground truth, and that is the right place to run this comparison."
+}

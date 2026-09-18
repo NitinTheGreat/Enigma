@@ -1,0 +1,35 @@
+{
+  "seed": 42,
+  "generated_at_utc": "2026-08-03T22:14:07.242740Z",
+  "selection_criterion": "validation macro F1, test partition never consulted",
+  "candidates": [
+    {
+      "strategy": "full",
+      "validation_accuracy": 0.758219510108643,
+      "validation_macro_f1": 0.5303785394268348,
+      "validation_weighted_f1": 0.7796774058071864,
+      "validation_fpr_normal_as_attack": 0.19892857142857143,
+      "train_rows_after_smote": 448000,
+      "epochs_run": 26
+    },
+    {
+      "strategy": "moderate",
+      "validation_accuracy": 0.7766973680458524,
+      "validation_macro_f1": 0.5640789990334637,
+      "validation_weighted_f1": 0.789913838199484,
+      "validation_fpr_normal_as_attack": 0.19339285714285714,
+      "train_rows_after_smote": 286000,
+      "epochs_run": 44
+    },
+    {
+      "strategy": "minimal",
+      "validation_accuracy": 0.8117425646582451,
+      "validation_macro_f1": 0.5194981983600837,
+      "validation_weighted_f1": 0.7852229624503564,
+      "validation_fpr_normal_as_attack": 0.10964285714285714,
+      "train_rows_after_smote": 141262,
+      "epochs_run": 110
+    }
+  ],
+  "selected_strategy": "moderate"
+}

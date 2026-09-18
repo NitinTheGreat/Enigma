@@ -1,0 +1,27 @@
+{
+  "holdout_sample_count": 44,
+  "predicted_label_distribution": {
+    "Exploits": 41,
+    "Fuzzers": 2,
+    "Normal": 1
+  },
+  "predicted_label_share": {
+    "Exploits": 0.9318,
+    "Fuzzers": 0.0455,
+    "Normal": 0.0227
+  },
+  "confidence_on_holdout": {
+    "mean": 0.6491613388061523,
+    "median": 0.7148435115814209,
+    "std": 0.1718130260705948,
+    "min": 0.26651981472969055,
+    "max": 0.8500319123268127
+  },
+  "confidence_on_known": {
+    "mean": 0.7992026805877686,
+    "median": 0.9885944128036499,
+    "std": 0.24059341847896576
+  },
+  "confidence_gap_known_minus_holdout": 0.1500413417816162,
+  "holdout_class": "Worms"
+}

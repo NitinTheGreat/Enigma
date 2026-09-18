@@ -1,0 +1,45 @@
+{
+  "seed": 42,
+  "stages": {
+    "signal_ingest": {
+      "count": 1000,
+      "mean_ms": 0.055,
+      "p50_ms": 0.026,
+      "p95_ms": 0.14,
+      "p99_ms": 0.192,
+      "max_ms": 0.337
+    },
+    "situation_attach": {
+      "count": 1000,
+      "mean_ms": 0.046,
+      "p50_ms": 0.018,
+      "p95_ms": 0.129,
+      "p99_ms": 0.182,
+      "max_ms": 0.324
+    },
+    "deterministic_reasoning": {
+      "count": 1000,
+      "mean_ms": 0.105,
+      "p50_ms": 0.098,
+      "p95_ms": 0.145,
+      "p99_ms": 0.208,
+      "max_ms": 0.329
+    },
+    "langgraph_gemini": {
+      "count": 1000,
+      "mean_ms": 46.588,
+      "p50_ms": 45.697,
+      "p95_ms": 51.025,
+      "p99_ms": 70.432,
+      "max_ms": 101.881
+    },
+    "explanation_build": {
+      "count": 1000,
+      "mean_ms": 0.208,
+      "p50_ms": 0.201,
+      "p95_ms": 0.262,
+      "p99_ms": 0.327,
+      "max_ms": 0.521
+    }
+  }
+}

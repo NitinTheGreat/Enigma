@@ -1,0 +1,31 @@
+{
+  "seed": 42,
+  "files_audited": [
+    "/mnt/f/XAI Project/Enigma-ML-Layer/train_level3.py",
+    "/mnt/f/XAI Project/Enigma-ML-Layer/level3_pipeline.py"
+  ],
+  "total_violations": 0,
+  "static": [
+    {
+      "path": "/mnt/f/XAI Project/Enigma-ML-Layer/train_level3.py",
+      "clean": true,
+      "violations": [],
+      "fit_call_count": 3,
+      "fit_calls": [
+        "label_encoder.fit(sorted) line 261",
+        "pipeline.fit_resample(train_frame) line 280",
+        "model.fit(x_train_resampled) line 294"
+      ],
+      "transform_call_count": 7
+    },
+    {
+      "path": "/mnt/f/XAI Project/Enigma-ML-Layer/level3_pipeline.py",
+      "clean": true,
+      "violations": [],
+      "fit_call_count": 0,
+      "fit_calls": [],
+      "transform_call_count": 1
+    }
+  ],
+  "runtime": []
+}

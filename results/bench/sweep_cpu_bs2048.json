@@ -1,0 +1,37 @@
+{
+  "device_requested": "cpu",
+  "seed": 42,
+  "timestamp_utc": "2026-07-28T16:18:28.198412Z",
+  "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python_version": "3.12.3",
+  "tensorflow_version": "2.20.0",
+  "keras_version": "3.15.0",
+  "tensorflow_sees_gpu": false,
+  "gpu_devices": [],
+  "nvidia_smi": {
+    "name": "NVIDIA GeForce RTX 3050 Laptop GPU",
+    "memory_total": "4096 MiB",
+    "memory_free": "3964 MiB",
+    "driver_version": "566.07",
+    "compute_cap": "8.6"
+  },
+  "workload": {
+    "rows": 132000,
+    "features": 20,
+    "classes": 11,
+    "epochs": 3,
+    "batch_size": 2048,
+    "steps_per_epoch": 64,
+    "model_parameters": 2347
+  },
+  "warmup_seconds": 2.3966,
+  "total_seconds": 2.8262,
+  "epoch_seconds": [
+    1.6035,
+    0.5591,
+    0.5509
+  ],
+  "mean_epoch_seconds": 0.9045,
+  "mean_steady_epoch_seconds": 0.555,
+  "min_epoch_seconds": 0.5509
+}

@@ -1,0 +1,386 @@
+{
+  "seed": 42,
+  "suite": "results/scenarios/suite.jsonl",
+  "scenarios": 120,
+  "situations_scored": 191,
+  "analyses_run": 2732,
+  "iterations_logged": 8190,
+  "run_log_dropped": 0,
+  "llm": "Level 6 deterministic mock model",
+  "epistemic_controls": {
+    "unknown_hypothesis_enabled": false,
+    "sanity_gate_enabled": true,
+    "asymmetric_decay_enabled": true,
+    "persistence_required": false,
+    "max_confidence_delta": 0.15,
+    "inertia_enabled": true
+  },
+  "validates": "scoring machinery and suite discrimination, not reasoning quality",
+  "overall": {
+    "situations": 191,
+    "correct_conclusion_rate": 0.0105,
+    "false_conclusion_rate": 0.9895,
+    "abstention_rate": 0.0,
+    "appropriate_abstention_rate": 0.0,
+    "inappropriate_abstention_rate": 0.0,
+    "premature_convergence_rate": 0.712,
+    "single_iteration_conclusion_rate": 0.0,
+    "mean_iterations_to_termination": 3,
+    "counts": {
+      "situations": 191,
+      "concluded": 191,
+      "abstained": 0,
+      "truth_says_conclude": 55,
+      "truth_says_abstain": 136,
+      "correct": 2,
+      "false_conclusions": 189,
+      "premature": 136
+    }
+  },
+  "per_regime": {
+    "clear": {
+      "situations": 55,
+      "correct_conclusion_rate": 0.0364,
+      "false_conclusion_rate": 0.9636,
+      "abstention_rate": 0.0,
+      "appropriate_abstention_rate": 0.0,
+      "inappropriate_abstention_rate": 0.0,
+      "premature_convergence_rate": 0.0,
+      "single_iteration_conclusion_rate": 0.0,
+      "mean_iterations_to_termination": 3,
+      "counts": {
+        "situations": 55,
+        "concluded": 55,
+        "abstained": 0,
+        "truth_says_conclude": 55,
+        "truth_says_abstain": 0,
+        "correct": 2,
+        "false_conclusions": 53,
+        "premature": 0
+      }
+    },
+    "ambiguous": {
+      "situations": 55,
+      "correct_conclusion_rate": 0.0,
+      "false_conclusion_rate": 1.0,
+      "abstention_rate": 0.0,
+      "appropriate_abstention_rate": 0.0,
+      "inappropriate_abstention_rate": 0.0,
+      "premature_convergence_rate": 1.0,
+      "single_iteration_conclusion_rate": 0.0,
+      "mean_iterations_to_termination": 3,
+      "counts": {
+        "situations": 55,
+        "concluded": 55,
+        "abstained": 0,
+        "truth_says_conclude": 0,
+        "truth_says_abstain": 55,
+        "correct": 0,
+        "false_conclusions": 55,
+        "premature": 55
+      }
+    },
+    "sparse": {
+      "situations": 30,
+      "correct_conclusion_rate": 0.0,
+      "false_conclusion_rate": 1.0,
+      "abstention_rate": 0.0,
+      "appropriate_abstention_rate": 0.0,
+      "inappropriate_abstention_rate": 0.0,
+      "premature_convergence_rate": 1.0,
+      "single_iteration_conclusion_rate": 0.0,
+      "mean_iterations_to_termination": 3,
+      "counts": {
+        "situations": 30,
+        "concluded": 30,
+        "abstained": 0,
+        "truth_says_conclude": 0,
+        "truth_says_abstain": 30,
+        "correct": 0,
+        "false_conclusions": 30,
+        "premature": 30
+      }
+    },
+    "unknown_attack": {
+      "situations": 51,
+      "correct_conclusion_rate": 0.0,
+      "false_conclusion_rate": 1.0,
+      "abstention_rate": 0.0,
+      "appropriate_abstention_rate": 0.0,
+      "inappropriate_abstention_rate": 0.0,
+      "premature_convergence_rate": 1.0,
+      "single_iteration_conclusion_rate": 0.0,
+      "mean_iterations_to_termination": 3,
+      "counts": {
+        "situations": 51,
+        "concluded": 51,
+        "abstained": 0,
+        "truth_says_conclude": 0,
+        "truth_says_abstain": 51,
+        "correct": 0,
+        "false_conclusions": 51,
+        "premature": 51
+      }
+    }
+  },
+  "reference_reasoner": {
+    "situations": 191,
+    "correct_conclusion_rate": 0.9372,
+    "false_conclusion_rate": 0.0105,
+    "abstention_rate": 0.7539,
+    "appropriate_abstention_rate": 0.9853,
+    "inappropriate_abstention_rate": 0.1818,
+    "premature_convergence_rate": 0.0105,
+    "single_iteration_conclusion_rate": 0.2461,
+    "mean_iterations_to_termination": 1,
+    "counts": {
+      "situations": 191,
+      "concluded": 47,
+      "abstained": 144,
+      "truth_says_conclude": 55,
+      "truth_says_abstain": 136,
+      "correct": 179,
+      "false_conclusions": 2,
+      "premature": 2
+    }
+  },
+  "reference_reasoner_per_regime": {
+    "clear": {
+      "situations": 55,
+      "correct_conclusion_rate": 0.8182,
+      "false_conclusion_rate": 0.0,
+      "abstention_rate": 0.1818,
+      "appropriate_abstention_rate": 0.0,
+      "inappropriate_abstention_rate": 0.1818,
+      "premature_convergence_rate": 0.0,
+      "single_iteration_conclusion_rate": 0.8182,
+      "mean_iterations_to_termination": 1,
+      "counts": {
+        "situations": 55,
+        "concluded": 45,
+        "abstained": 10,
+        "truth_says_conclude": 55,
+        "truth_says_abstain": 0,
+        "correct": 45,
+        "false_conclusions": 0,
+        "premature": 0
+      }
+    },
+    "ambiguous": {
+      "situations": 55,
+      "correct_conclusion_rate": 1.0,
+      "false_conclusion_rate": 0.0,
+      "abstention_rate": 1.0,
+      "appropriate_abstention_rate": 1.0,
+      "inappropriate_abstention_rate": 0.0,
+      "premature_convergence_rate": 0.0,
+      "single_iteration_conclusion_rate": 0.0,
+      "mean_iterations_to_termination": 1,
+      "counts": {
+        "situations": 55,
+        "concluded": 0,
+        "abstained": 55,
+        "truth_says_conclude": 0,
+        "truth_says_abstain": 55,
+        "correct": 55,
+        "false_conclusions": 0,
+        "premature": 0
+      }
+    },
+    "sparse": {
+      "situations": 30,
+      "correct_conclusion_rate": 1.0,
+      "false_conclusion_rate": 0.0,
+      "abstention_rate": 1.0,
+      "appropriate_abstention_rate": 1.0,
+      "inappropriate_abstention_rate": 0.0,
+      "premature_convergence_rate": 0.0,
+      "single_iteration_conclusion_rate": 0.0,
+      "mean_iterations_to_termination": 1,
+      "counts": {
+        "situations": 30,
+        "concluded": 0,
+        "abstained": 30,
+        "truth_says_conclude": 0,
+        "truth_says_abstain": 30,
+        "correct": 30,
+        "false_conclusions": 0,
+        "premature": 0
+      }
+    },
+    "unknown_attack": {
+      "situations": 51,
+      "correct_conclusion_rate": 0.9608,
+      "false_conclusion_rate": 0.0392,
+      "abstention_rate": 0.9608,
+      "appropriate_abstention_rate": 0.9608,
+      "inappropriate_abstention_rate": 0.0,
+      "premature_convergence_rate": 0.0392,
+      "single_iteration_conclusion_rate": 0.0392,
+      "mean_iterations_to_termination": 1,
+      "counts": {
+        "situations": 51,
+        "concluded": 2,
+        "abstained": 49,
+        "truth_says_conclude": 0,
+        "truth_says_abstain": 51,
+        "correct": 49,
+        "false_conclusions": 2,
+        "premature": 2
+      }
+    }
+  },
+  "baseline_always_abstain": {
+    "situations": 191,
+    "correct_conclusion_rate": 0.712,
+    "false_conclusion_rate": 0.0,
+    "abstention_rate": 1.0,
+    "appropriate_abstention_rate": 1.0,
+    "inappropriate_abstention_rate": 1.0,
+    "premature_convergence_rate": 0.0,
+    "single_iteration_conclusion_rate": 0.0,
+    "mean_iterations_to_termination": 1,
+    "counts": {
+      "situations": 191,
+      "concluded": 0,
+      "abstained": 191,
+      "truth_says_conclude": 55,
+      "truth_says_abstain": 136,
+      "correct": 136,
+      "false_conclusions": 0,
+      "premature": 0
+    }
+  },
+  "baseline_always_conclude": {
+    "situations": 191,
+    "correct_conclusion_rate": 0.288,
+    "false_conclusion_rate": 0.712,
+    "abstention_rate": 0.0,
+    "appropriate_abstention_rate": 0.0,
+    "inappropriate_abstention_rate": 0.0,
+    "premature_convergence_rate": 0.712,
+    "single_iteration_conclusion_rate": 1.0,
+    "mean_iterations_to_termination": 1,
+    "counts": {
+      "situations": 191,
+      "concluded": 191,
+      "abstained": 0,
+      "truth_says_conclude": 55,
+      "truth_says_abstain": 136,
+      "correct": 55,
+      "false_conclusions": 136,
+      "premature": 136
+    }
+  },
+  "suite_is_discriminable": true,
+  "saturation": {
+    "per_metric": [
+      {
+        "metric": "correct_conclusion_rate",
+        "value": 0.0105,
+        "saturated": false,
+        "note": "within range"
+      },
+      {
+        "metric": "false_conclusion_rate",
+        "value": 0.9895,
+        "saturated": false,
+        "note": "within range"
+      },
+      {
+        "metric": "abstention_rate",
+        "value": 0.0,
+        "saturated": true,
+        "note": "at floor"
+      },
+      {
+        "metric": "appropriate_abstention_rate",
+        "value": 0.0,
+        "saturated": true,
+        "note": "at floor"
+      },
+      {
+        "metric": "inappropriate_abstention_rate",
+        "value": 0.0,
+        "saturated": true,
+        "note": "at floor"
+      },
+      {
+        "metric": "premature_convergence_rate",
+        "value": 0.712,
+        "saturated": false,
+        "note": "within range"
+      },
+      {
+        "metric": "single_iteration_conclusion_rate",
+        "value": 0.0,
+        "saturated": true,
+        "note": "at floor"
+      },
+      {
+        "metric": "mean_iterations_to_termination",
+        "value": 3,
+        "saturated": true,
+        "note": "at the one iteration floor or the three iteration cap"
+      }
+    ],
+    "saturated_metrics": [
+      "abstention_rate",
+      "appropriate_abstention_rate",
+      "inappropriate_abstention_rate",
+      "single_iteration_conclusion_rate",
+      "mean_iterations_to_termination"
+    ],
+    "regime_spread": {
+      "correct_conclusion_rate": {
+        "min_across_regimes": 0.0,
+        "max_across_regimes": 0.0364,
+        "range": 0.0364,
+        "discriminates_between_regimes": false
+      },
+      "false_conclusion_rate": {
+        "min_across_regimes": 0.9636,
+        "max_across_regimes": 1.0,
+        "range": 0.0364,
+        "discriminates_between_regimes": false
+      },
+      "abstention_rate": {
+        "min_across_regimes": 0.0,
+        "max_across_regimes": 0.0,
+        "range": 0.0,
+        "discriminates_between_regimes": false
+      },
+      "appropriate_abstention_rate": {
+        "min_across_regimes": 0.0,
+        "max_across_regimes": 0.0,
+        "range": 0.0,
+        "discriminates_between_regimes": false
+      },
+      "inappropriate_abstention_rate": {
+        "min_across_regimes": 0.0,
+        "max_across_regimes": 0.0,
+        "range": 0.0,
+        "discriminates_between_regimes": false
+      },
+      "premature_convergence_rate": {
+        "min_across_regimes": 0.0,
+        "max_across_regimes": 1.0,
+        "range": 1.0,
+        "discriminates_between_regimes": true
+      },
+      "single_iteration_conclusion_rate": {
+        "min_across_regimes": 0.0,
+        "max_across_regimes": 0.0,
+        "range": 0.0,
+        "discriminates_between_regimes": false
+      },
+      "mean_iterations_to_termination": {
+        "min_across_regimes": 3,
+        "max_across_regimes": 3,
+        "range": 0,
+        "discriminates_between_regimes": false
+      }
+    }
+  },
+  "distinct_hypothesis_texts": 3
+}

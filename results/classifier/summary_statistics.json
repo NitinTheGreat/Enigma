@@ -1,0 +1,188 @@
+{
+  "generated_at_utc": "2026-08-03T23:06:16.747531Z",
+  "seeds": [
+    42,
+    123,
+    456,
+    789,
+    1024
+  ],
+  "holdout_class": "Worms",
+  "smote_strategy": "moderate",
+  "leakage_accuracy_ceiling": 0.85,
+  "ceiling_breaches": [],
+  "statistics": {
+    "closedset": {
+      "balanced": {
+        "accuracy": {
+          "mean": 0.528182,
+          "std": 0.019844,
+          "min": 0.497727,
+          "max": 0.559091,
+          "n": 5
+        },
+        "macro_f1": {
+          "mean": 0.489634,
+          "std": 0.017222,
+          "min": 0.469056,
+          "max": 0.521067,
+          "n": 5
+        },
+        "weighted_f1": {
+          "mean": 0.489634,
+          "std": 0.017222,
+          "min": 0.469056,
+          "max": 0.521067,
+          "n": 5
+        },
+        "false_positive_rate_normal_as_attack": {
+          "mean": 0.4,
+          "std": 0.034015,
+          "n": 5
+        }
+      },
+      "natural": {
+        "accuracy": {
+          "mean": 0.684252,
+          "std": 0.003637,
+          "min": 0.677185,
+          "max": 0.687181,
+          "n": 5
+        },
+        "macro_f1": {
+          "mean": 0.44762,
+          "std": 0.005674,
+          "min": 0.437529,
+          "max": 0.453937,
+          "n": 5
+        },
+        "weighted_f1": {
+          "mean": 0.726289,
+          "std": 0.002833,
+          "min": 0.721164,
+          "max": 0.729886,
+          "n": 5
+        },
+        "false_positive_rate_normal_as_attack": {
+          "mean": 0.419449,
+          "std": 0.001728,
+          "n": 5
+        }
+      },
+      "validation": {
+        "accuracy": {
+          "mean": 0.777524,
+          "std": 0.002729,
+          "min": 0.772962,
+          "max": 0.780918,
+          "n": 5
+        },
+        "macro_f1": {
+          "mean": 0.561099,
+          "std": 0.00626,
+          "min": 0.549256,
+          "max": 0.566966,
+          "n": 5
+        },
+        "weighted_f1": {
+          "mean": 0.790429,
+          "std": 0.002452,
+          "min": 0.786147,
+          "max": 0.793469,
+          "n": 5
+        },
+        "false_positive_rate_normal_as_attack": {
+          "mean": 0.196946,
+          "std": 0.003855,
+          "n": 5
+        }
+      }
+    },
+    "openset": {
+      "balanced": {
+        "accuracy": {
+          "mean": 0.561199,
+          "std": 0.007603,
+          "min": 0.546149,
+          "max": 0.566432,
+          "n": 5
+        },
+        "macro_f1": {
+          "mean": 0.532909,
+          "std": 0.011704,
+          "min": 0.511036,
+          "max": 0.543977,
+          "n": 5
+        },
+        "weighted_f1": {
+          "mean": 0.532909,
+          "std": 0.011704,
+          "min": 0.511036,
+          "max": 0.543977,
+          "n": 5
+        },
+        "false_positive_rate_normal_as_attack": {
+          "mean": 0.435979,
+          "std": 0.01734,
+          "n": 5
+        }
+      },
+      "natural": {
+        "accuracy": {
+          "mean": 0.686049,
+          "std": 0.00223,
+          "min": 0.683356,
+          "max": 0.689882,
+          "n": 5
+        },
+        "macro_f1": {
+          "mean": 0.473487,
+          "std": 0.0089,
+          "min": 0.461739,
+          "max": 0.488195,
+          "n": 5
+        },
+        "weighted_f1": {
+          "mean": 0.727981,
+          "std": 0.001835,
+          "min": 0.725764,
+          "max": 0.730942,
+          "n": 5
+        },
+        "false_positive_rate_normal_as_attack": {
+          "mean": 0.419011,
+          "std": 0.004014,
+          "n": 5
+        }
+      },
+      "validation": {
+        "accuracy": {
+          "mean": 0.778067,
+          "std": 0.001665,
+          "min": 0.775162,
+          "max": 0.780013,
+          "n": 5
+        },
+        "macro_f1": {
+          "mean": 0.598211,
+          "std": 0.00321,
+          "min": 0.592559,
+          "max": 0.601041,
+          "n": 5
+        },
+        "weighted_f1": {
+          "mean": 0.791292,
+          "std": 0.001482,
+          "min": 0.788658,
+          "max": 0.792762,
+          "n": 5
+        },
+        "false_positive_rate_normal_as_attack": {
+          "mean": 0.197464,
+          "std": 0.00433,
+          "n": 5
+        }
+      }
+    }
+  }
+}

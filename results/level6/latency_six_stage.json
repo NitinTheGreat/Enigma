@@ -1,0 +1,114 @@
+{
+  "seed": 42,
+  "offline_replay": {
+    "tag": "s100",
+    "reasoning_stage_measures": "langgraph over deterministic mock model",
+    "broadcast_measured": false,
+    "stages": {
+      "signal_ingest": {
+        "count": 1000,
+        "mean_ms": 0.055,
+        "p50_ms": 0.026,
+        "p95_ms": 0.14,
+        "p99_ms": 0.192,
+        "max_ms": 0.337
+      },
+      "situation_attach": {
+        "count": 1000,
+        "mean_ms": 0.046,
+        "p50_ms": 0.018,
+        "p95_ms": 0.129,
+        "p99_ms": 0.182,
+        "max_ms": 0.324
+      },
+      "deterministic_reasoning": {
+        "count": 1000,
+        "mean_ms": 0.105,
+        "p50_ms": 0.098,
+        "p95_ms": 0.145,
+        "p99_ms": 0.208,
+        "max_ms": 0.329
+      },
+      "langgraph_gemini": {
+        "count": 1000,
+        "mean_ms": 46.588,
+        "p50_ms": 45.697,
+        "p95_ms": 51.025,
+        "p99_ms": 70.432,
+        "max_ms": 101.881
+      },
+      "explanation_build": {
+        "count": 1000,
+        "mean_ms": 0.208,
+        "p50_ms": 0.201,
+        "p95_ms": 0.262,
+        "p99_ms": 0.327,
+        "max_ms": 0.521
+      }
+    }
+  },
+  "load_harness": {
+    "arrival_rate_per_second": 4.0,
+    "reasoning_stage_measures": "fixed simulated service time",
+    "broadcast_measured": true,
+    "stages": {
+      "signal_ingest": {
+        "count": 80,
+        "mean_ms": 0.088,
+        "p50_ms": 0.082,
+        "p95_ms": 0.16,
+        "p99_ms": 0.191,
+        "max_ms": 0.207
+      },
+      "situation_attach": {
+        "count": 80,
+        "mean_ms": 0.066,
+        "p50_ms": 0.066,
+        "p95_ms": 0.125,
+        "p99_ms": 0.166,
+        "max_ms": 0.188
+      },
+      "deterministic_reasoning": {
+        "count": 80,
+        "mean_ms": 0.118,
+        "p50_ms": 0.114,
+        "p95_ms": 0.197,
+        "p99_ms": 0.218,
+        "max_ms": 0.241
+      },
+      "langgraph_gemini": {
+        "count": 80,
+        "mean_ms": 6029.283,
+        "p50_ms": 6022.378,
+        "p95_ms": 6090.038,
+        "p99_ms": 6150.819,
+        "max_ms": 6150.835
+      },
+      "explanation_build": {
+        "count": 80,
+        "mean_ms": 0.116,
+        "p50_ms": 0.114,
+        "p95_ms": 0.187,
+        "p99_ms": 0.21,
+        "max_ms": 0.211
+      },
+      "dashboard_broadcast": {
+        "count": 80,
+        "mean_ms": 0.069,
+        "p50_ms": 0.067,
+        "p95_ms": 0.105,
+        "p99_ms": 0.13,
+        "max_ms": 0.136
+      },
+      "analysis_admission_wait": {
+        "count": 80,
+        "mean_ms": 47697.256,
+        "p50_ms": 47701.746,
+        "p95_ms": 91018.022,
+        "p99_ms": 95667.817,
+        "max_ms": 95864.456
+      }
+    }
+  },
+  "real_model_latency": "UNVERIFIED, no Gemini API key in this environment"
+}

@@ -1,0 +1,126 @@
+{
+  "seed": 42,
+  "generated_at_utc": "2026-08-04T16:59:14.909808Z",
+  "config": "openset",
+  "model_seed": 42,
+  "part_a_scoring": {
+    "records_scored": 100,
+    "normal_index": 6,
+    "class_names": [
+      "Analysis",
+      "Backdoor",
+      "DoS",
+      "Exploits",
+      "Fuzzers",
+      "Generic",
+      "Normal",
+      "Reconnaissance",
+      "Shellcode"
+    ],
+    "predicted_normal_count": 27,
+    "predicted_attack_count": 73,
+    "anomaly_on_predicted_normal": {
+      "mean": 0.027049481481481483,
+      "max": 0.720431
+    },
+    "anomaly_on_predicted_attack": {
+      "mean": 0.9470992328767125,
+      "min": 0.68664
+    },
+    "predicted_class_confidence": {
+      "mean": 0.8321911000000002,
+      "min": 0.279569
+    },
+    "predictive_entropy": {
+      "mean": 0.20518254,
+      "max": 0.793162
+    },
+    "all_scores_in_unit_interval": true,
+    "normal_below_ceiling": false,
+    "attack_mean_above_floor": true,
+    "attack_min_above_floor": false,
+    "separation_normal_to_attack": 0.920049751395231,
+    "anomaly_differs_from_class_confidence": true
+  },
+  "part_b_websocket": {
+    "started": [
+      "reasoning layer",
+      "sensor layer",
+      "replayer"
+    ],
+    "health_reached": true,
+    "situation_count": 16,
+    "total_evidence": 63,
+    "signal_types_seen": [
+      "analysis",
+      "dos",
+      "exploit",
+      "fuzzers",
+      "reconnaissance",
+      "shellcode"
+    ],
+    "entities_seen": [
+      "device:synthetic-device-00",
+      "device:synthetic-device-01",
+      "device:synthetic-device-02",
+      "device:synthetic-device-03",
+      "device:synthetic-device-04",
+      "device:synthetic-device-05",
+      "device:synthetic-device-06",
+      "device:synthetic-device-07"
+    ],
+    "max_anomaly_range": {
+      "min": 0.898195,
+      "max": 0.997135
+    },
+    "abstained_evidence_total": 0,
+    "situations_with_abstention": 0,
+    "adapters": [
+      {
+        "adapter_name": "unsw_threat",
+        "accepted_count": 63,
+        "rejected_count": 0
+      },
+      {
+        "adapter_name": "network_anomaly",
+        "accepted_count": 0,
+        "rejected_count": 0
+      },
+      {
+        "adapter_name": "auth_anomaly",
+        "accepted_count": 0,
+        "rejected_count": 0
+      },
+      {
+        "adapter_name": "video_detection",
+        "accepted_count": 0,
+        "rejected_count": 0
+      }
+    ],
+    "total_adapted": 63,
+    "total_rejected": 0,
+    "sample_situation": {
+      "situation_id": "68c063e5-3d62-4e24-bde5-2c4689b50ad9",
+      "created_at": "2026-08-04T16:59:13.328883+00:00",
+      "last_updated": "2026-08-04T16:59:13.345323+00:00",
+      "last_activity": "2026-08-04T16:59:13.345323+00:00",
+      "lifecycle": "active",
+      "version": 7,
+      "evidence_count": 6,
+      "signal_types": [
+        "fuzzers",
+        "exploit",
+        "shellcode"
+      ],
+      "entities": [
+        "device:synthetic-device-01"
+      ],
+      "sources": [
+        "unsw-threat-detector"
+      ],
+      "abstained_evidence_count": 0,
+      "max_anomaly": 0.976928,
+      "mean_anomaly": 0.8534711666666667
+    }
+  }
+}

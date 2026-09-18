@@ -1,0 +1,193 @@
+{
+  "seed": 42,
+  "generated_at_utc": "2026-08-04T22:04:55.597039Z",
+  "variant": "rule only, LangGraph and LLM removed",
+  "ground_truth_caveat": "A situation has no true label. The reference is the majority ground-truth attack_cat of the signals the correlator grouped together, which is an approximation and is circular if grouping is wrong. Level 7 supplies real situation-level ground truth.",
+  "situations_scored": 16,
+  "rule_only_dominant_type_accuracy": 1.0,
+  "signal_level_accuracy": 0.593065,
+  "mean_ground_truth_purity": 0.34,
+  "trend_distribution": {
+    "escalating": 4,
+    "stable": 10,
+    "deescalating": 2
+  },
+  "per_situation": [
+    {
+      "situation_id": "5c1eed91-abed-41b5-aee7-a0ac0df9bc01",
+      "evidence_count": 201,
+      "majority_ground_truth": "generic",
+      "dominant_emitted_type": "generic",
+      "correct": true,
+      "confidence_level": 0.7626,
+      "trend": "escalating",
+      "abstained_fraction": 0.209,
+      "ground_truth_purity": 0.3134
+    },
+    {
+      "situation_id": "c6b96c41-e55b-464e-a938-4739c2bed891",
+      "evidence_count": 211,
+      "majority_ground_truth": "generic",
+      "dominant_emitted_type": "generic",
+      "correct": true,
+      "confidence_level": 0.6646,
+      "trend": "stable",
+      "abstained_fraction": 0.1754,
+      "ground_truth_purity": 0.3507
+    },
+    {
+      "situation_id": "08575d1d-5bf9-47e0-a1db-bfcb4e918a28",
+      "evidence_count": 211,
+      "majority_ground_truth": "generic",
+      "dominant_emitted_type": "generic",
+      "correct": true,
+      "confidence_level": 0.6712,
+      "trend": "stable",
+      "abstained_fraction": 0.1564,
+      "ground_truth_purity": 0.4076
+    },
+    {
+      "situation_id": "a4f9058e-2d8d-4aa2-8d02-5aa619ca7907",
+      "evidence_count": 239,
+      "majority_ground_truth": "generic",
+      "dominant_emitted_type": "generic",
+      "correct": true,
+      "confidence_level": 0.6781,
+      "trend": "deescalating",
+      "abstained_fraction": 0.1841,
+      "ground_truth_purity": 0.3347
+    },
+    {
+      "situation_id": "94fd350c-31b9-4061-90d1-d81b393561e1",
+      "evidence_count": 197,
+      "majority_ground_truth": "generic",
+      "dominant_emitted_type": "generic",
+      "correct": true,
+      "confidence_level": 0.6616,
+      "trend": "stable",
+      "abstained_fraction": 0.1574,
+      "ground_truth_purity": 0.3401
+    },
+    {
+      "situation_id": "711ff034-4995-421b-a6f9-68eb9315690f",
+      "evidence_count": 232,
+      "majority_ground_truth": "generic",
+      "dominant_emitted_type": "generic",
+      "correct": true,
+      "confidence_level": 0.6716,
+      "trend": "stable",
+      "abstained_fraction": 0.1466,
+      "ground_truth_purity": 0.3276
+    },
+    {
+      "situation_id": "6d3e3ea0-3e05-4a97-a3c8-d32fc0f5d99a",
+      "evidence_count": 223,
+      "majority_ground_truth": "generic",
+      "dominant_emitted_type": "generic",
+      "correct": true,
+      "confidence_level": 0.6751,
+      "trend": "stable",
+      "abstained_fraction": 0.1704,
+      "ground_truth_purity": 0.2915
+    },
+    {
+      "situation_id": "69e2aded-a6d1-4d8d-b29a-95b62cdf66f4",
+      "evidence_count": 215,
+      "majority_ground_truth": "generic",
+      "dominant_emitted_type": "generic",
+      "correct": true,
+      "confidence_level": 0.6736,
+      "trend": "stable",
+      "abstained_fraction": 0.2047,
+      "ground_truth_purity": 0.3581
+    },
+    {
+      "situation_id": "05dd9783-6290-43e8-bedf-62f0301c77e4",
+      "evidence_count": 210,
+      "majority_ground_truth": "generic",
+      "dominant_emitted_type": "generic",
+      "correct": true,
+      "confidence_level": 0.6696,
+      "trend": "escalating",
+      "abstained_fraction": 0.1905,
+      "ground_truth_purity": 0.3476
+    },
+    {
+      "situation_id": "eb211b92-2176-4fff-80ca-2273cce0250b",
+      "evidence_count": 221,
+      "majority_ground_truth": "generic",
+      "dominant_emitted_type": "generic",
+      "correct": true,
+      "confidence_level": 0.6736,
+      "trend": "stable",
+      "abstained_fraction": 0.1584,
+      "ground_truth_purity": 0.3394
+    },
+    {
+      "situation_id": "38f005f5-5817-4c09-8873-022decebf3d0",
+      "evidence_count": 203,
+      "majority_ground_truth": "generic",
+      "dominant_emitted_type": "generic",
+      "correct": true,
+      "confidence_level": 0.66,
+      "trend": "stable",
+      "abstained_fraction": 0.1478,
+      "ground_truth_purity": 0.33
+    },
+    {
+      "situation_id": "37e52731-cd51-46f6-9358-660f947b5a3c",
+      "evidence_count": 201,
+      "majority_ground_truth": "generic",
+      "dominant_emitted_type": "generic",
+      "correct": true,
+      "confidence_level": 0.6658,
+      "trend": "stable",
+      "abstained_fraction": 0.1741,
+      "ground_truth_purity": 0.3731
+    },
+    {
+      "situation_id": "634757b5-3ea9-438b-a787-7e9262a91a5b",
+      "evidence_count": 203,
+      "majority_ground_truth": "generic",
+      "dominant_emitted_type": "generic",
+      "correct": true,
+      "confidence_level": 0.6666,
+      "trend": "stable",
+      "abstained_fraction": 0.2167,
+      "ground_truth_purity": 0.3103
+    },
+    {
+      "situation_id": "c0119a6e-959c-460e-912f-0603fd964c12",
+      "evidence_count": 198,
+      "majority_ground_truth": "generic",
+      "dominant_emitted_type": "generic",
+      "correct": true,
+      "confidence_level": 0.7629,
+      "trend": "escalating",
+      "abstained_fraction": 0.1162,
+      "ground_truth_purity": 0.3485
+    },
+    {
+      "situation_id": "05efc9d4-c297-472f-8865-691fcdc7d801",
+      "evidence_count": 190,
+      "majority_ground_truth": "generic",
+      "dominant_emitted_type": "generic",
+      "correct": true,
+      "confidence_level": 0.661,
+      "trend": "escalating",
+      "abstained_fraction": 0.1316,
+      "ground_truth_purity": 0.3158
+    },
+    {
+      "situation_id": "d46ce1cc-52ec-4dfd-82e7-d81e9095e412",
+      "evidence_count": 219,
+      "majority_ground_truth": "generic",
+      "dominant_emitted_type": "generic",
+      "correct": true,
+      "confidence_level": 0.6736,
+      "trend": "deescalating",
+      "abstained_fraction": 0.1826,
+      "ground_truth_purity": 0.3516
+    }
+  ]
+}

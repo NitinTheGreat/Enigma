@@ -1,0 +1,13 @@
+{
+  "seed": 42,
+  "rows": 132000,
+  "features": 20,
+  "classes": 11,
+  "n_estimators": 200,
+  "max_depth": 6,
+  "fit_seconds": {
+    "cuda": 17.694,
+    "cpu": 32.989
+  },
+  "gpu_speedup": 1.864
+}

@@ -1,0 +1,113 @@
+{
+  "seed": 42,
+  "generated_at_utc": "2026-08-04T22:06:52.752544Z",
+  "classifier": "xgb",
+  "seeds": [
+    42,
+    123,
+    456,
+    789,
+    1024
+  ],
+  "calibration_method": "isotonic, fitted on the validation split only",
+  "closedset": {
+    "calibration": {
+      "validation_before": {
+        "expected_calibration_error_mean": 0.005484,
+        "expected_calibration_error_std": 0.001316,
+        "maximum_calibration_error_mean": 0.209807,
+        "n": 5
+      },
+      "validation_after": {
+        "expected_calibration_error_mean": 0.003047,
+        "expected_calibration_error_std": 0.000458,
+        "maximum_calibration_error_mean": 0.180804,
+        "n": 5
+      },
+      "test_before": {
+        "expected_calibration_error_mean": 0.085139,
+        "expected_calibration_error_std": 0.001794,
+        "maximum_calibration_error_mean": 0.255536,
+        "n": 5
+      },
+      "test_after": {
+        "expected_calibration_error_mean": 0.083703,
+        "expected_calibration_error_std": 0.003197,
+        "maximum_calibration_error_mean": 0.291518,
+        "n": 5
+      }
+    },
+    "selective_prediction": {
+      "max_probability": {
+        "aurc_mean": 0.058182,
+        "aurc_std": 0.000811,
+        "risk_at_full_coverage_mean": 0.241792,
+        "n": 5
+      },
+      "calibrated_max_probability": {
+        "aurc_mean": 0.058151,
+        "aurc_std": 0.000804,
+        "risk_at_full_coverage_mean": 0.241792,
+        "n": 5
+      }
+    }
+  },
+  "openset": {
+    "calibration": {
+      "validation_before": {
+        "expected_calibration_error_mean": 0.005525,
+        "expected_calibration_error_std": 0.000976,
+        "maximum_calibration_error_mean": 0.337975,
+        "n": 5
+      },
+      "validation_after": {
+        "expected_calibration_error_mean": 0.003823,
+        "expected_calibration_error_std": 0.000938,
+        "maximum_calibration_error_mean": 0.217117,
+        "n": 5
+      },
+      "test_before": {
+        "expected_calibration_error_mean": 0.084175,
+        "expected_calibration_error_std": 0.001429,
+        "maximum_calibration_error_mean": 0.261258,
+        "n": 5
+      },
+      "test_after": {
+        "expected_calibration_error_mean": 0.082726,
+        "expected_calibration_error_std": 0.002872,
+        "maximum_calibration_error_mean": 0.292912,
+        "n": 5
+      }
+    },
+    "selective_prediction": {
+      "max_probability": {
+        "aurc_mean": 0.057632,
+        "aurc_std": 0.000572,
+        "risk_at_full_coverage_mean": 0.240351,
+        "n": 5
+      },
+      "calibrated_max_probability": {
+        "aurc_mean": 0.057513,
+        "aurc_std": 0.000572,
+        "risk_at_full_coverage_mean": 0.240351,
+        "n": 5
+      }
+    },
+    "separation": {
+      "holdout_class": "Worms",
+      "holdout_sample_count": 44,
+      "auroc_negative_max_probability_mean": 0.701724,
+      "auroc_negative_max_probability_std": 0.012627,
+      "auroc_negative_calibrated_probability_mean": 0.716934,
+      "confidence_gap_known_minus_holdout_mean": 0.088425,
+      "predicted_label_distribution_summed_over_seeds": {
+        "Exploits": 187,
+        "Generic": 11,
+        "Fuzzers": 11,
+        "Shellcode": 6,
+        "DoS": 3,
+        "Normal": 2
+      }
+    }
+  }
+}

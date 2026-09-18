@@ -1,0 +1,187 @@
+{
+  "seed": 42,
+  "generated_at_utc": "2026-08-03T22:13:13.261497Z",
+  "partition_roles": {
+    "note": "assigned by row count, the distributed filenames are inverted",
+    "pool_file": "UNSW_NB15_testing-set.csv",
+    "pool_rows": 175341,
+    "pool_sha256": "bec7dd5ec88dc2a0ccc7a07879d338395ed7421750f675fd0339e07dfe0648fa",
+    "test_file": "UNSW_NB15_training-set.csv",
+    "test_rows": 82332,
+    "test_sha256": "734fe6642edf758f7c94d7d9149426b49d202fe8e7bf0bef47392489c3c0a559"
+  },
+  "labels": {
+    "pool_labels": [
+      "Analysis",
+      "Backdoor",
+      "DoS",
+      "Exploits",
+      "Fuzzers",
+      "Generic",
+      "Normal",
+      "Reconnaissance",
+      "Shellcode",
+      "Worms"
+    ],
+    "test_labels": [
+      "Analysis",
+      "Backdoor",
+      "DoS",
+      "Exploits",
+      "Fuzzers",
+      "Generic",
+      "Normal",
+      "Reconnaissance",
+      "Shellcode",
+      "Worms"
+    ],
+    "label_sets_identical": true,
+    "distinct_after_strip_and_lower": [
+      "analysis",
+      "backdoor",
+      "dos",
+      "exploits",
+      "fuzzers",
+      "generic",
+      "normal",
+      "reconnaissance",
+      "shellcode",
+      "worms"
+    ],
+    "label_artefact_present": false,
+    "backdoor_spelling": [
+      "Backdoor"
+    ]
+  },
+  "columns": {
+    "total": 45,
+    "dropped": [
+      "id",
+      "label"
+    ],
+    "dropped_reason": {
+      "id": "row index, carries no signal",
+      "label": "perfectly determined by attack_cat, a direct target leak"
+    },
+    "target": "attack_cat",
+    "categorical": [
+      "proto",
+      "service",
+      "state"
+    ],
+    "numeric_candidates": [
+      "dur",
+      "spkts",
+      "dpkts",
+      "sbytes",
+      "dbytes",
+      "rate",
+      "sttl",
+      "dttl",
+      "sload",
+      "dload",
+      "sloss",
+      "dloss",
+      "sinpkt",
+      "dinpkt",
+      "sjit",
+      "djit",
+      "swin",
+      "stcpb",
+      "dtcpb",
+      "dwin",
+      "tcprtt",
+      "synack",
+      "ackdat",
+      "smean",
+      "dmean",
+      "trans_depth",
+      "response_body_len",
+      "ct_srv_src",
+      "ct_state_ttl",
+      "ct_dst_ltm",
+      "ct_src_dport_ltm",
+      "ct_dst_sport_ltm",
+      "ct_dst_src_ltm",
+      "is_ftp_login",
+      "ct_ftp_cmd",
+      "ct_flw_http_mthd",
+      "ct_src_ltm",
+      "ct_srv_dst",
+      "is_sm_ips_ports"
+    ],
+    "numeric_candidate_count": 39
+  },
+  "closedset": {
+    "train_rows": 140272,
+    "validation_rows": 35069,
+    "test_rows": 82332,
+    "train_distribution": {
+      "Analysis": 1600,
+      "Backdoor": 1397,
+      "DoS": 9811,
+      "Exploits": 26714,
+      "Fuzzers": 14547,
+      "Generic": 32000,
+      "Normal": 44800,
+      "Reconnaissance": 8393,
+      "Shellcode": 906,
+      "Worms": 104
+    },
+    "validation_distribution": {
+      "Analysis": 400,
+      "Backdoor": 349,
+      "DoS": 2453,
+      "Exploits": 6679,
+      "Fuzzers": 3637,
+      "Generic": 8000,
+      "Normal": 11200,
+      "Reconnaissance": 2098,
+      "Shellcode": 227,
+      "Worms": 26
+    },
+    "test_distribution": {
+      "Analysis": 677,
+      "Backdoor": 583,
+      "DoS": 4089,
+      "Exploits": 11132,
+      "Fuzzers": 6062,
+      "Generic": 18871,
+      "Normal": 37000,
+      "Reconnaissance": 3496,
+      "Shellcode": 378,
+      "Worms": 44
+    }
+  },
+  "openset": {
+    "holdout_class": "Worms",
+    "train_rows": 140168,
+    "validation_rows": 35043,
+    "test_rows": 82332,
+    "holdout_rows_removed_from_train": 104,
+    "holdout_rows_removed_from_validation": 26,
+    "holdout_rows_in_test": 44,
+    "train_distribution": {
+      "Analysis": 1600,
+      "Backdoor": 1397,
+      "DoS": 9811,
+      "Exploits": 26714,
+      "Fuzzers": 14547,
+      "Generic": 32000,
+      "Normal": 44800,
+      "Reconnaissance": 8393,
+      "Shellcode": 906
+    },
+    "validation_distribution": {
+      "Analysis": 400,
+      "Backdoor": 349,
+      "DoS": 2453,
+      "Exploits": 6679,
+      "Fuzzers": 3637,
+      "Generic": 8000,
+      "Normal": 11200,
+      "Reconnaissance": 2098,
+      "Shellcode": 227
+    }
+  }
+}

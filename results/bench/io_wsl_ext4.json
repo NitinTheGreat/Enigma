@@ -1,0 +1,13 @@
+{
+  "label": "wsl_ext4",
+  "seed": 42,
+  "data_dir": "/opt/enigma/data",
+  "timestamp_utc": "2026-07-28T16:23:10.504330Z",
+  "caches_dropped": true,
+  "total_bytes": 586377596,
+  "total_megabytes": 559.2,
+  "raw_read_seconds": 1.327,
+  "raw_read_mb_per_second": 421.3,
+  "pandas_read_seconds": 33.204,
+  "pandas_rows": 2540047
+}

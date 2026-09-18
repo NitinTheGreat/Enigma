@@ -1,0 +1,54 @@
+{
+  "seed": 42,
+  "generated_at_utc": "2026-08-04T18:15:09.209301Z",
+  "nothing_was_trained_for_this_table": true,
+  "comparability_note": "Only results on the official pre-split partition are directly comparable. A random split of the combined data destroys the train and test distribution shift the official partition preserves and typically inflates accuracy by several points.",
+  "verification_status": "Every figure is transcribed from the Level 5 brief. Three of four entries could not be corroborated by the model. None should reach the paper before being checked against the publication.",
+  "own_results": {
+    "mlp_deep_ensemble_minimal": {
+      "multiclass_accuracy": 0.7517,
+      "accuracy_std": 0.0055,
+      "macro_f1": 0.4413,
+      "note": "five seeds, official partition, appendix L3.14"
+    }
+  },
+  "literature": [
+    {
+      "key": "kasongo_sun_2020",
+      "citation": "Kasongo and Sun, 2020",
+      "reported_multiclass_accuracy": 0.7716,
+      "split": "official pre-split partition",
+      "directly_comparable": true,
+      "provenance": "corroborated",
+      "provenance_note": "A 2020 Kasongo and Sun study on UNSW-NB15 feature selection is a widely cited reference point and the model recognises it. The exact 77.16 per cent figure and the precise venue were supplied by the brief and have not been checked against the paper."
+    },
+    {
+      "key": "xgboost_feature_selection_ieee_10930023",
+      "citation": "XGBoost feature selection study, IEEE document 10930023",
+      "reported_multiclass_accuracy": 0.78,
+      "accuracy_is_approximate": true,
+      "split": "official pre-split partition, as stated in the brief",
+      "directly_comparable": true,
+      "provenance": "unverified",
+      "provenance_note": "Identified only by an IEEE document number. Neither the title nor the authors are known to the model. Must be resolved before citation."
+    },
+    {
+      "key": "trailgate_2025",
+      "citation": "TrailGate, 2025",
+      "reported_multiclass_accuracy": 0.7865,
+      "split": "official pre-split partition, as stated in the brief",
+      "directly_comparable": true,
+      "provenance": "unverified",
+      "provenance_note": "Postdates the model's knowledge cutoff. Cannot be corroborated at all and is recorded purely as supplied."
+    },
+    {
+      "key": "hierarchical_classification_2024",
+      "citation": "Hierarchical Classification study, 2024, Random Forest variant",
+      "reported_multiclass_accuracy": 0.8344,
+      "split": "official pre-split partition, as stated in the brief",
+      "directly_comparable": true,
+      "provenance": "unverified",
+      "provenance_note": "Not corroborated. The 83.44 per cent figure sits above the band the build plan describes as the honest ceiling for this split, which is worth checking: a hierarchical scheme that collapses classes before scoring is not measuring the same ten-way task."
+    }
+  ]
+}

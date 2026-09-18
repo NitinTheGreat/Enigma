@@ -1,0 +1,78 @@
+{
+  "seed": 42,
+  "config": "closedset",
+  "distribution": "natural",
+  "seeds": [
+    42,
+    123,
+    456,
+    789,
+    1024
+  ],
+  "comparison": {
+    "rf": {
+      "accuracy": {
+        "mean": 0.746359,
+        "std": 0.000458
+      },
+      "macro_f1": {
+        "mean": 0.50467,
+        "std": 0.005499
+      },
+      "weighted_f1": {
+        "mean": 0.780024,
+        "std": 0.000621
+      },
+      "false_positive_rate": {
+        "mean": 0.237465,
+        "std": 0.001485
+      }
+    },
+    "xgb": {
+      "accuracy": {
+        "mean": 0.758208,
+        "std": 0.001717
+      },
+      "macro_f1": {
+        "mean": 0.507213,
+        "std": 0.006554
+      },
+      "weighted_f1": {
+        "mean": 0.775607,
+        "std": 0.001928
+      },
+      "false_positive_rate": {
+        "mean": 0.246454,
+        "std": 0.001879
+      }
+    },
+    "mlp": {
+      "accuracy": {
+        "mean": 0.751671,
+        "std": 0.005456,
+        "min": 0.741352,
+        "max": 0.757227,
+        "n": 5
+      },
+      "macro_f1": {
+        "mean": 0.441299,
+        "std": 0.00566,
+        "min": 0.433754,
+        "max": 0.447823,
+        "n": 5
+      },
+      "weighted_f1": {
+        "mean": 0.75577,
+        "std": 0.004959,
+        "min": 0.746873,
+        "max": 0.760422,
+        "n": 5
+      },
+      "false_positive_rate": {
+        "mean": 0.272649,
+        "std": 0.014452,
+        "n": 5
+      }
+    }
+  }
+}

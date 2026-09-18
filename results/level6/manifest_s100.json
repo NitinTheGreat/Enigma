@@ -1,0 +1,47 @@
+{
+  "experiment": "level6_replay_s100",
+  "seed": 42,
+  "started_at_utc": "2026-08-05T22:33:37.256654+00:00",
+  "ended_at_utc": "2026-08-05T22:34:21.599407+00:00",
+  "wall_clock_seconds": 44.343,
+  "git_commits": {
+    "Enigma-AIAgent": "2cd36cb73d56b5223e6e5728fb041b6525f37d30-dirty",
+    "Enigma-ML-Layer": "15e70802ecdecc2e0f38d45d1fac71e55327315e-dirty",
+    "Enigma-Frontend": "5899d098eb39f05b38065f201ccf0bd74edcd1fb-dirty"
+  },
+  "config": {
+    "signals": 1000,
+    "devices": 100,
+    "analyse_every": 1,
+    "max_iterations": null,
+    "llm": "mock",
+    "clock_mode": "separated",
+    "cache": null
+  },
+  "model_artefact": {
+    "path": null,
+    "hash": "absent"
+  },
+  "dataset": {
+    "path": null,
+    "hash": "absent"
+  },
+  "environment": {
+    "os": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "processor": "x86_64",
+    "cpu_count": 12,
+    "python_version": "3.12.3",
+    "python_implementation": "CPython",
+    "tensorflow_version": "absent",
+    "langgraph_version": "1.0.6",
+    "langchain_core_version": "1.2.7",
+    "pydantic_version": "2.12.5"
+  },
+  "extra": {
+    "analyses_run": 1000,
+    "iterations_logged": 3000,
+    "run_log_dropped": 0,
+    "cache": null
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "run_name": "parity_full",
+  "seed": 42,
+  "started_at_utc": "2026-07-27T22:34:59.083598Z",
+  "provenance": "faithful port of Model.ipynb, leakage preserved deliberately for Level 1 parity",
+  "config": {
+    "test_size": 0.2,
+    "baseline_epochs": 1,
+    "tuned_epochs": 100,
+    "max_trials": 10,
+    "batch_size": 32,
+    "skip_tuning": true,
+    "sample_rows": 0
+  },
+  "rows_loaded": 2540047,
+  "rows_after_dedup": 2059415,
+  "label_mapping": {
+    "analysis": 0,
+    "backdoor": 1,
+    "backdoors": 2,
+    "dos": 3,
+    "exploits": 4,
+    "fuzzers": 5,
+    "generic": 6,
+    "normal": 7,
+    "reconnaissance": 8,
+    "shellcode": 9,
+    "worms": 10
+  },
+  "num_classes_observed": 11,
+  "correlation_dropped_columns": [
+    "Dpkts",
+    "Ltime",
+    "Sintpkt",
+    "Spkts",
+    "ackdat",
+    "dloss",
+    "dwin",
+    "synack",
+    "tcprtt"
+  ],
+  "correlation_pair_count": 18,
+  "class_distribution_before_resample": {
+    "7": 1959772,
+    "4": 27599,
+    "6": 25378,
+    "5": 21795,
+    "8": 13357,
+    "3": 5665,
+    "0": 2184,
+    "1": 1684,
+    "9": 1511,
+    "2": 299,
+    "10": 171
+  },
+  "class_distribution_after_resample": {
+    "0": 15000,
+    "1": 15000,
+    "2": 15000,
+    "3": 15000,
+    "4": 15000,
+    "5": 15000,
+    "6": 15000,
+    "7": 15000,
+    "8": 15000,
+    "9": 15000,
+    "10": 15000
+  },
+  "mutual_info_scores": {
+    "sbytes": 1.2666104022835647,
+    "dbytes": 0.832095836396884,
+    "smeansz": 0.8182650507803904,
+    "Stime": 0.7409222253719037,
+    "dmeansz": 0.6282185531089182,
+    "dur": 0.5335143006414267,
+    "Dload": 0.4915411781395491,
+    "Dintpkt": 0.3885175161450505,
+    "Sload": 0.3831262947166838,
+    "ct_srv_dst": 0.3663369343918377,
+    "sloss": 0.356094235081146,
+    "Djit": 0.3134919311913107,
+    "ct_srv_src": 0.30166272996374444,
+    "Sjit": 0.2778770611162811,
+    "ct_dst_src_ltm": 0.2706244164407803,
+    "ct_dst_ltm": 0.24752135013223375,
+    "ct_src_ ltm": 0.1986863909922172,
+    "swin": 0.17644884649647619,
+    "dtcpb": 0.04221972505807059,
+    "stcpb": 0.02686349393871801,
+    "res_bdy_len": 0.0034939393939338315,
+    "trans_depth": 0.0034939393939338315,
+    "sttl": 0.0034939393939338315,
+    "dttl": 0.0034939393939338315,
+    "is_sm_ips_ports": 0.0034939393939338315,
+    "ct_ftp_cmd": 0.0034939393939338315,
+    "is_ftp_login": 0.0034939393939338315,
+    "ct_state_ttl": 0.0034939393939338315,
+    "ct_dst_sport_ltm": 0.0034939393939338315,
+    "ct_src_dport_ltm": 0.0034939393939338315,
+    "Label": 0.0034939393939338315,
+    "ct_flw_http_mthd": 0.0
+  },
+  "mutual_info_dropped_columns": [
+    "res_bdy_len",
+    "trans_depth",
+    "sttl",
+    "dttl",
+    "is_sm_ips_ports",
+    "ct_ftp_cmd",
+    "is_ftp_login",
+    "ct_state_ttl",
+    "ct_dst_sport_ltm",
+    "ct_src_dport_ltm",
+    "Label",
+    "ct_flw_http_mthd"
+  ],
+  "final_features": [
+    "dur",
+    "sbytes",
+    "dbytes",
+    "sloss",
+    "Sload",
+    "Dload",
+    "swin",
+    "stcpb",
+    "dtcpb",
+    "smeansz",
+    "dmeansz",
+    "Sjit",
+    "Djit",
+    "Stime",
+    "Dintpkt",
+    "ct_srv_src",
+    "ct_srv_dst",
+    "ct_dst_ltm",
+    "ct_src_ ltm",
+    "ct_dst_src_ltm"
+  ],
+  "final_feature_count": 20,
+  "train_rows": 132000,
+  "test_rows": 33000,
+  "baseline_model": {
+    "test_loss": 1.0759116411209106,
+    "test_accuracy": 0.6673333048820496,
+    "epochs_run": 1,
+    "history": {
+      "accuracy": [
+        0.5826060771942139
+      ],
+      "loss": [
+        1.4292569160461426
+      ],
+      "val_accuracy": [
+        0.6673333048820496
+      ],
+      "val_loss": [
+        1.0759116411209106
+      ]
+    }
+  },
+  "tuned_model": null,
+  "selected_model": "baseline",
+  "finished_at_utc": "2026-07-27T22:42:48.242507Z",
+  "duration_seconds": 469.158909,
+  "artifacts": {
+    "model_keras": "F:\\XAI Project\\artifacts\\unsw_nb15_threat_detection_model_parity_full_seed42.keras",
+    "model_h5": "F:\\XAI Project\\artifacts\\unsw_nb15_threat_detection_model.h5",
+    "pipeline_state": "F:\\XAI Project\\artifacts\\unsw_nb15_preprocessing_state.pkl",
+    "class_index": "F:\\XAI Project\\artifacts\\class_index.json"
+  }
+}

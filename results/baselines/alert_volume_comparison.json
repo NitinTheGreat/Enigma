@@ -1,0 +1,89 @@
+{
+  "seed": 42,
+  "generated_at_utc": "2026-08-04T22:04:55.597039Z",
+  "source_manifest": {
+    "seed": 42,
+    "generated_at_utc": "2026-08-04T18:41:48.146121Z",
+    "config": "closedset",
+    "ensemble_seeds": [
+      42,
+      123,
+      456,
+      789,
+      1024
+    ],
+    "records_scored": 5000,
+    "routed_downstream": 3374,
+    "routed_to_normal_sink": 1626,
+    "abstained": 575,
+    "abstention_policy": {
+      "config": "closedset",
+      "generated_at_utc": "2026-08-04T16:49:03.636368Z",
+      "fitted_on": "validation split only",
+      "temperature": 0.9477443609022556,
+      "target_coverage": 0.9,
+      "confidence_threshold": 0.45609402656555176,
+      "class_names": [
+        "Analysis",
+        "Backdoor",
+        "DoS",
+        "Exploits",
+        "Fuzzers",
+        "Generic",
+        "Normal",
+        "Reconnaissance",
+        "Shellcode",
+        "Worms"
+      ],
+      "ensemble_seeds": [
+        42,
+        123,
+        456,
+        789,
+        1024
+      ],
+      "measured_known_rejected_share": null,
+      "measured_holdout_rejected_share": null
+    },
+    "class_names": [
+      "Analysis",
+      "Backdoor",
+      "DoS",
+      "Exploits",
+      "Fuzzers",
+      "Generic",
+      "Normal",
+      "Reconnaissance",
+      "Shellcode",
+      "Worms"
+    ],
+    "replay_interval_seconds": 0.5,
+    "entity_pool_size": 16,
+    "output": "/mnt/f/XAI Project/results/baselines/replay_signals.jsonl"
+  },
+  "flat_alerting": {
+    "records_replayed": 5000,
+    "alerts": 3374,
+    "alerts_per_minute": 80.976,
+    "replay_span_seconds": 2500.0,
+    "false_alerts": 632,
+    "false_alert_rate": 0.187315,
+    "abstained_alerts": 575
+  },
+  "situation_grouping": {
+    "alerts_without_grouping": 3374,
+    "situations_created": 16,
+    "situations_scored": 16,
+    "compression_ratio": 210.875,
+    "rule_only_dominant_type_accuracy": 1.0,
+    "rule_only_correct": 16,
+    "signal_level_accuracy": 0.593065,
+    "mean_ground_truth_purity": 0.34,
+    "trend_distribution": {
+      "escalating": 4,
+      "stable": 10,
+      "deescalating": 2
+    }
+  },
+  "interpretation": "Compression ratio is alerts divided by situations. It measures how much triage volume the grouping removes, not whether the grouping is correct."
+}

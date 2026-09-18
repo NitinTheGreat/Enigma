@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enigma — Real-Time AI Reasoning Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0e17;--surface:#111827;--surface2:#1a2234;--surface3:#222d42;
+  --border:#2a3550;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;
+  --accent:#6366f1;--accent2:#818cf8;--green:#22c55e;--green2:#4ade80;
+  --red:#ef4444;--amber:#f59e0b;--cyan:#06b6d4;--pink:#ec4899;
+  --purple:#a855f7;--grad1:linear-gradient(135deg,#6366f1,#8b5cf6);
+  --grad2:linear-gradient(135deg,#06b6d4,#22c55e);
+  --glow:0 0 20px rgba(99,102,241,.15);
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* Header */
+.header{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-icon{width:36px;height:36px;background:var(--grad1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:#fff}
+.logo h1{font-size:20px;font-weight:700;background:var(--grad1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo span{font-size:12px;color:var(--text3);font-weight:400}
+.status-bar{display:flex;align-items:center;gap:20px}
+.status-dot{width:8px;height:8px;border-radius:50%;background:var(--red);animation:pulse 2s infinite}
+.status-dot.connected{background:var(--green)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.status-label{font-size:13px;color:var(--text2);display:flex;align-items:center;gap:6px}
+.model-badge{background:var(--surface3);padding:4px 10px;border-radius:6px;font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--cyan)}
+
+/* Tabs */
+.tabs{display:flex;gap:0;background:var(--surface);border-bottom:1px solid var(--border);padding:0 32px}
+.tab{padding:14px 24px;font-size:14px;font-weight:500;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s}
+.tab:hover{color:var(--text2)}
+.tab.active{color:var(--accent2);border-bottom-color:var(--accent)}
+.tab-icon{margin-right:8px}
+
+/* Main content */
+.main{padding:24px 32px;max-width:1600px;margin:0 auto}
+.panel{display:none}
+.panel.active{display:block}
+
+/* Controls */
+.controls{display:flex;gap:12px;margin-bottom:24px;align-items:center;flex-wrap:wrap}
+.btn{padding:10px 20px;border-radius:8px;border:none;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+.btn-primary{background:var(--grad1);color:#fff;box-shadow:var(--glow)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 24px rgba(99,102,241,.3)}
+.btn-danger{background:var(--red);color:#fff}
+.btn-outline{background:transparent;color:var(--text2);border:1px solid var(--border)}
+.control-group{display:flex;align-items:center;gap:8px}
+.control-group label{font-size:12px;color:var(--text3);font-weight:500}
+.control-group input{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:6px 10px;color:var(--text);font-size:13px;width:70px;font-family:'JetBrains Mono',monospace}
+
+/* Stats row */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:24px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.stat-card.indigo::before{background:var(--grad1)}
+.stat-card.green::before{background:var(--grad2)}
+.stat-card.amber::before{background:linear-gradient(90deg,var(--amber),var(--pink))}
+.stat-card.cyan::before{background:linear-gradient(90deg,var(--cyan),var(--purple))}
+.stat-value{font-size:28px;font-weight:700;font-family:'JetBrains Mono',monospace}
+.stat-label{font-size:12px;color:var(--text3);margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+
+/* Signal feed */
+.feed{display:flex;flex-direction:column;gap:8px;max-height:500px;overflow-y:auto;padding-right:8px}
+.feed::-webkit-scrollbar{width:4px}
+.feed::-webkit-scrollbar-track{background:var(--surface)}
+.feed::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.signal-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 18px;display:grid;grid-template-columns:auto 1fr auto auto auto;gap:16px;align-items:center;animation:slideIn .3s ease}
+@keyframes slideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.signal-idx{font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace;min-width:30px}
+.signal-info{display:flex;flex-direction:column;gap:2px}
+.signal-type{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.signal-type.exploit{color:var(--red)}
+.signal-type.reconnaissance{color:var(--amber)}
+.signal-type.generic{color:var(--text2)}
+.signal-type.unknown{color:var(--purple)}
+.signal-entity{font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace}
+.anomaly-bar{width:100px;display:flex;flex-direction:column;gap:2px}
+.anomaly-track{height:6px;background:var(--surface3);border-radius:3px;overflow:hidden}
+.anomaly-fill{height:100%;border-radius:3px;transition:width .3s}
+.anomaly-label{font-size:10px;color:var(--text3);text-align:right;font-family:'JetBrains Mono',monospace}
+.confidence-badge{font-size:12px;font-family:'JetBrains Mono',monospace;padding:3px 8px;border-radius:4px;background:var(--surface3)}
+.abstained-badge{font-size:10px;padding:2px 6px;border-radius:4px;background:rgba(239,68,68,.15);color:var(--red);font-weight:600}
+
+/* AI Reasoning Panel */
+.reasoning-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:1200px){.reasoning-grid{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.card-header{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px}
+.card-badge{font-size:11px;padding:2px 8px;border-radius:4px;font-family:'JetBrains Mono',monospace}
+.card-body{padding:16px 18px}
+.code-block{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.6;color:var(--text2);max-height:300px;overflow-y:auto;white-space:pre-wrap;word-break:break-word}
+.hypothesis-item{padding:12px;border-radius:8px;background:var(--surface2);margin-bottom:8px;border-left:3px solid var(--border)}
+.hypothesis-item.converged{border-left-color:var(--green)}
+.hypothesis-item.active{border-left-color:var(--accent)}
+.hypothesis-item.pruned{border-left-color:var(--red);opacity:.5}
+.hyp-desc{font-size:13px;margin-bottom:6px}
+.hyp-meta{display:flex;gap:12px;font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace}
+.convergence-meter{height:20px;background:var(--surface3);border-radius:10px;overflow:hidden;position:relative;margin:10px 0}
+.convergence-fill{height:100%;border-radius:10px;transition:width .5s ease;background:var(--grad1)}
+.convergence-threshold{position:absolute;top:0;bottom:0;width:2px;background:var(--amber);z-index:2}
+.convergence-label{font-size:11px;color:var(--text3);margin-top:4px;display:flex;justify-content:space-between}
+.explanation-section{margin-bottom:12px}
+.explanation-title{font-size:12px;font-weight:600;color:var(--accent2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.explanation-bullets{list-style:none;padding:0}
+.explanation-bullets li{font-size:12px;color:var(--text2);padding:3px 0 3px 16px;position:relative}
+.explanation-bullets li::before{content:'›';position:absolute;left:0;color:var(--accent)}
+
+/* Progress bar */
+.progress{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:24px}
+.progress-bar-track{height:8px;background:var(--surface3);border-radius:4px;overflow:hidden;margin-top:10px}
+.progress-bar-fill{height:100%;background:var(--grad1);border-radius:4px;transition:width .3s}
+.progress-text{font-size:13px;color:var(--text2);display:flex;justify-content:space-between}
+
+/* Empty state */
+.empty-state{text-align:center;padding:60px 20px;color:var(--text3)}
+.empty-state h3{font-size:18px;margin-bottom:8px;color:var(--text2)}
+.empty-state p{font-size:14px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">
+    <div class="logo-icon">E</div>
+    <div><h1>ENIGMA</h1><span>Real-Time AI Reasoning Dashboard</span></div>
+  </div>
+  <div class="status-bar">
+    <div class="status-label"><div class="status-dot" id="statusDot"></div><span id="statusText">Disconnected</span></div>
+    <div class="model-badge" id="modelBadge">—</div>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" data-tab="ml" onclick="switchTab('ml')"><span class="tab-icon">⚡</span>ML Model Output</div>
+  <div class="tab" data-tab="ai" onclick="switchTab('ai')"><span class="tab-icon">🧠</span>AI Reasoning (Gemini)</div>
+</div>
+
+<div class="main">
+  <!-- Controls -->
+  <div class="controls">
+    <button class="btn btn-primary" id="btnStart" onclick="startReplay()">▶ Start Replay</button>
+    <button class="btn btn-danger" id="btnStop" onclick="stopReplay()" disabled>■ Stop</button>
+    <div class="control-group"><label>Signals</label><input type="number" id="inputSignals" value="60"></div>
+    <div class="control-group"><label>Devices</label><input type="number" id="inputDevices" value="6"></div>
+    <div class="control-group"><label>Delay (s)</label><input type="number" id="inputDelay" value="1.5" step="0.1"></div>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress" id="progressBox" style="display:none">
+    <div class="progress-text"><span id="progressLabel">Replaying signals...</span><span id="progressPct">0%</span></div>
+    <div class="progress-bar-track"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+
+  <!-- ML Tab -->
+  <div class="panel active" id="panel-ml">
+    <div class="stats-row">
+      <div class="stat-card indigo"><div class="stat-value" id="statSignals">0</div><div class="stat-label">Signals Ingested</div></div>
+      <div class="stat-card green"><div class="stat-value" id="statSituations">0</div><div class="stat-label">Situations Created</div></div>
+      <div class="stat-card amber"><div class="stat-value" id="statAnalyses">0</div><div class="stat-label">Analyses Run</div></div>
+      <div class="stat-card cyan"><div class="stat-value" id="statErrors">0</div><div class="stat-label">Errors</div></div>
+    </div>
+    <h3 style="font-size:15px;margin-bottom:12px;color:var(--text2)">Live Signal Feed</h3>
+    <div class="feed" id="signalFeed">
+      <div class="empty-state"><h3>No signals yet</h3><p>Click "Start Replay" to begin streaming signals through the ML pipeline</p></div>
+    </div>
+  </div>
+
+  <!-- AI Tab -->
+  <div class="panel" id="panel-ai">
+    <div class="stats-row">
+      <div class="stat-card indigo"><div class="stat-value" id="statLLMCalls">0</div><div class="stat-label">Gemini API Calls</div></div>
+      <div class="stat-card green"><div class="stat-value" id="statLLMFallbacks">0</div><div class="stat-label">Fallbacks</div></div>
+      <div class="stat-card amber"><div class="stat-value" id="statConvergence">0.00</div><div class="stat-label">Last Convergence</div></div>
+      <div class="stat-card cyan"><div class="stat-value" id="statLatency">—</div><div class="stat-label">Reasoning Time</div></div>
+    </div>
+
+    <div class="reasoning-grid">
+      <!-- Left: Prompt & Response -->
+      <div>
+        <div class="card" style="margin-bottom:20px">
+          <div class="card-header"><div class="card-title">📤 Prompt Sent to Gemini</div><div class="card-badge" id="promptLen" style="background:var(--surface3);color:var(--cyan)">0 chars</div></div>
+          <div class="card-body"><div class="code-block" id="promptBlock">Waiting for analysis...</div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">📥 Raw Gemini Response</div><div class="card-badge" id="responseLen" style="background:var(--surface3);color:var(--green2)">0 chars</div></div>
+          <div class="card-body"><div class="code-block" id="responseBlock">Waiting for response...</div></div>
+        </div>
+      </div>
+
+      <!-- Right: Hypotheses & Convergence & Explanation -->
+      <div>
+        <div class="card" style="margin-bottom:20px">
+          <div class="card-header"><div class="card-title">🔬 Hypotheses</div><div class="card-badge" id="hypCount" style="background:rgba(99,102,241,.15);color:var(--accent2)">0</div></div>
+          <div class="card-body" id="hypothesesList"><div style="color:var(--text3);font-size:13px">Waiting for analysis...</div></div>
+        </div>
+
+        <div class="card" style="margin-bottom:20px">
+          <div class="card-header"><div class="card-title">📊 Convergence</div></div>
+          <div class="card-body">
+            <div class="convergence-meter"><div class="convergence-fill" id="convFill" style="width:0%"></div><div class="convergence-threshold" style="left:80%"></div></div>
+            <div class="convergence-label"><span id="convScore">Score: 0.00</span><span>Threshold: 0.80</span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><div class="card-title">💡 Explanation</div></div>
+          <div class="card-body" id="explanationBody"><div style="color:var(--text3);font-size:13px">Waiting for analysis...</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let ws = null;
+let reconnectTimer = null;
+
+function connect() {
+  ws = new WebSocket('ws://localhost:8765/ws/demo');
+  ws.onopen = () => {
+    document.getElementById('statusDot').classList.add('connected');
+    document.getElementById('statusText').textContent = 'Connected';
+    clearInterval(reconnectTimer);
+  };
+  ws.onclose = () => {
+    document.getElementById('statusDot').classList.remove('connected');
+    document.getElementById('statusText').textContent = 'Disconnected';
+    reconnectTimer = setTimeout(connect, 3000);
+  };
+  ws.onmessage = (e) => {
+    const msg = JSON.parse(e.data);
+    handleMessage(msg);
+  };
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + tab));
+}
+
+function startReplay() {
+  if (!ws || ws.readyState !== 1) return;
+  document.getElementById('signalFeed').innerHTML = '';
+  document.getElementById('btnStart').disabled = true;
+  document.getElementById('btnStop').disabled = false;
+  document.getElementById('progressBox').style.display = 'block';
+  ws.send(JSON.stringify({
+    command: 'start_replay',
+    signal_count: parseInt(document.getElementById('inputSignals').value) || 60,
+    devices: parseInt(document.getElementById('inputDevices').value) || 6,
+    delay: parseFloat(document.getElementById('inputDelay').value) || 1.5,
+  }));
+}
+
+function stopReplay() {
+  if (ws && ws.readyState === 1) ws.send(JSON.stringify({ command: 'stop_replay' }));
+  document.getElementById('btnStart').disabled = false;
+  document.getElementById('btnStop').disabled = true;
+}
+
+function anomalyColor(score) {
+  if (score > 0.7) return 'var(--red)';
+  if (score > 0.4) return 'var(--amber)';
+  return 'var(--green)';
+}
+
+function handleMessage(msg) {
+  if (msg.type === 'connected') {
+    document.getElementById('modelBadge').textContent = msg.model || '—';
+  }
+  else if (msg.type === 'signal_ingested') {
+    const s = msg.signal;
+    const pct = Math.round((msg.index / msg.total) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressPct').textContent = pct + '%';
+    document.getElementById('progressLabel').textContent = `Signal ${msg.index}/${msg.total}`;
+
+    if (msg.stats) {
+      document.getElementById('statSignals').textContent = msg.stats.signals_ingested;
+      document.getElementById('statSituations').textContent = msg.stats.situations_created;
+      document.getElementById('statAnalyses').textContent = msg.stats.analyses_run;
+      document.getElementById('statErrors').textContent = msg.stats.analyses_failed;
+    }
+
+    const feed = document.getElementById('signalFeed');
+    const typeClass = (s.signal_type || 'unknown').toLowerCase();
+    const card = document.createElement('div');
+    card.className = 'signal-card';
+    card.innerHTML = `
+      <div class="signal-idx">#${msg.index}</div>
+      <div class="signal-info">
+        <div class="signal-type ${typeClass}">${s.signal_type}</div>
+        <div class="signal-entity">${s.entity || 'no entity'} · ${s.source || ''}</div>
+      </div>
+      <div class="anomaly-bar">
+        <div class="anomaly-track"><div class="anomaly-fill" style="width:${s.anomaly_score*100}%;background:${anomalyColor(s.anomaly_score)}"></div></div>
+        <div class="anomaly-label">anomaly ${s.anomaly_score.toFixed(3)}</div>
+      </div>
+      <div class="confidence-badge" style="color:${s.confidence > 0.7 ? 'var(--green2)' : 'var(--text2)'}">${s.confidence.toFixed(3)}</div>
+      ${s.abstained ? '<div class="abstained-badge">ABSTAINED</div>' : '<div></div>'}
+    `;
+    feed.prepend(card);
+    if (feed.children.length > 100) feed.removeChild(feed.lastChild);
+  }
+  else if (msg.type === 'analysis_complete') {
+    const g = msg.gemini || {};
+    const lg = msg.langgraph || {};
+    const ex = msg.explanation || {};
+
+    document.getElementById('statLLMCalls').textContent = g.total_calls || 0;
+    document.getElementById('statLLMFallbacks').textContent = g.total_fallbacks || 0;
+    document.getElementById('statConvergence').textContent = (lg.convergence_score || 0).toFixed(4);
+    document.getElementById('statLatency').textContent = (msg.reasoning_time_seconds || 0).toFixed(1) + 's';
+
+    if (msg.stats) {
+      document.getElementById('statAnalyses').textContent = msg.stats.analyses_run;
+      document.getElementById('statErrors').textContent = msg.stats.analyses_failed;
+    }
+
+    // Prompt
+    document.getElementById('promptBlock').textContent = g.prompt_preview || '(empty)';
+    document.getElementById('promptLen').textContent = (g.prompt_length || 0) + ' chars';
+
+    // Response
+    document.getElementById('responseBlock').textContent = g.raw_response || '(empty)';
+    document.getElementById('responseLen').textContent = (g.response_length || 0) + ' chars';
+
+    // Hypotheses
+    const hList = document.getElementById('hypothesesList');
+    const hyps = lg.hypotheses || [];
+    document.getElementById('hypCount').textContent = hyps.length;
+    hList.innerHTML = hyps.map(h => `
+      <div class="hypothesis-item ${h.status}">
+        <div class="hyp-desc">${h.description}</div>
+        <div class="hyp-meta">
+          <span>conf: ${h.confidence.toFixed(4)}</span>
+          <span>status: ${h.status}</span>
+          <span>vel: ${h.velocity.toFixed(4)}</span>
+          <span>dom: ${h.dominant_iters}</span>
+        </div>
+      </div>
+    `).join('');
+
+    // Convergence
+    const convPct = Math.min((lg.convergence_score || 0) * 100, 100);
+    document.getElementById('convFill').style.width = convPct + '%';
+    document.getElementById('convScore').textContent = `Score: ${(lg.convergence_score||0).toFixed(4)} | Iters: ${lg.iterations} | Stability: ${(lg.stability||0).toFixed(4)}`;
+
+    // Explanation
+    const exBody = document.getElementById('explanationBody');
+    const sections = ex.sections || [];
+    exBody.innerHTML = sections.map(s => `
+      <div class="explanation-section">
+        <div class="explanation-title">${s.title}</div>
+        <ul class="explanation-bullets">${(s.bullets||[]).map(b => `<li>${b}</li>`).join('')}</ul>
+      </div>
+    `).join('') || '<div style="color:var(--text3)">No explanation available</div>';
+  }
+  else if (msg.type === 'replay_complete') {
+    document.getElementById('btnStart').disabled = false;
+    document.getElementById('btnStop').disabled = true;
+    document.getElementById('progressLabel').textContent = `Complete — ${msg.stats.wall_clock}s wall clock`;
+    document.getElementById('progressPct').textContent = '100%';
+    document.getElementById('progressFill').style.width = '100%';
+  }
+}
+
+connect();
+</script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+{
+  "seed": 42,
+  "generated_at_utc": "2026-08-03T21:32:40.733093Z",
+  "signals_replayed": 400,
+  "event_time_span": {
+    "first": "2015-01-22T11:49:39+00:00",
+    "last": "2015-01-23T05:25:52+00:00"
+  },
+  "official_partition_has_event_time": false,
+  "clock_study": {
+    "separated": {
+      "clock_mode": "separated",
+      "situations": 14,
+      "trend_distribution": {
+        "deescalating": 10,
+        "stable": 4
+      },
+      "trend_share": {
+        "deescalating": 0.7143,
+        "stable": 0.2857
+      },
+      "quiet_distribution": {
+        "True": 10,
+        "False": 4
+      },
+      "mean_confidence": 0.3032,
+      "distinct_trend_labels": 2,
+      "is_degenerate": false
+    },
+    "conflated": {
+      "clock_mode": "conflated",
+      "situations": 14,
+      "trend_distribution": {
+        "deescalating": 14
+      },
+      "trend_share": {
+        "deescalating": 1.0
+      },
+      "quiet_distribution": {
+        "True": 14
+      },
+      "mean_confidence": 0.4899,
+      "distinct_trend_labels": 1,
+      "is_degenerate": true
+    },
+    "wall": {
+      "clock_mode": "wall",
+      "situations": 14,
+      "trend_distribution": {
+        "stable": 11,
+        "escalating": 2,
+        "deescalating": 1
+      },
+      "trend_share": {
+        "stable": 0.7857,
+        "escalating": 0.1429,
+        "deescalating": 0.0714
+      },
+      "quiet_distribution": {
+        "False": 14
+      },
+      "mean_confidence": 0.4899,
+      "distinct_trend_labels": 3,
+      "is_degenerate": false
+    }
+  },
+  "belief_inertia": {
+    "cap": 0.1,
+    "confidence_previous": 0.3,
+    "raw_proposed_confidence": 0.55,
+    "raw_delta": 0.25,
+    "applied_confidence": 0.4,
+    "applied_delta": 0.1,
+    "inertia_clamped": true
+  },
+  "sanity_gate": {
+    "before": {
+      "vague": 0.4,
+      "benign": 0.4
+    },
+    "after": {
+      "vague": 0.3,
+      "benign": 0.4
+    },
+    "penalty_applied_to_vague": 0.1,
+    "benign_unchanged": true
+  },
+  "convergence_purity": {
+    "input_unchanged": true,
+    "returned_objects_are_new": true,
+    "input_dominant_iterations": [
+      0,
+      0
+    ],
+    "returned_dominant_iterations": [
+      1,
+      0
+    ]
+  },
+  "anomaly_score": {
+    "confident_normal": {
+      "signal_type": "normal",
+      "anomaly_score": 0.02,
+      "predicted_class_confidence": 0.98,
+      "passes_below_0_1": true
+    },
+    "confident_attack": {
+      "signal_type": "generic",
+      "anomaly_score": 0.97,
+      "predicted_class_confidence": 0.97,
+      "passes_above_0_9": true
+    },
+    "scores_are_distinct_measures": false
+  },
+  "configuration": {
+    "ENIGMA_CLOCK_MODE": "separated",
+    "ENIGMA_UNKNOWN_HYPOTHESIS_ENABLED": true,
+    "ENIGMA_SANITY_GATE_ENABLED": true,
+    "ENIGMA_ASYMMETRIC_DECAY_ENABLED": true,
+    "ENIGMA_PERSISTENCE_REQUIRED": true,
+    "ENIGMA_MAX_CONFIDENCE_DELTA": 0.15
+  }
+}

@@ -3,14 +3,40 @@ Module: scripts/level7_validate.py
 
 Runs the unmodified system against the frozen suite and scores the result.
 
-What this validates and what it does not. With no Gemini key present, the
-hypothesis generation node falls back to the three fixed strings at
-nodes.py:200-202. Everything downstream of generation is the real system:
+Four model paths, selected by --llm and --cache.
+
+real
+    Live Gemini through _default_llm_factory, the same factory the serving
+    path uses. This is the only path that validates reasoning quality. The
+    model name is read from ENIGMA_GEMINI_MODEL and the key from
+    GOOGLE_API_KEY, ENIGMA_GEMINI_API_KEY or GEMINI_API_KEY.
+
+real with --cache
+    The same factory wrapped in the Level 6 content addressed response
+    cache. The cache keys on the fully assembled prompt, so a repeat of an
+    identical request is served without a model call. Level 8 and Level 9
+    are unaffordable without it, and the hit rate it reports on this path is
+    the first measurement of that rate against a model whose hypothesis text
+    actually varies.
+
+mock
+    The Level 6 deterministic mock. Its text varies enough to exercise the
+    keyword matching in scoring but comes from a fixed set chosen by digest,
+    so its conclusion rates are properties of the mock.
+
+fallback
+    raising_llm_factory, which throws exactly as the unconfigured system
+    does, so generation falls back to the three fixed strings at
+    nodes.py:200-202. This reproduces the system as it behaves with no key
+    present and is kept so that behaviour stays measurable after a key
+    exists.
+
+Everything downstream of generation is the real system on all four paths:
 the sanity gate, evaluation, belief inertia, convergence, the epistemic
-controls and the run logger. So this run validates the scoring machinery and
-the discriminating power of the suite. It does not validate reasoning quality,
-and the correct conclusion rate it reports is a property of the fallback, not
-of the reasoner. Rerun once a key exists.
+controls and the run logger. The fallback and mock paths therefore validate
+the scoring machinery and the discriminating power of the suite, and the
+correct conclusion rates they report are properties of the substitute rather
+than of the reasoner.
 
 To separate those two things, a reference reasoner is also scored. It sees
 exactly what the reasoning graph sees, the aggregated context of evidence
@@ -26,15 +52,25 @@ import argparse
 import csv
 import json
 import sys
+import time
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Any
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
+from dotenv import load_dotenv  # noqa: E402
+
+load_dotenv(PROJECT_ROOT / "Enigma-AIAgent" / ".env")
+
 sys.path.insert(0, str(PROJECT_ROOT / "Enigma-AIAgent"))
 
+from enigma_reason.config import settings  # noqa: E402
 from enigma_reason.domain.signal import Signal  # noqa: E402
 from enigma_reason.graph.builder import EpistemicControls  # noqa: E402
+from enigma_reason.graph.runner import _default_llm_factory  # noqa: E402
+from enigma_reason.observability.llm_cache import CachingLLMFactory, ResponseCache  # noqa: E402
 from enigma_reason.observability.manifest import build_run_manifest, write_manifest  # noqa: E402
 from enigma_reason.observability.run_log import RunLogWriter, text_hash  # noqa: E402
 from enigma_reason.replay.offline import OfflineReplay, mock_llm_factory  # noqa: E402
@@ -107,6 +143,73 @@ def stratified_sample(scenarios: list[Scenario], limit: int) -> list[Scenario]:
         matching = [s for s in scenarios if s.ground_truth.regime is regime]
         taken.extend(matching[:per_regime])
     return taken
+
+
+def build_factory(mode: str, seed: int, cache_path: Path | None):
+    """Return the model factory, the cache behind it, and a description.
+
+    The cache is only attached to the real path. Wrapping the mock or the
+    fallback would report a hit rate that no model call was ever saved by,
+    which is precisely the overstatement L6.8 warns the 0.936 figure is.
+    """
+    if mode == "mock":
+        return mock_llm_factory(seed=seed), None, "Level 6 deterministic mock model"
+    if mode == "fallback":
+        return (
+            raising_llm_factory(),
+            None,
+            "fallback hypotheses at nodes.py:200-202, no model call",
+        )
+
+    model_name = settings.gemini_model
+    if cache_path is None:
+        return _default_llm_factory, None, f"live Gemini {model_name}, uncached"
+
+    cache = ResponseCache(cache_path, model=model_name)
+    factory = CachingLLMFactory(_default_llm_factory, cache)
+    return factory, cache, f"live Gemini {model_name} through the Level 6 response cache"
+
+
+def convergence_report(run_log_path: Path) -> dict[str, Any]:
+    """Summarise convergence and termination across every logged iteration.
+
+    L7.5 established that the 0.8 threshold is never reached under the mock
+    and that every analysis terminates by exhausting its iteration budget.
+    Reporting the same three quantities on every path is what lets that
+    finding be checked against a real model rather than assumed to carry.
+    """
+    scores: list[float] = []
+    reasons: Counter[str] = Counter()
+    unknown_dominant = 0
+    terminal = 0
+    for line in run_log_path.read_text(encoding="utf-8").splitlines():
+        if not line:
+            continue
+        record = json.loads(line)
+        scores.append(float(record.get("convergence_score", 0.0)))
+        if record.get("terminated"):
+            terminal += 1
+            reasons[str(record.get("termination_reason", "unknown"))] += 1
+            hypotheses = record.get("hypotheses", [])
+            if hypotheses:
+                leader = max(hypotheses, key=lambda h: h.get("confidence", 0.0))
+                if leader.get("is_unknown"):
+                    unknown_dominant += 1
+    return {
+        "iterations": len(scores),
+        "max_convergence": round(max(scores), 4) if scores else 0.0,
+        "mean_convergence": round(sum(scores) / len(scores), 4) if scores else 0.0,
+        "threshold": settings.graph_convergence_threshold,
+        "reached_threshold": sum(
+            1 for s in scores if s >= settings.graph_convergence_threshold
+        ),
+        "termination_reasons": dict(reasons),
+        "terminal_iterations": terminal,
+        "unknown_dominant_at_termination": unknown_dominant,
+        "unknown_dominant_fraction": (
+            round(unknown_dominant / terminal, 4) if terminal else 0.0
+        ),
+    }
 
 
 def raising_llm_factory():
@@ -276,14 +379,27 @@ def main() -> int:
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument(
         "--llm",
-        choices=("mock", "fallback"),
+        choices=("real", "mock", "fallback"),
         default="fallback",
         help=(
+            "real drives live Gemini through the same factory the serving "
+            "path uses, and is the only path that validates reasoning "
+            "quality. mock is the Level 6 deterministic model, whose text "
+            "varies enough to exercise the keyword matching in scoring. "
             "fallback is the unmodified system as it stands with no API key, "
             "where generation raises and the three fixed strings at "
-            "nodes.py:200-202 are substituted. mock is the Level 6 "
-            "deterministic model, whose text varies enough to exercise the "
-            "keyword matching in scoring."
+            "nodes.py:200-202 are substituted."
+        ),
+    )
+    parser.add_argument(
+        "--cache",
+        type=str,
+        default="",
+        help=(
+            "Path to a Level 6 response cache. Only honoured on the real "
+            "path, where it serves an identical prompt without a model call "
+            "and reports the hit rate that Level 8 and Level 9 must be "
+            "budgeted against."
         ),
     )
     parser.add_argument("--tag", type=str, default="")
@@ -303,18 +419,17 @@ def main() -> int:
     started = datetime.now(timezone.utc)
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
-    scenarios = load_suite(Path(args.suite))
+    suite_path = Path(args.suite)
+    if not suite_path.is_absolute():
+        suite_path = (PROJECT_ROOT / suite_path).resolve()
+    scenarios = load_suite(suite_path)
     if args.limit:
         scenarios = stratified_sample(scenarios, args.limit)
 
-    llm_factory = (
-        mock_llm_factory(seed=args.seed) if args.llm == "mock" else raising_llm_factory()
-    )
-    llm_description = (
-        "Level 6 deterministic mock model"
-        if args.llm == "mock"
-        else "fallback hypotheses at nodes.py:200-202, no model call"
-    )
+    cache_path = Path(args.cache) if args.cache and args.llm == "real" else None
+    if cache_path is not None:
+        cache_path.parent.mkdir(parents=True, exist_ok=True)
+    llm_factory, cache, llm_description = build_factory(args.llm, args.seed, cache_path)
 
     ablated = args.ablate.upper()
     controls = EpistemicControls(
@@ -341,6 +456,7 @@ def main() -> int:
             situation_entities[str(situation.situation_id)] = str(evidence[0].entity)
 
     analyses = 0
+    run_started = time.monotonic()
     with RunLogWriter(run_log_path) as writer:
         for scenario in scenarios:
             replay = OfflineReplay(
@@ -356,6 +472,16 @@ def main() -> int:
         writer.flush()
         iterations_logged = writer.written
         dropped = writer.dropped
+    elapsed_seconds = time.monotonic() - run_started
+
+    cache_stats = None
+    if cache is not None:
+        cache.save()
+        cache_stats = cache.stats.to_dict()
+    model_calls = cache_stats["misses"] if cache_stats else iterations_logged
+    seconds_per_model_call = (
+        round(elapsed_seconds / model_calls, 4) if model_calls else 0.0
+    )
 
     outcomes, overall, per_regime = score_run(
         run_log_path, scenarios, situation_entities, descriptions
@@ -395,13 +521,21 @@ def main() -> int:
 
     report = {
         "seed": args.seed,
-        "suite": str(Path(args.suite).relative_to(PROJECT_ROOT)),
+        "suite": str(suite_path.relative_to(PROJECT_ROOT)),
         "scenarios": len(scenarios),
         "situations_scored": overall.situations,
         "analyses_run": analyses,
         "iterations_logged": iterations_logged,
         "run_log_dropped": dropped,
         "llm": llm_description,
+        "llm_mode": args.llm,
+        "model_name": settings.gemini_model if args.llm == "real" else args.llm,
+        "cache_path": str(cache_path) if cache_path else None,
+        "cache": cache_stats,
+        "elapsed_seconds": round(elapsed_seconds, 3),
+        "model_calls": model_calls,
+        "seconds_per_model_call": seconds_per_model_call,
+        "convergence": convergence_report(run_log_path),
         "epistemic_controls": controls.as_dict(),
         "validates": "scoring machinery and suite discrimination, not reasoning quality",
         "overall": overall.to_dict(),
@@ -430,7 +564,14 @@ def main() -> int:
     (RESULTS_DIR / f"validation_run_{tag}.json").write_text(
         json.dumps(report, indent=2), encoding="utf-8"
     )
-    if args.llm == "fallback":
+    mirrors_canonical = (
+        args.llm == "fallback"
+        and not args.limit
+        and not ablated
+        and suite_path == (RESULTS_DIR / "suite.jsonl")
+        and len(scenarios) == 400
+    )
+    if mirrors_canonical:
         (RESULTS_DIR / "validation_run.json").write_text(
             json.dumps(report, indent=2), encoding="utf-8"
         )
@@ -441,11 +582,26 @@ def main() -> int:
     manifest = build_run_manifest(
         experiment=f"level7_validate_{tag}",
         seed=args.seed,
-        config={"suite": args.suite, "scenarios": len(scenarios)},
+        config={
+            "suite": str(suite_path.relative_to(PROJECT_ROOT)),
+            "scenarios": len(scenarios),
+            "llm_mode": args.llm,
+            "model_name": settings.gemini_model if args.llm == "real" else args.llm,
+            "cache_path": str(cache_path) if cache_path else None,
+            "ablate": ablated,
+            "epistemic_controls": controls.as_dict(),
+            "graph_max_iterations": settings.graph_max_iterations,
+            "graph_convergence_threshold": settings.graph_convergence_threshold,
+        },
         started_at=started,
         project_root=PROJECT_ROOT,
-        dataset=Path(args.suite),
-        extra={"situations_scored": overall.situations},
+        dataset=suite_path,
+        extra={
+            "situations_scored": overall.situations,
+            "model_calls": model_calls,
+            "seconds_per_model_call": seconds_per_model_call,
+            "cache": cache_stats,
+        },
     )
     write_manifest(manifest, RESULTS_DIR / f"manifest_validate_{tag}.json")
 
@@ -468,6 +624,23 @@ def main() -> int:
         )
     print()
     print("counts", json.dumps(overall.counts))
+    print()
+    convergence = report["convergence"]
+    print(
+        f"model calls {model_calls}  elapsed {elapsed_seconds:.1f}s  "
+        f"seconds per call {seconds_per_model_call}"
+    )
+    if cache_stats:
+        print(
+            f"cache hits {cache_stats['hits']}  misses {cache_stats['misses']}  "
+            f"hit rate {cache_stats['hit_rate']}"
+        )
+    print(
+        f"convergence max {convergence['max_convergence']} against threshold "
+        f"{convergence['threshold']}  reached {convergence['reached_threshold']}"
+    )
+    print(f"termination {json.dumps(convergence['termination_reasons'])}")
+    print(f"distinct hypothesis texts {len(descriptions)}")
     print()
     print("suite discrimination, correct conclusion rate by decision policy")
     print(f"  always abstain                 {abstain_baseline.correct_conclusion_rate}")

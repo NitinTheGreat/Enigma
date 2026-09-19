@@ -1,0 +1,9 @@
+seed,quantity,value
+42,signals_with_event_time,963
+42,signals_missing_event_time,0
+42,event_time_earliest,2026-03-01T00:00:08.862000+00:00
+42,event_time_latest,2026-03-01T00:22:56.677000+00:00
+42,event_time_span_hours,0.38
+42,gap_to_wall_clock_hours_latest,4864.05
+42,gap_to_wall_clock_days_latest,202.669
+42,study_can_run,True

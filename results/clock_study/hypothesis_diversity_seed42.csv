@@ -1,0 +1,7 @@
+seed,category,times_named,times_dominant
+42,data_exfiltration,5820,1363
+42,brute_force_access,380,46
+42,reconnaissance_sweep,41586,19561
+42,lateral_movement,3340,262
+42,physical_intrusion,33,0
+42,service_denial,66,8

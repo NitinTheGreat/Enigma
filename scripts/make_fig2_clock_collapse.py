@@ -3,17 +3,26 @@ Module: scripts/make_fig2_clock_collapse.py
 
 Draws Figure 2, the clock domain collapse, from the Level 8 study output.
 
-Panel C is not the one the build plan specified. The plan asked for mean
-iterations to termination, and that quantity is 3.0 in every clock mode for
-the reason L7.5 established and L7.8.6 confirmed against a real model: the
-convergence threshold of 0.8 is never reached, so every analysis terminates
-by exhausting its three iteration budget whatever the clock is doing. A panel
-of three identical bars carries no information. It is replaced by the quiet
-detected fraction against the abstention rate, which is the causal link the
-figure exists to show: conflating the clocks makes every situation look
-stale, staleness marks it quiet, quiet drives the trend to de-escalating, and
-a permanently de-escalating situation is one the reasoner will not conclude
-on.
+Two of the three panels the build plan specified carry no information and are
+replaced. Panel A is drawn as asked.
+
+The plan's Panel C was mean iterations to termination. That is 3.0 in every
+clock mode, for the reason L7.5 established and L7.8.6 confirmed against a
+real model: the 0.8 convergence threshold is never reached, so every analysis
+terminates by exhausting its three iteration budget whatever the clock does.
+
+The plan's Panel B was the convergence fraction and the mean final UNKNOWN
+confidence. The first is 0.000 in all three modes, for the same reason. The
+second is 0.509, 0.512 and 0.511, a spread of three thousandths against seed
+deviations of about one. Both are reported as text in the study output rather
+than drawn as six near identical bars.
+
+What replaces them is the causal chain the study actually demonstrates.
+Panel B is the mechanism: conflating the clocks makes every situation look
+stale, staleness marks it quiet, and quiet drives abstention. Panel C is the
+consequence for the outcome metrics, where conflation appears to improve
+correctness while in fact only abstaining more often on a suite whose ground
+truth mostly says abstain.
 
 Colour encodes the clock mode and nothing else, consistently across all three
 panels, so a reader learns the mapping once. Each panel groups by measure
@@ -150,8 +159,8 @@ def main() -> int:
     axes[0].set_ylabel("share of iterations")
 
     panel_b_fields = [
-        ("convergence_fraction", "reached\nconvergence"),
-        ("mean_final_unknown_confidence", "mean final\nUNKNOWN confidence"),
+        ("quiet_fraction", "quiet detected"),
+        ("abstention_rate", "abstention rate"),
     ]
     values_b = {
         mode: [summaries[mode][f"{f}_mean"] for f, _ in panel_b_fields] for mode in modes
@@ -160,12 +169,13 @@ def main() -> int:
         mode: [summaries[mode][f"{f}_sd"] for f, _ in panel_b_fields] for mode in modes
     }
     grouped(axes[1], [label for _, label in panel_b_fields], values_b, errors_b, modes)
-    axes[1].set_title("B  Convergence and residual doubt", loc="left", pad=8)
+    axes[1].set_title("B  Quiescence and abstention", loc="left", pad=8)
     axes[1].set_ylabel("fraction")
 
     panel_c_fields = [
-        ("quiet_fraction", "quiet detected"),
-        ("abstention_rate", "abstention rate"),
+        ("false_conclusion_rate", "false\nconclusion"),
+        ("premature_convergence_rate", "premature\nconvergence"),
+        ("appropriate_abstention_rate", "appropriate\nabstention"),
     ]
     values_c = {
         mode: [summaries[mode][f"{f}_mean"] for f, _ in panel_c_fields] for mode in modes
@@ -174,7 +184,7 @@ def main() -> int:
         mode: [summaries[mode][f"{f}_sd"] for f, _ in panel_c_fields] for mode in modes
     }
     grouped(axes[2], [label for _, label in panel_c_fields], values_c, errors_c, modes)
-    axes[2].set_title("C  Quiescence and its consequence", loc="left", pad=8)
+    axes[2].set_title("C  What that does to the outcome metrics", loc="left", pad=8)
     axes[2].set_ylabel("fraction")
 
     handles, labels = axes[0].get_legend_handles_labels()
@@ -218,6 +228,8 @@ def main() -> int:
 
     print(f"seed {args.seed}")
     print(f"modes {modes}")
+    print("panel B replaced: convergence_fraction 0.000 in every mode, and")
+    print("  mean_final_unknown_confidence spans 0.509 to 0.512")
     print("panel C replaced: mean_iterations_to_termination is 3.0 in every mode")
     for mode in modes:
         s = summaries[mode]

@@ -3381,3 +3381,323 @@ matching, and rejected. `false_conclusion_rate` remains a Level 9 primary
 outcome resting on the weaker of the two mechanisms, and the correction in
 L7.9.1 means the case for replacing it is a prior argument rather than a
 measured failure.
+
+---
+
+# Appendix L8. The clock domain study
+
+A reproducibility hazard for replay based intrusion detection evaluation,
+demonstrated at scale against a real model. The claim is not about a defect
+in this system. It is that any temporal reasoning layer which evaluates
+staleness in host time while ingesting archived events will silently convert
+every replayed situation into a quiescent one, and that this collapses trend
+detection to a near constant and drives the reasoner into abstention. The
+system studied here is the instrument, not the subject.
+
+## L8.1 The gate: event time must actually survive into the suite
+
+The hazard only exists where event time and wall clock disagree, so the first
+thing checked was whether they do. L2.2 recorded that the official UNSW-NB15
+partition carries no Stime or Ltime, which means a replay of it stamps every
+signal with ingest time and separated mode degenerates into wall mode: there
+is nothing left to separate. A study run on such a suite would report three
+identical configurations and the null would read as a finding.
+
+`scripts/level8_clock_check.py` reads the frozen sub-suite and reports what
+it carries.
+
+| quantity | value |
+| --- | --- |
+| signals with an event timestamp | **963 of 963** |
+| signals missing one | 0 |
+| earliest event time | 2026-03-01T00:00:08.862Z |
+| latest event time | 2026-03-01T00:22:56.677Z |
+| event time span | 0.38 hours |
+| gap from latest event to wall clock | **4864.05 hours, 202.67 days** |
+| per scenario span, median | 458 s |
+| per scenario span, maximum | 1359 s |
+
+The generator's timestamps are genuine and sit more than two hundred days
+behind the clock the study ran at, so conflating the two is demonstrable on
+this suite. No fallback to the raw four partition files was needed.
+
+Note the two scales, because both matter. Between scenarios the events are
+two hundred days stale, which is what a conflated clock sees. Within a
+scenario they span minutes, which is what trend detection needs in order to
+have anything to detect.
+
+## L8.2 Scheduling, and the critical path confirmed a third time
+
+The grid is three clock modes by five seeds by forty scenarios, 600 units.
+L7.9.8 established that a unit runs on one worker and that wall clock is
+floored by the longest unit, so feeding a driver one pass at a time pays that
+floor once per pass. All 600 units were scheduled as a single pool.
+
+| quantity | value |
+| --- | --- |
+| units | 600 |
+| model calls if every one missed | 43335 |
+| longest single unit | 225 calls |
+| predicted critical path | 2009 s |
+| predicted work over concurrency, at 40 | 9671 s |
+| **actual wall clock** | **1980 s, 0.55 h** |
+| actual against predicted critical path | **ratio 0.99** |
+
+The run finished in the time its longest unit takes, to within one per cent.
+That is the third independent confirmation of the critical path model, after
+the 1.1 per cent agreement recorded in L7.9.8 and the budget it produced.
+
+Caches are scoped per seed rather than shared across the grid. The prompt a
+situation assembles does not depend on the seed, so a cache shared across
+seeds would serve seed 42's responses to every later seed and the deviation
+across five seeds would be zero by construction rather than because the model
+is stable. The deviations reported below are therefore real.
+
+| quantity | value |
+| --- | --- |
+| cache hits | 38604 |
+| cache misses | 4731 |
+| hit rate | **0.8908** |
+| units failed | 0 |
+| retries | 0 |
+| fallback iterations | **0 of 43335** |
+
+The hit rate of 0.8908 sits just below the 0.9092 measured per switch in
+L7.8.7 and well above the 0.31 floor L6.8 stated, so the reuse Level 9
+depends on holds across clock modes as well as across epistemic switches.
+
+## L8.3 Two defects the study found by being run
+
+**The replay engine never received its clock mode.** `OfflineReplay` built
+its `ReasoningEngine()` with no arguments, so the engine sat at the
+`SEPARATED` default while the `SituationStore` beside it took the configured
+mode. Every analysis in conflated or wall mode therefore raised the clock
+mode mismatch guard that Level 2 added for exactly this: two components
+disagreeing about the time domain. The guard worked. Nothing had exercised it
+because nothing had run a replay in a non default mode until this study.
+
+**A dropped connection fell through to the fallback hypotheses.** The retry
+predicate matched throttling, 429 and quota and 503, but not the Gemini
+client's "Server disconnected without sending a response". Such a call was
+re-raised on the first attempt, caught by the generation node as it is built
+to be, and three fixed strings from `nodes.py:200-202` were substituted with
+only a log line to mark it. The first full attempt at this study accumulated
+**25 contaminated iterations** across three cells before it was stopped. The
+predicate is now `looks_transient` and covers dropped connections, resets,
+timeouts and 502, 503 and 504, and the study counts fallback iterations in
+its own output so contamination can never again be something a reader has to
+go looking for. The run reported above carries zero.
+
+## L8.4 The collapse
+
+Pooled across five seeds, share of iterations carrying each trend label.
+
+| clock mode | escalating | stable | deescalating | distinct labels |
+| --- | --- | --- | --- | --- |
+| conflated | 0.0602 | **0.0000** | **0.9398** | **2** |
+| wall | 0.1350 | 0.8266 | 0.0384 | 3 |
+| separated | 0.1298 | 0.6272 | 0.2430 | 3 |
+
+**Under conflation the stable label is never emitted at all**, and 94 per
+cent of iterations are de-escalating. Trend detection has not degraded, it
+has stopped: the label is a near constant carrying no information about the
+situation it describes.
+
+The mechanism is visible one step earlier.
+
+| clock mode | quiet detected | standard deviation |
+| --- | --- | --- |
+| conflated | **1.0000** | 0.0000 |
+| wall | 0.0000 | 0.0000 |
+| separated | 0.2098 | 0.0000 |
+
+Every situation in conflated mode is quiet, in all five seeds, because every
+situation's most recent event is two hundred days old when measured against
+the host clock. A permanently quiet situation is a permanently de-escalating
+one, and the trend label follows.
+
+This reproduces at scale, against a real model, what L2.1 predicted from 400
+synthetic signals.
+
+## L8.5 What that does to the reasoner
+
+All eight Level 7 outcome metrics, mean and standard deviation over five
+seeds, 66 situations per cell.
+
+| metric | conflated | wall | separated |
+| --- | --- | --- | --- |
+| correct_conclusion_rate | **0.5000 ± 0.0303** | 0.2182 ± 0.0264 | 0.2182 ± 0.0264 |
+| false_conclusion_rate | 0.4485 ± 0.0312 | 0.7788 ± 0.0281 | 0.7788 ± 0.0281 |
+| abstention_rate | **0.5273 ± 0.0113** | 0.1818 ± 0.0192 | 0.1818 ± 0.0192 |
+| appropriate_abstention_rate | 0.6826 ± 0.0174 | 0.2565 ± 0.0254 | 0.2565 ± 0.0254 |
+| inappropriate_abstention_rate | **0.1700 ± 0.0400** | 0.0100 ± 0.0200 | 0.0100 ± 0.0200 |
+| premature_convergence_rate | 0.2212 ± 0.0121 | 0.5182 ± 0.0177 | 0.5182 ± 0.0177 |
+| single_iteration_conclusion_rate | 0.0000 | 0.0000 | 0.0000 |
+| mean_iterations_to_termination | 3.0000 | 3.0000 | 3.0000 |
+
+Read carelessly this says conflation is good for the system. Correct
+conclusions rise from 0.22 to 0.50, false conclusions fall from 0.78 to 0.45,
+premature convergence more than halves. **Every one of those movements is an
+artefact of abstaining more often on a suite whose ground truth mostly says
+abstain**, and the per regime breakdown shows it.
+
+| regime | truth says | conflated correct | separated correct |
+| --- | --- | --- | --- |
+| clear | conclude | **0.080** | **0.130** |
+| ambiguous | abstain | 0.800 | 0.080 |
+| sparse | abstain | 1.000 | 1.000 |
+| unknown_attack | abstain | 0.338 | 0.013 |
+
+On the one regime whose ground truth requires a conclusion, conflation makes
+the system **worse**, 0.080 against 0.130. On the three that reward
+abstention it scores better because it abstains, and in every one of those
+three the correct conclusion rate equals the abstention rate exactly, because
+`correct = abstained` at `scoring.py:161` when the truth says abstain.
+
+Conflation does not improve the reasoner. It disables it, and three quarters
+of this suite rewards a disabled reasoner. Inappropriate abstention, the one
+metric that penalises abstaining, is seventeen times higher under conflation:
+0.1700 against 0.0100.
+
+## L8.6 Wall and separated agree on every outcome, and that is informative
+
+The two non conflated modes produce identical outcome metrics to four decimal
+places, seed by seed, which is not a coincidence and is not a defect. They
+are genuinely different runs:
+
+| quantity | wall, seed 42 | separated, seed 42 |
+| --- | --- | --- |
+| quiet iterations | 0 of 2889 | **606 of 2889** |
+| trend, stable | 2388 | 1812 |
+| trend, deescalating | 111 | 702 |
+| distinct hypothesis texts | 7030 | 7269 |
+| texts unique to this mode | 1292 | 1531 |
+
+Different prompts, different hypotheses, same conclusions. The explanation is
+that the outcome metrics turn on whether UNKNOWN leads at termination, and a
+21 per cent quiet fraction does not flip that on any of the 66 situations,
+while a 100 per cent quiet fraction flips many. **Quiescence acts on the
+reasoner like a threshold rather than a gradient.** That is worth stating
+because it bounds the hazard: a replay whose events are merely somewhat stale
+is not affected, and a replay whose events are uniformly stale is destroyed.
+
+## L8.7 Hypothesis diversity, which refutes an earlier worry and raises another
+
+L7.9.2 recorded that across the seven situation slice the model named
+positive instances of exactly one of the six categories, and warned that a
+sample that small cannot distinguish a narrow model from a narrow sample.
+With 151713 hypotheses examined across 990 scored situations, the answer is
+clear.
+
+| category | times named | times dominant |
+| --- | --- | --- |
+| reconnaissance_sweep | 41586 | 19561 |
+| data_exfiltration | 5820 | 1363 |
+| lateral_movement | 3340 | 262 |
+| brute_force_access | 380 | 46 |
+| service_denial | 66 | 8 |
+| physical_intrusion | 33 | 0 |
+
+**All six of six are named.** The single category result in L7.9.2 was sample
+size, and that worry is withdrawn.
+
+What replaces it is worse. The share each category takes, computed within
+each regime:
+
+| regime | reconnaissance | exfiltration | lateral | brute force | denial | physical |
+| --- | --- | --- | --- | --- | --- | --- |
+| clear | **81.6%** | 10.9% | 6.8% | 0.6% | 0.1% | 0.0% |
+| ambiguous | **80.4%** | 11.4% | 6.9% | 1.0% | 0.2% | 0.0% |
+| sparse | **80.9%** | 15.8% | 0.0% | 1.2% | 0.0% | 2.0% |
+| unknown_attack | **81.6%** | 11.7% | 6.0% | 0.5% | 0.1% | 0.1% |
+
+The four regimes are built to carry different evidence and to expect
+different answers. The distribution of narratives the model proposes is
+**invariant across them**, reconnaissance taking between 80.4 and 81.6 per
+cent in every one. The model's choice of narrative is not a function of the
+regime it is looking at.
+
+Of the two explanations L7.9.2 set up, this is the second: the regimes
+produce evidence signatures the model does not distinguish. It is not prompt
+steering toward a single family, because five other families are named, in
+stable proportions, everywhere.
+
+**This bears directly on what Level 9 can measure.** If the narrative the
+model proposes is independent of the regime, then any metric built on whether
+that narrative matches the ground truth is measuring a near constant, and the
+2^4 ablation cannot move it. `correct_conclusion_rate` and
+`false_conclusion_rate` are already the two metrics L7.9 could not validate a
+scorer for. This is a second, independent reason to doubt them, and it
+arrives before Level 9 rather than after.
+
+## L8.8 The generalisable hazard
+
+Stated without reference to this system.
+
+A streaming reasoning layer that assesses situations over time needs two
+clocks: the time at which evidence occurred, and the time at which the
+assessment is being made. Staleness, quiescence, rate and trend are all
+defined as differences between them. Implementations routinely take the
+second from the host clock, because in production the two are within seconds
+of each other and the distinction is invisible.
+
+Under replay the distinction is everything. An archived capture is hours,
+months or years old. A layer that compares archived event time against the
+host clock finds every situation uniformly ancient, marks all of them quiet,
+and reports a single trend label for the entire corpus. Nothing raises an
+error. The layer produces confident, well formed, entirely uninformative
+temporal features, and every downstream consumer inherits them.
+
+Three properties make this hazard worth naming rather than filing as a bug.
+
+**It is silent.** No exception, no warning, no missing field. The collapse is
+only visible if the distribution of trend labels is inspected, and a trend
+label that is constant looks exactly like a system that has decided the
+traffic is calm.
+
+**It inverts under the obvious metric.** In this study conflation raised
+correct conclusions from 0.22 to 0.50 and halved premature convergence. An
+evaluation reporting only those numbers would conclude that the broken
+configuration was the better one. The error is only visible per regime, on
+the subset whose ground truth requires a conclusion, where conflation is
+worse.
+
+**It has a threshold, not a gradient.** Partial staleness does nothing: the
+21 per cent quiet fraction of separated mode leaves every outcome metric
+identical to wall mode. Uniform staleness destroys everything. A pilot on
+recent data will therefore show no problem at all, and the failure appears
+only when the corpus is old enough that every situation crosses the quiet
+threshold together.
+
+The mitigation is cheap and is what Level 2 implemented: make the time domain
+an explicit parameter, evaluate staleness in the same domain the evidence
+carries, and assert that the components agree. The assertion is what caught
+the defect in L8.3, in this very study, eleven months after it was written.
+
+## L8.9 What this establishes and what it does not
+
+Established. Event timestamps survive into the frozen sub-suite with a 202
+day gap to wall clock. Conflating the domains eliminates one of three trend
+labels entirely, marks 100 per cent of situations quiet against 0 and 21 per
+cent for the two honest modes, and raises abstention from 0.18 to 0.53. The
+apparent improvement in five of eight outcome metrics is an abstention
+artefact, demonstrated by the clear regime where conflation is worse. Five
+seeds, real model, zero contamination, deviations under 0.04 throughout.
+
+Not established. Whether the hazard behaves the same way on a corpus whose
+staleness is non uniform, which is the interesting intermediate case and
+which this suite cannot produce because its scenarios share a generation
+window. Whether the outcome metrics mean anything at all, given L7.9's
+unvalidated scorer and L8.7's finding that the model's narrative choice is
+independent of regime. And the absolute level of every rate here, which rests
+on 66 situations, not on the 625 of the full suite.
+
+Figure 2 is `figures/fig2_clock_collapse.pdf`. Panel A is the trend
+distribution as the plan specified. Panels B and C are not what the plan
+specified, because both quantities it named are constant: the convergence
+fraction is 0.000 in all three modes and mean iterations to termination is
+3.0 in all three, both for the reason L7.5 established and L7.8.6 confirmed,
+and the mean final UNKNOWN confidence spans 0.509 to 0.512. Panel B instead
+carries the mechanism, quiescence against abstention, and Panel C the
+consequence, false conclusion and premature convergence against appropriate
+abstention.

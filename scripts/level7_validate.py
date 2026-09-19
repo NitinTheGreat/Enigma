@@ -73,6 +73,7 @@ from enigma_reason.graph.runner import _default_llm_factory  # noqa: E402
 from enigma_reason.observability.llm_cache import CachingLLMFactory, ResponseCache  # noqa: E402
 from enigma_reason.observability.manifest import build_run_manifest, write_manifest  # noqa: E402
 from enigma_reason.observability.run_log import RunLogWriter, text_hash  # noqa: E402
+from enigma_reason.replay.concurrent import ConcurrentReplay  # noqa: E402
 from enigma_reason.replay.offline import OfflineReplay, mock_llm_factory  # noqa: E402
 from enigma_reason.store.correlation import EntityCorrelation  # noqa: E402
 from scenarios.generator import (  # noqa: E402
@@ -187,6 +188,8 @@ def convergence_report(run_log_path: Path) -> dict[str, Any]:
         if not line:
             continue
         record = json.loads(line)
+        if record.get("record_type") == "retry":
+            continue
         scores.append(float(record.get("convergence_score", 0.0)))
         if record.get("terminated"):
             terminal += 1
@@ -415,6 +418,17 @@ def main() -> int:
             "reproducible."
         ),
     )
+    parser.add_argument(
+        "--concurrency",
+        type=int,
+        default=1,
+        help=(
+            "Scenarios to run at once. The default of 1 reproduces serial "
+            "runs exactly. Units run concurrently but nothing inside a unit "
+            "does, because an analysis's iterations are sequentially "
+            "dependent."
+        ),
+    )
     parser.add_argument("--tag", type=str, default="")
     parser.add_argument(
         "--ablate",
@@ -469,19 +483,38 @@ def main() -> int:
             situation_entities[str(situation.situation_id)] = str(evidence[0].entity)
 
     analyses = 0
+    retries: list[dict[str, Any]] = []
     run_started = time.monotonic()
     with RunLogWriter(run_log_path) as writer:
-        for scenario in scenarios:
-            replay = OfflineReplay(
-                llm_factory,
+
+        def build_replay(unit: str, unit_factory):
+            """Create one scenario's replay with its own store and engine."""
+            return OfflineReplay(
+                unit_factory,
                 run_log=writer,
                 seed=args.seed,
                 correlation=EntityCorrelation(),
                 on_analysis=harvest,
                 controls=controls,
             )
-            result = replay.run(scenario.signals)
-            analyses += result.analyses_run
+
+        if args.concurrency > 1:
+            driver = ConcurrentReplay(
+                build_replay,
+                llm_factory,
+                concurrency=args.concurrency,
+                run_log=writer,
+            )
+            outcome = driver.run(
+                [(scenario.scenario_id, scenario.signals) for scenario in scenarios]
+            )
+            analyses = outcome.analyses_run
+            retries = [r.to_dict() for r in outcome.retries]
+        else:
+            for scenario in scenarios:
+                replay = build_replay(scenario.scenario_id, llm_factory)
+                result = replay.run(scenario.signals)
+                analyses += result.analyses_run
         writer.flush()
         iterations_logged = writer.written
         dropped = writer.dropped
@@ -554,6 +587,10 @@ def main() -> int:
         "elapsed_seconds": round(elapsed_seconds, 3),
         "model_calls": model_calls,
         "seconds_per_model_call": seconds_per_model_call,
+        "requests_per_minute": round(model_calls / elapsed_seconds * 60, 1)
+        if elapsed_seconds
+        else 0.0,
+        "retry_records": retries,
         "convergence": convergence_report(run_log_path),
         "epistemic_controls": controls.as_dict(),
         "validates": "scoring machinery and suite discrimination, not reasoning quality",
@@ -621,6 +658,10 @@ def main() -> int:
             "suite_hash": suite_hash(scenarios),
             "model_calls": model_calls,
             "seconds_per_model_call": seconds_per_model_call,
+        "requests_per_minute": round(model_calls / elapsed_seconds * 60, 1)
+        if elapsed_seconds
+        else 0.0,
+        "retry_records": retries,
             "cache": cache_stats,
         },
     )
@@ -650,6 +691,11 @@ def main() -> int:
     print(
         f"model calls {model_calls}  elapsed {elapsed_seconds:.1f}s  "
         f"seconds per call {seconds_per_model_call}"
+    )
+    print(
+        f"concurrency {args.concurrency}  "
+        f"requests per minute {report['requests_per_minute']}  "
+        f"retries {len(retries)}"
     )
     if cache_stats:
         print(

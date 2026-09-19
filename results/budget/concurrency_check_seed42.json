@@ -1,0 +1,26 @@
+{
+  "seed": 42,
+  "suite": "results/scenarios/sub_suite.jsonl",
+  "scenarios": 40,
+  "model": "Level 6 deterministic mock",
+  "serial": {
+    "concurrency": 1,
+    "analyses_run": 963,
+    "iterations_logged": 2889,
+    "retries": 0,
+    "wall_clock_seconds": 42.514,
+    "distinct_analyses": 66
+  },
+  "parallel": {
+    "concurrency": 25,
+    "analyses_run": 963,
+    "iterations_logged": 2889,
+    "retries": 0,
+    "wall_clock_seconds": 28.282,
+    "distinct_analyses": 66
+  },
+  "sorted_analysis_sets_identical": true,
+  "only_in_serial": [],
+  "only_in_parallel": [],
+  "speedup": 1.5
+}

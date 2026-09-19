@@ -78,13 +78,28 @@ def measured_real_run(path: Path) -> dict[str, Any]:
 
 
 def wall_seconds(
-    calls: float, hit_rate: float, latency: float, concurrency: int, rpm: float
+    calls: float,
+    hit_rate: float,
+    latency: float,
+    concurrency: int,
+    rpm: float,
+    critical_path_calls: float = 0.0,
 ) -> float:
-    """Return the wall clock a pass count costs under these constraints."""
+    """Return the wall clock a pass count costs under these constraints.
+
+    Three floors, and the largest wins. Work divided by concurrency is the
+    obvious one. The tier's requests per minute is the second. The third is
+    the critical path: a unit runs on one worker, so no amount of concurrency
+    finishes a level sooner than its longest single unit. That floor was not
+    in the first version of this model and it dominated the measurement that
+    exposed it, where a run of eight uneven scenarios took 1353.6 seconds
+    against a critical path of 1339 and a work over concurrency figure of 190.
+    """
     uncached = calls * (1.0 - hit_rate)
     by_latency = uncached * latency / max(concurrency, 1)
     by_rate = uncached / rpm * 60.0 if rpm > 0 else float("inf")
-    return max(by_latency, by_rate)
+    by_critical_path = critical_path_calls * (1.0 - hit_rate) * latency
+    return max(by_latency, by_rate, by_critical_path)
 
 
 def main() -> int:
@@ -97,6 +112,26 @@ def main() -> int:
     parser.add_argument("--level9-hours", type=float, default=24.0)
     parser.add_argument("--level8-hours", type=float, default=6.0)
     parser.add_argument("--threshold-values", type=int, default=3)
+    parser.add_argument(
+        "--longest-unit-calls",
+        type=float,
+        default=225.0,
+        help=(
+            "Model calls in the largest single scenario of the sub-suite. A "
+            "unit runs on one worker, so this sets the floor no concurrency "
+            "can beat within one pass."
+        ),
+    )
+    parser.add_argument(
+        "--cross-product",
+        action="store_true",
+        help=(
+            "Assume the driver is fed every configuration, seed and scenario "
+            "as one pool of units rather than one pass at a time. The "
+            "critical path is then one scenario rather than one pass, which "
+            "is what makes concurrency usable at this scale."
+        ),
+    )
     args = parser.parse_args()
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -138,11 +173,27 @@ def main() -> int:
             l9_passes = LEVEL9_CONFIGURATIONS * seeds * args.threshold_values
             for concurrency in concurrency_grid:
                 for hit, label in hit_grid:
+                    l8_path = args.longest_unit_calls * (
+                        1 if args.cross_product else l8_passes
+                    )
+                    l9_path = args.longest_unit_calls * (
+                        1 if args.cross_product else l9_passes
+                    )
                     l8 = wall_seconds(
-                        calls_per_pass * l8_passes, hit, latency, concurrency, rpm
+                        calls_per_pass * l8_passes,
+                        hit,
+                        latency,
+                        concurrency,
+                        rpm,
+                        l8_path,
                     )
                     l9 = wall_seconds(
-                        calls_per_pass * l9_passes, hit, latency, concurrency, rpm
+                        calls_per_pass * l9_passes,
+                        hit,
+                        latency,
+                        concurrency,
+                        rpm,
+                        l9_path,
                     )
                     rows.append(
                         {
@@ -201,6 +252,13 @@ def main() -> int:
             "cache_hit_rate_note": hit_note,
             "signals_per_scenario": round(SIGNALS_PER_SCENARIO, 4),
             "iterations_per_analysis": ITERATIONS_PER_ANALYSIS,
+            "longest_unit_calls": args.longest_unit_calls,
+            "cross_product_units": args.cross_product,
+            "measured_effective_parallelism": 3.52,
+            "measured_effective_parallelism_note": (
+                "8 uneven units at concurrency 25, bounded by the critical "
+                "path rather than by concurrency"
+            ),
         },
         "targets": {
             "level8_hours": args.level8_hours,

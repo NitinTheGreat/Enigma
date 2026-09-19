@@ -1,0 +1,67 @@
+{
+  "experiment": "level7_validate_conc25",
+  "seed": 42,
+  "started_at_utc": "2026-09-19T01:00:35.263119+00:00",
+  "ended_at_utc": "2026-09-19T01:23:08.652647+00:00",
+  "wall_clock_seconds": 1353.39,
+  "git_commits": {
+    "Enigma-AIAgent": "20429bf5b362a44ee6634df46dd0a02672057511-dirty",
+    "Enigma-ML-Layer": "15e70802ecdecc2e0f38d45d1fac71e55327315e-dirty",
+    "Enigma-Frontend": "5899d098eb39f05b38065f201ccf0bd74edcd1fb-dirty"
+  },
+  "config": {
+    "suite": "results/scenarios/sub_suite.jsonl",
+    "scenarios": 8,
+    "llm_mode": "real",
+    "scorer": "keyword",
+    "model_name": "gemini-2.5-flash",
+    "cache_path": "results/budget/throughput_cache_seed42.json",
+    "ablate": "",
+    "epistemic_controls": {
+      "unknown_hypothesis_enabled": true,
+      "sanity_gate_enabled": true,
+      "asymmetric_decay_enabled": true,
+      "persistence_required": true,
+      "max_confidence_delta": 0.15,
+      "inertia_enabled": true
+    },
+    "graph_max_iterations": 3,
+    "graph_convergence_threshold": 0.8
+  },
+  "model_artefact": {
+    "path": null,
+    "hash": "absent"
+  },
+  "dataset": {
+    "path": "/mnt/f/XAI Project/results/scenarios/sub_suite.jsonl",
+    "hash": "14c0fe508cc92e7e4cc298a41b87afe43286047029afc642af65b7ad1fb30331"
+  },
+  "environment": {
+    "os": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "processor": "x86_64",
+    "cpu_count": 12,
+    "python_version": "3.12.3",
+    "python_implementation": "CPython",
+    "tensorflow_version": "absent",
+    "langgraph_version": "1.0.6",
+    "langchain_core_version": "1.2.7",
+    "pydantic_version": "2.12.5"
+  },
+  "extra": {
+    "situations_scored": 12,
+    "suite_hash": "83b6c435f746f412f34834d3e033b1c2f1b498778abf64f1e933f4313c8ae848",
+    "model_calls": 534,
+    "seconds_per_model_call": 2.5349,
+    "requests_per_minute": 23.7,
+    "retry_records": [],
+    "cache": {
+      "hits": 3,
+      "misses": 534,
+      "writes": 534,
+      "errors": 0,
+      "lookups": 537,
+      "hit_rate": 0.0056
+    }
+  }
+}

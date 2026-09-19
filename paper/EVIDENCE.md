@@ -3090,3 +3090,294 @@ cached.
 The next action is not Level 8. It is replacing or validating the scorer,
 because Level 9's primary outcome depends on it, and building concurrent
 execution, because every budget above depends on that.
+
+---
+
+# Appendix L7.9. A rejected scorer and a concurrent driver
+
+Two prerequisites for Level 8 were attempted. The second succeeded. The first
+did not, and the reason it did not corrects a claim made in L7.8.
+
+## L7.9.1 Correction to L7.8.5
+
+L7.8.5 reported that the keyword scorer returns no match on 7 of 7 real
+analyses and concluded that it "is not merely deflating a rate, it is not
+discriminating at all on the axis it exists to measure". That conclusion does
+not follow from that statistic, and the statistic is misleading.
+
+Keyword matching is consulted on **2 of the 7 situations**, not 7.
+`scoring.py:159` reaches for `matched_expected` only when the ground truth
+says conclude. The other five carry `should_conclude` false, where
+`correct = abstained` at `scoring.py:161` and no keyword is read. Two of
+those five, the sparse and unknown attack scenarios, carry empty keyword
+lists by construction, so `matched_expected` is false for them whatever any
+scorer does.
+
+On the two where it is consulted it was right. Both belong to `s00000`, whose
+ground truth is `data_exfiltration`. The dominant hypotheses were:
+
+    Persistent external reconnaissance from a limited set of distinct sources.
+    Sustained external reconnaissance from multiple distinct sources.
+
+That is reconnaissance. The model proposed the wrong narrative, and a scorer
+reporting no match against data exfiltration is reporting correctly.
+
+The underlying worry remains legitimate: a keyword list will under credit a
+correct hypothesis that reaches for different vocabulary, and Level 9 needs a
+scorer that survives that. But the evidence in L7.8 did not demonstrate it
+happening, and L7.8.5 should have said so.
+
+## L7.9.2 The embedding scorer, built and rejected
+
+`scenarios/semantic.py` embeds a prose narrative for each of the six
+categories and the hypothesis text with `all-MiniLM-L6-v2`, pinned alongside
+`sentence-transformers` 5.1.0 and `torch` 2.8.0+cpu, and compares them by
+cosine. The narratives were written from the `Category` definitions, their
+names, keyword lists and detector families, and not by reading model output,
+which would have tuned the scorer to the thing it was meant to judge. Their
+content hash is recorded so a change is detectable.
+
+**The validation set.** Fifty distinct hypothesis texts were drawn from the
+real model run, stratified across its seven situations, and hand labelled by
+a single annotator before the scorer was run. The question asked of each was
+which of the six narratives the text describes, if any, judged on the text
+alone. A category was assigned only where the text describes that category's
+defining action: reconnaissance is scanning or enumeration, lateral movement
+is moving between internal systems rather than merely being present on
+several, exfiltration is data leaving rather than internal transfer.
+Rationale is recorded against the ten arguable cases. There is no second
+annotator and therefore no agreement figure.
+
+The labels came out at 16 positives and 34 negatives, and every positive is
+`reconnaissance_sweep`. That is not a sampling accident. Across the whole
+four scenario slice the model never once proposed brute force access,
+physical intrusion, service denial, lateral movement or data exfiltration by
+name. **Five of the six categories have no positive instance in real model
+output at all**, which is a limitation on everything below and a finding in
+its own right.
+
+**The evaluation.** In use the scorer is always asked about one specific
+category: does this hypothesis describe the narrative this scenario expects.
+The evaluation mirrors that. Each of the 50 hypotheses is paired with each of
+the 6 categories, giving 300 decisions, each a positive exactly when the hand
+label names that category.
+
+| threshold | TP | FP | FN | TN | precision | recall | F1 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 0.20 | 15 | 154 | 1 | 130 | 0.0888 | 0.9375 | 0.1622 |
+| 0.25 | 12 | 90 | 4 | 194 | 0.1176 | 0.7500 | 0.2034 |
+| 0.30 | 9 | 43 | 7 | 241 | 0.1731 | 0.5625 | 0.2647 |
+| 0.35 | 7 | 20 | 9 | 264 | 0.2593 | 0.4375 | 0.3256 |
+| **0.36, best F1** | 7 | 17 | 9 | 267 | **0.2917** | **0.4375** | **0.3500** |
+| 0.40 | 4 | 8 | 12 | 276 | 0.3333 | 0.2500 | 0.2857 |
+| 0.50 | 1 | 2 | 15 | 282 | 0.3333 | 0.0625 | 0.1053 |
+| 0.60 | 0 | 0 | 16 | 284 | 0.0000 | 0.0000 | 0.0000 |
+
+**Best achievable precision 0.2917 and recall 0.4375, against a required
+0.70 on both.** The keyword scorer on the identical 300 decisions scores
+**precision 0.8125 and recall 0.8125**.
+
+The brief said to stop rather than ship a scorer below 0.7, and that a second
+broken scorer is worse than a known missing one. The embedding scorer is
+therefore **not adopted**. It remains reachable behind `--scorer embedding`
+so the result stays reproducible.
+
+## L7.9.3 Why it fails, concretely
+
+The failure is not that similarity carries no signal. Against the
+reconnaissance narrative alone the positives separate from the negatives:
+positives median 0.323 against a negative maximum of 0.277. The failure is
+that a general sentence embedding places benign systems prose and all six
+attack narratives within a narrow band of each other, so any threshold loose
+enough to catch true matches also fires against five wrong categories.
+
+Applied to the real run, the rejected scorer moves two metrics:
+
+| metric | keyword | embedding |
+| --- | --- | --- |
+| correct_conclusion_rate | 0.2857 | **0.4286** |
+| false_conclusion_rate | 0.7143 | **0.5714** |
+| every other metric | unchanged | unchanged |
+
+It looks like an improvement and is not. The situation it flips is one of the
+two `s00000` situations, and this is the whole mechanism:
+
+| text | similarity |
+| --- | --- |
+| "Persistent external reconnaissance from a limited set of distinct sources." | |
+| to the data exfiltration narrative | **0.3118**, clears the 0.27 threshold |
+| to the reconnaissance narrative | 0.3542, higher still |
+
+The scorer credits a hypothesis about reconnaissance as data exfiltration and
+records the analysis as correct. The entire gain is spurious credit for a
+wrong answer, which is precisely the failure mode the instruction to stop
+below 0.7 exists to prevent.
+
+An earlier implementation required the expected category to be the closest of
+all six, which removes this particular error. It was worse overall, because
+requiring an outright win costs far more recall than it buys precision, and
+it is recorded in the sweep as `argmax_recall`.
+
+## L7.9.4 What would be needed instead
+
+Not an LLM judge as the primary scorer, for the reasons the brief gives. What
+this result actually points at is that the six narratives are too close
+together for a general purpose embedding at this granularity, and that the
+evidence for any scorer is thin while five of six categories have no positive
+instance.
+
+Three things would change the picture, in order of cost: a domain tuned
+embedding rather than a general one; a labelled set drawn from a run in which
+the model proposes more than one narrative, which needs Level 8 or 9 output
+rather than a four scenario slice; and only then a judge panel, used to
+validate whichever mechanical scorer is chosen rather than to replace it.
+
+Until one of those exists, **keyword matching remains the scorer**, and the
+caveat recorded in L7.7 stands: the correct conclusion rate it reports is a
+lower bound.
+
+## L7.9.5 The concurrent driver
+
+`enigma_reason/replay/concurrent.py` runs replay units in a thread pool, one
+independent `OfflineReplay` per unit with its own store, engine and
+correlation state. Shared collaborators are the response cache and the run
+log writer, both of which hold locks.
+
+**A unit is one scenario, and that choice is deliberate.** The brief asked
+for concurrency over situations rather than over iterations, because an
+analysis's iterations are sequentially dependent. A scenario is one step
+coarser than a situation and is the smallest boundary at which splitting
+changes nothing: a situation's analyses are ordered by signal arrival, and
+the situations within a scenario share the ingest counter that decides when
+an analysis fires. Splitting below the scenario would change when analyses
+happen. Splitting at the scenario cannot, because scenarios share no state.
+
+`--concurrency` defaults to 1, and at 1 the driver is bypassed entirely so
+existing serial runs reproduce exactly rather than merely equivalently.
+
+## L7.9.6 The cache was safe against corruption and not against waste
+
+`ResponseCache` already held a lock over its entries and its counters, so
+concurrent readers and writers could not corrupt the store. That was checked
+rather than assumed and it held.
+
+What it did not have was single flight. Two workers missing the same prompt
+at the same moment both called the model, and both paid for one answer. A
+fill now takes a per prompt lock, re-checks the store under it without
+counting the re-check, and a caller served by another worker's fill is
+recorded as `coalesced` rather than as a second miss. Four tests cover it,
+including eight threads released simultaneously on one prompt, which produce
+exactly one model call and seven coalesced hits.
+
+## L7.9.7 Determinism across concurrency
+
+Two runs of the frozen sub-suite at seed 42, through the Level 6
+deterministic mock so that any difference is the driver rather than model
+sampling.
+
+| concurrency | analyses | iterations | distinct situations | retries | wall clock |
+| --- | --- | --- | --- | --- | --- |
+| 1 | 963 | 2889 | 66 | 0 | 42.5 s |
+| 25 | 963 | 2889 | 66 | 0 | 28.3 s |
+
+**The sorted analysis signatures are identical.** A signature is built per
+situation from every analysis that terminated, carrying the evidence held,
+the iteration reached, the reason it stopped, whether UNKNOWN led, and the
+convergence score. Situation identifiers are freshly generated uuids and
+differ between any two runs, so they are used only to group records and never
+enter the signature. Comparing these sorted removes every ordering effect
+concurrency introduces while preserving anything a difference in work would
+change. An earlier version of this check included the uuid in the key and
+reported a false mismatch across all 963 analyses, which is what the first
+run of it did.
+
+The 1.5x speedup here is not the interesting number. The mock does no
+network wait, so the work is CPU bound and the interpreter lock caps what
+threads can buy. The real measurement is below.
+
+## L7.9.8 Measured throughput, and the floor nobody budgeted for
+
+Eight scenarios of the sub-suite against live Gemini at concurrency 25, with
+a cold cache so every call is real.
+
+| quantity | value |
+| --- | --- |
+| units | 8 scenarios |
+| model calls | 534 |
+| cache hits | 3, rate 0.0056, a cold cache as intended |
+| retries | **0**, no throttling at this concurrency |
+| wall clock | 1353.6 s |
+| wall clock per call | 2.535 s |
+| serial equivalent at 8.927 s per call | 4767 s |
+| **effective parallelism** | **3.52, not 25** |
+
+The shortfall is entirely explained, and the explanation is the finding. The
+eight units were 150, 108, 108, 72, 60, 27, 6 and 6 calls. A unit runs on one
+worker, so the run cannot finish before its longest unit does. That critical
+path is 150 calls at 8.927 s, or **1339 s. The run took 1353.6 s, within 1.1
+per cent of it.** Work divided by concurrency would have predicted 190 s. The
+critical path, not the concurrency, set the wall clock.
+
+The budget model in L7.8.9 had two floors, work over concurrency and the
+tier's requests per minute. It now has three, and `level9_budget.py` takes
+the longest unit as a parameter.
+
+    wall = max(uncached * latency / concurrency,
+               uncached / rpm * 60,
+               longest_unit_calls * (1 - hit_rate) * latency)
+
+**What this changes for Level 9.** If the driver is handed one pass at a time
+it pays the critical path once per pass, and Level 9 costs 12.16 hours at
+concurrency 25 and exactly the same at concurrency 50, because concurrency
+has stopped being the binding constraint. If it is handed the whole cross
+product of configuration, seed and scenario as one pool of units, there are
+9600 of them, the critical path is one scenario rather than one pass, and
+Level 9 costs 6.31 hours at concurrency 25.
+
+Concurrency is therefore not sufficient on its own. **The driver must be fed
+the cross product**, and `--cross-product` in the budget script records which
+assumption a figure was produced under.
+
+## L7.9.9 Revised budget
+
+Measured inputs: 8.927 s per call serially, 0.9092 pooled cache hit rate,
+728.7 requests per minute with no refusal, longest sub-suite unit 225 calls,
+zero retries observed at concurrency 25.
+
+| per regime | scenarios | situations | seeds | concurrency | Level 8 | Level 9 |
+| --- | --- | --- | --- | --- | --- | --- |
+| 5 | 20 | 33 | 5 | 25 | 0.20 | 3.16 |
+| **10** | **40** | **66** | **5** | **25** | **0.39** | **6.31** |
+| 15 | 60 | 102 | 5 | 25 | 0.59 | 9.47 |
+| 25 | 100 | 170 | 5 | 25 | 0.99 | 15.78 |
+| 50 | 200 | 340 | 5 | 25 | 1.97 | 31.56, over |
+| 100, full suite | 400 | 625 | 5 | 25 | 3.94 | 63.12, over |
+
+The recommendation from L7.8.9 is unchanged: **ten scenarios per regime, 40
+scenarios, 66 situations, five seeds, concurrency 25**, which is the largest
+configuration that still fits both targets at a pessimistic 0.70 hit rate.
+Sub-suite hash `a2b37f29b163ea310586f3073e88bddd5f0628667ba0c0595ddfa88d708c3911`.
+
+Two caveats on it. Every figure assumes cross product scheduling, which the
+driver supports but the Level 8 and Level 9 scripts must actually use. And
+the zero retries observed is at concurrency 25 over 534 calls; the retry path
+is covered by tests rather than by having been exercised in anger, and a
+throttled run will now be visible in the run log rather than merely slow.
+
+## L7.9.10 What these two tasks establish
+
+Established. The concurrent driver exists, is deterministic against the
+serial one on sorted analysis signatures, and is measured rather than
+projected. The response cache is single flighted. The critical path floor is
+identified, quantified to within 1.1 per cent, and folded into the budget.
+Level 8 and Level 9 are affordable at the recommended sample size.
+
+Not established, and now clearer than before. The project still has no
+validated way to tell whether a free text hypothesis matches a ground truth
+narrative other than keyword matching, whose limits L7.7 recorded and which
+this work did not improve on. The embedding scorer was built, validated at
+precision 0.2917 and recall 0.4375 against 0.8125 and 0.8125 for keyword
+matching, and rejected. `false_conclusion_rate` remains a Level 9 primary
+outcome resting on the weaker of the two mechanisms, and the correction in
+L7.9.1 means the case for replacing it is a prior argument rather than a
+measured failure.

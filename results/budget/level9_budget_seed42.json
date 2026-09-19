@@ -1,6 +1,6 @@
 {
   "seed": 42,
-  "generated_at_utc": "2026-09-19T00:28:57.167221+00:00",
+  "generated_at_utc": "2026-09-19T01:24:20.329628+00:00",
   "measured_inputs": {
     "seconds_per_model_call": 8.927,
     "requests_per_minute": 728.7,
@@ -8,7 +8,11 @@
     "cache_hit_rate": 0.9092,
     "cache_hit_rate_note": "supplied on the command line",
     "signals_per_scenario": 24.3333,
-    "iterations_per_analysis": 3
+    "iterations_per_analysis": 3,
+    "longest_unit_calls": 225.0,
+    "cross_product_units": true,
+    "measured_effective_parallelism": 3.52,
+    "measured_effective_parallelism_note": "8 uneven units at concurrency 25, bounded by the critical path rather than by concurrency"
   },
   "targets": {
     "level8_hours": 6.0,

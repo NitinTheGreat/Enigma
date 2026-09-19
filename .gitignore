@@ -24,3 +24,11 @@ results/level6/cache_*.json
 Enigma-AIAgent/
 Enigma-ML-Layer/
 Enigma-Frontend/
+
+results/ablation/*.jsonl
+results/two_level/*.jsonl
+results/convergence_isolation/*.jsonl
+results/ablation/*_descriptions.json
+results/ablation/cache_seed*.json
+results/two_level/cache_seed*.json
+results/convergence_isolation/cache_seed*.json

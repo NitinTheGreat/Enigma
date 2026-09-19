@@ -1,0 +1,9 @@
+seed,metric,keyword,embedding,changed
+42,correct_conclusion_rate,0.2857,0.4286,True
+42,false_conclusion_rate,0.7143,0.5714,True
+42,abstention_rate,0.2857,0.2857,False
+42,appropriate_abstention_rate,0.4,0.4,False
+42,inappropriate_abstention_rate,0.0,0.0,False
+42,premature_convergence_rate,0.4286,0.4286,False
+42,single_iteration_conclusion_rate,0.0,0.0,False
+42,mean_iterations_to_termination,3,3,False

@@ -1,0 +1,296 @@
+{
+  "seed": 42,
+  "log": "validation_run_log_real.jsonl",
+  "situations_scored": 7,
+  "scorers": {
+    "keyword": "validated, precision 0.8125 recall 0.8125 on the hand labels",
+    "embedding": "REJECTED, precision 0.2917 recall 0.4375 on the hand labels, shown for the record only"
+  },
+  "embedding_provenance": {
+    "model_name": "sentence-transformers/all-MiniLM-L6-v2",
+    "sentence_transformers_version": "5.1.0",
+    "torch_version": "2.8.0+cpu",
+    "threshold": 0.27,
+    "narratives_hash": "5b19b6494f127cd2",
+    "categories": [
+      "brute_force_access",
+      "data_exfiltration",
+      "lateral_movement",
+      "physical_intrusion",
+      "reconnaissance_sweep",
+      "service_denial"
+    ]
+  },
+  "metrics": [
+    {
+      "seed": 42,
+      "metric": "correct_conclusion_rate",
+      "keyword": 0.2857,
+      "embedding": 0.4286,
+      "changed": true
+    },
+    {
+      "seed": 42,
+      "metric": "false_conclusion_rate",
+      "keyword": 0.7143,
+      "embedding": 0.5714,
+      "changed": true
+    },
+    {
+      "seed": 42,
+      "metric": "abstention_rate",
+      "keyword": 0.2857,
+      "embedding": 0.2857,
+      "changed": false
+    },
+    {
+      "seed": 42,
+      "metric": "appropriate_abstention_rate",
+      "keyword": 0.4,
+      "embedding": 0.4,
+      "changed": false
+    },
+    {
+      "seed": 42,
+      "metric": "inappropriate_abstention_rate",
+      "keyword": 0.0,
+      "embedding": 0.0,
+      "changed": false
+    },
+    {
+      "seed": 42,
+      "metric": "premature_convergence_rate",
+      "keyword": 0.4286,
+      "embedding": 0.4286,
+      "changed": false
+    },
+    {
+      "seed": 42,
+      "metric": "single_iteration_conclusion_rate",
+      "keyword": 0.0,
+      "embedding": 0.0,
+      "changed": false
+    },
+    {
+      "seed": 42,
+      "metric": "mean_iterations_to_termination",
+      "keyword": 3,
+      "embedding": 3,
+      "changed": false
+    }
+  ],
+  "keyword_overall": {
+    "situations": 7,
+    "correct_conclusion_rate": 0.2857,
+    "false_conclusion_rate": 0.7143,
+    "abstention_rate": 0.2857,
+    "appropriate_abstention_rate": 0.4,
+    "inappropriate_abstention_rate": 0.0,
+    "premature_convergence_rate": 0.4286,
+    "single_iteration_conclusion_rate": 0.0,
+    "mean_iterations_to_termination": 3,
+    "counts": {
+      "situations": 7,
+      "concluded": 5,
+      "abstained": 2,
+      "truth_says_conclude": 2,
+      "truth_says_abstain": 5,
+      "correct": 2,
+      "false_conclusions": 5,
+      "premature": 3
+    }
+  },
+  "embedding_overall": {
+    "situations": 7,
+    "correct_conclusion_rate": 0.4286,
+    "false_conclusion_rate": 0.5714,
+    "abstention_rate": 0.2857,
+    "appropriate_abstention_rate": 0.4,
+    "inappropriate_abstention_rate": 0.0,
+    "premature_convergence_rate": 0.4286,
+    "single_iteration_conclusion_rate": 0.0,
+    "mean_iterations_to_termination": 3,
+    "counts": {
+      "situations": 7,
+      "concluded": 5,
+      "abstained": 2,
+      "truth_says_conclude": 2,
+      "truth_says_abstain": 5,
+      "correct": 3,
+      "false_conclusions": 4,
+      "premature": 3
+    }
+  },
+  "keyword_per_regime": {
+    "clear": {
+      "situations": 2,
+      "correct_conclusion_rate": 0.0,
+      "false_conclusion_rate": 1.0,
+      "abstention_rate": 0.0,
+      "appropriate_abstention_rate": 0.0,
+      "inappropriate_abstention_rate": 0.0,
+      "premature_convergence_rate": 0.0,
+      "single_iteration_conclusion_rate": 0.0,
+      "mean_iterations_to_termination": 3,
+      "counts": {
+        "situations": 2,
+        "concluded": 2,
+        "abstained": 0,
+        "truth_says_conclude": 2,
+        "truth_says_abstain": 0,
+        "correct": 0,
+        "false_conclusions": 2,
+        "premature": 0
+      }
+    },
+    "ambiguous": {
+      "situations": 3,
+      "correct_conclusion_rate": 0.3333,
+      "false_conclusion_rate": 0.6667,
+      "abstention_rate": 0.3333,
+      "appropriate_abstention_rate": 0.3333,
+      "inappropriate_abstention_rate": 0.0,
+      "premature_convergence_rate": 0.6667,
+      "single_iteration_conclusion_rate": 0.0,
+      "mean_iterations_to_termination": 3,
+      "counts": {
+        "situations": 3,
+        "concluded": 2,
+        "abstained": 1,
+        "truth_says_conclude": 0,
+        "truth_says_abstain": 3,
+        "correct": 1,
+        "false_conclusions": 2,
+        "premature": 2
+      }
+    },
+    "sparse": {
+      "situations": 1,
+      "correct_conclusion_rate": 1.0,
+      "false_conclusion_rate": 0.0,
+      "abstention_rate": 1.0,
+      "appropriate_abstention_rate": 1.0,
+      "inappropriate_abstention_rate": 0.0,
+      "premature_convergence_rate": 0.0,
+      "single_iteration_conclusion_rate": 0.0,
+      "mean_iterations_to_termination": 3,
+      "counts": {
+        "situations": 1,
+        "concluded": 0,
+        "abstained": 1,
+        "truth_says_conclude": 0,
+        "truth_says_abstain": 1,
+        "correct": 1,
+        "false_conclusions": 0,
+        "premature": 0
+      }
+    },
+    "unknown_attack": {
+      "situations": 1,
+      "correct_conclusion_rate": 0.0,
+      "false_conclusion_rate": 1.0,
+      "abstention_rate": 0.0,
+      "appropriate_abstention_rate": 0.0,
+      "inappropriate_abstention_rate": 0.0,
+      "premature_convergence_rate": 1.0,
+      "single_iteration_conclusion_rate": 0.0,
+      "mean_iterations_to_termination": 3,
+      "counts": {
+        "situations": 1,
+        "concluded": 1,
+        "abstained": 0,
+        "truth_says_conclude": 0,
+        "truth_says_abstain": 1,
+        "correct": 0,
+        "false_conclusions": 1,
+        "premature": 1
+      }
+    }
+  },
+  "embedding_per_regime": {
+    "clear": {
+      "situations": 2,
+      "correct_conclusion_rate": 0.5,
+      "false_conclusion_rate": 0.5,
+      "abstention_rate": 0.0,
+      "appropriate_abstention_rate": 0.0,
+      "inappropriate_abstention_rate": 0.0,
+      "premature_convergence_rate": 0.0,
+      "single_iteration_conclusion_rate": 0.0,
+      "mean_iterations_to_termination": 3,
+      "counts": {
+        "situations": 2,
+        "concluded": 2,
+        "abstained": 0,
+        "truth_says_conclude": 2,
+        "truth_says_abstain": 0,
+        "correct": 1,
+        "false_conclusions": 1,
+        "premature": 0
+      }
+    },
+    "ambiguous": {
+      "situations": 3,
+      "correct_conclusion_rate": 0.3333,
+      "false_conclusion_rate": 0.6667,
+      "abstention_rate": 0.3333,
+      "appropriate_abstention_rate": 0.3333,
+      "inappropriate_abstention_rate": 0.0,
+      "premature_convergence_rate": 0.6667,
+      "single_iteration_conclusion_rate": 0.0,
+      "mean_iterations_to_termination": 3,
+      "counts": {
+        "situations": 3,
+        "concluded": 2,
+        "abstained": 1,
+        "truth_says_conclude": 0,
+        "truth_says_abstain": 3,
+        "correct": 1,
+        "false_conclusions": 2,
+        "premature": 2
+      }
+    },
+    "sparse": {
+      "situations": 1,
+      "correct_conclusion_rate": 1.0,
+      "false_conclusion_rate": 0.0,
+      "abstention_rate": 1.0,
+      "appropriate_abstention_rate": 1.0,
+      "inappropriate_abstention_rate": 0.0,
+      "premature_convergence_rate": 0.0,
+      "single_iteration_conclusion_rate": 0.0,
+      "mean_iterations_to_termination": 3,
+      "counts": {
+        "situations": 1,
+        "concluded": 0,
+        "abstained": 1,
+        "truth_says_conclude": 0,
+        "truth_says_abstain": 1,
+        "correct": 1,
+        "false_conclusions": 0,
+        "premature": 0
+      }
+    },
+    "unknown_attack": {
+      "situations": 1,
+      "correct_conclusion_rate": 0.0,
+      "false_conclusion_rate": 1.0,
+      "abstention_rate": 0.0,
+      "appropriate_abstention_rate": 0.0,
+      "inappropriate_abstention_rate": 0.0,
+      "premature_convergence_rate": 1.0,
+      "single_iteration_conclusion_rate": 0.0,
+      "mean_iterations_to_termination": 3,
+      "counts": {
+        "situations": 1,
+        "concluded": 1,
+        "abstained": 0,
+        "truth_says_conclude": 0,
+        "truth_says_abstain": 1,
+        "correct": 0,
+        "false_conclusions": 1,
+        "premature": 1
+      }
+    }
+  }
+}

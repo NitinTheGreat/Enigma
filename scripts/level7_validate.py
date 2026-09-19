@@ -403,6 +403,18 @@ def main() -> int:
             "budgeted against."
         ),
     )
+    parser.add_argument(
+        "--scorer",
+        choices=("keyword", "embedding"),
+        default="keyword",
+        help=(
+            "keyword is the validated scorer. embedding reproduces the "
+            "semantic scorer rejected in L7.9, which scored precision 0.2917 "
+            "and recall 0.4375 against the hand labels where keyword scored "
+            "0.8125 and 0.8125, and is kept reachable so that result stays "
+            "reproducible."
+        ),
+    )
     parser.add_argument("--tag", type=str, default="")
     parser.add_argument(
         "--ablate",
@@ -484,8 +496,13 @@ def main() -> int:
         round(elapsed_seconds / model_calls, 4) if model_calls else 0.0
     )
 
+    matcher = None
+    if args.scorer == "embedding":
+        from scenarios.semantic import EmbeddingMatcher
+
+        matcher = EmbeddingMatcher()
     outcomes, overall, per_regime = score_run(
-        run_log_path, scenarios, situation_entities, descriptions
+        run_log_path, scenarios, situation_entities, descriptions, matcher
     )
     reference = score_policy(scenarios, reference_conclusion)
     abstain_baseline = score_policy(scenarios, always_abstain)
@@ -530,6 +547,7 @@ def main() -> int:
         "run_log_dropped": dropped,
         "llm": llm_description,
         "llm_mode": args.llm,
+        "scorer": args.scorer,
         "model_name": settings.gemini_model if args.llm == "real" else args.llm,
         "cache_path": str(cache_path) if cache_path else None,
         "cache": cache_stats,
@@ -587,6 +605,7 @@ def main() -> int:
             "suite": str(suite_path.relative_to(PROJECT_ROOT)),
             "scenarios": len(scenarios),
             "llm_mode": args.llm,
+        "scorer": args.scorer,
             "model_name": settings.gemini_model if args.llm == "real" else args.llm,
             "cache_path": str(cache_path) if cache_path else None,
             "ablate": ablated,

@@ -1,9 +1,0 @@
-[submodule "Enigma-AIAgent"]
-	path = Enigma-AIAgent
-	url = https://github.com/NitinTheGreat/Enigma-AIAgent
-[submodule "Enigma-ML-Layer"]
-	path = Enigma-ML-Layer
-	url = https://github.com/NitinTheGreat/Enigma-ML-Layer
-[submodule "Enigma-Frontend"]
-	path = Enigma-Frontend
-	url = https://github.com/NitinTheGreat/Enigma-Frontend

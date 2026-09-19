@@ -20,3 +20,7 @@ results/scenarios/validation_run_log_*.jsonl
 results/budget/cache_ablation_run_log_*.jsonl
 results/level6/run_log_*.jsonl
 results/level6/cache_*.json
+
+Enigma-AIAgent/
+Enigma-ML-Layer/
+Enigma-Frontend/

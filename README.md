@@ -5,6 +5,34 @@ uncertainty. A sensor scores flows and abstains when it is not confident, a
 reasoning layer accumulates those scores into situations and argues about what
 they mean, and a dashboard shows the argument as it happens.
 
+## The three component repositories
+
+`Enigma-ML-Layer`, `Enigma-AIAgent` and `Enigma-Frontend` are independent
+repositories with their own histories and their own remotes. They are cloned
+side by side under this directory for local work and are deliberately not
+tracked here, not as files and not as submodules, so that each one is
+committed and pushed only to its own remote.
+
+| Repository | Remote |
+| --- | --- |
+| `Enigma-ML-Layer` | <https://github.com/NitinTheGreat/Enigma-ML-Layer> |
+| `Enigma-AIAgent` | <https://github.com/NitinTheGreat/Enigma-AIAgent> |
+| `Enigma-Frontend` | <https://github.com/NitinTheGreat/Enigma-Frontend> |
+
+To set up a working copy, clone this repository and then clone the three
+beside it:
+
+```
+git clone https://github.com/NitinTheGreat/Enigma.git "XAI Project"
+cd "XAI Project"
+git clone https://github.com/NitinTheGreat/Enigma-ML-Layer.git
+git clone https://github.com/NitinTheGreat/Enigma-AIAgent.git
+git clone https://github.com/NitinTheGreat/Enigma-Frontend.git
+```
+
+This repository holds only what is shared across the three: the evidence
+trail, the experiment drivers, the figures and the machine readable results.
+
 | Directory | What it holds |
 | --- | --- |
 | `Enigma-ML-Layer` | The sensor. Trains and serves the UNSW-NB15 classifier ensemble, applies temperature scaling and the abstention policy, and emits signals. |

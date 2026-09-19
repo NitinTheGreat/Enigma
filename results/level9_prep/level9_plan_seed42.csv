@@ -1,0 +1,4 @@
+seed,option,configurations,thresholds,seeds_on_sweep,units,calls_if_all_missed,calls_actually_paid,predicted_wall_clock_hours,fits_budget
+42,full factorial at every threshold,16,3,5,9600,693360,173340,10.746,True
+42,"full factorial, threshold sweep at one seed",16,3,1,4480,323568,80892,5.015,True
+42,threshold sweep on the all on configuration only,1,3,5,600,43335,10834,0.672,True

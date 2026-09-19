@@ -3701,3 +3701,261 @@ and the mean final UNKNOWN confidence spans 0.509 to 0.512. Panel B instead
 carries the mechanism, quiescence against abstention, and Panel C the
 consequence, false conclusion and premature convergence against appropriate
 abstention.
+
+---
+
+# Appendix L8.1. Level 9 preparation: diagnosis, scoping and budget
+
+Written before Level 9 runs. The metric set in L8.1.4 is declared in advance
+and not revised afterwards, on the same discipline as the pre-registered
+SMOTE criterion in L3.6.
+
+## L8.1.1 Why the narrative share is invariant
+
+L8.7 measured that the share of narratives Gemini proposes is invariant
+across the four evidence regimes, 80.4 to 81.6 per cent reconnaissance in
+every one. Three causes were candidates: the prompt template steering toward
+one family, the generator failing to produce distinguishable evidence, or the
+information barrier leaving the model nothing to discriminate on.
+
+The contexts were captured by wrapping `assemble_context` for an offline
+replay of the sub-suite, so what is analysed is exactly what the model was
+handed rather than a reconstruction. The replay used a factory that raises,
+which costs no model calls, because context assembly runs before generation
+and is unaffected by generation failing. 2889 contexts, 40 scenarios.
+
+Each field was tested univariately, Kruskal-Wallis across the four regimes
+for the continuous fields and a chi-square test of independence for the
+categorical ones, each with an effect size, because at this many records a
+p-value alone calls a difference of no consequence significant. The floors
+were epsilon squared at 0.01 and Cramer's V at 0.10, with alpha 0.01.
+
+| field | test | p | effect | separates |
+| --- | --- | --- | --- | --- |
+| evidence_count | Kruskal-Wallis | 2.1e-45 | 0.072 | yes |
+| event_rate_per_minute | Kruskal-Wallis | 7.0e-08 | 0.011 | yes |
+| active_duration_seconds | Kruskal-Wallis | 1.6e-33 | 0.053 | yes |
+| confidence_level | Kruskal-Wallis | 4.2e-115 | 0.184 | yes |
+| source_diversity | Kruskal-Wallis | 1.7e-79 | 0.127 | yes |
+| mean_anomaly_score | Kruskal-Wallis | 0.0 | **0.654** | yes |
+| iteration | Kruskal-Wallis | 1.0 | 0.000 | no |
+| burst_detected | chi-square | 2.0e-17 | 0.167 | yes |
+| quiet_detected | chi-square | 2.6e-15 | 0.157 | yes |
+| trend | chi-square | 4.4e-42 | 0.190 | yes |
+
+Nine of ten separate. A random forest over the whole vector reaches accuracy
+0.6867 ± 0.0398 against a majority class base rate of 0.3988, a lift of
++0.288. **Candidate C as originally put is refuted: the barrier is not
+starving the model.**
+
+That test, however, asks the wrong question, and noticing why is the finding.
+The four regimes describe how *sufficient* the evidence is, not *which
+attack* it is. A scenario in the clear regime may be about exfiltration or
+about brute force; the regime does not say. The invariance L8.7 measured is
+about narrative identity, so narrative identity is what has to be tested.
+
+Repeating the multivariate test with the scenario's narrative category as the
+target, restricted to the 20 scenarios that have one, and cross validating by
+`GroupKFold` so that no scenario ever spans folds:
+
+| target | classes | accuracy | base rate | lift |
+| --- | --- | --- | --- | --- |
+| regime, four levels | 4 | 0.6867 ± 0.0398 | 0.3988 | **+0.288** |
+| narrative category | 6 | 0.1328 ± 0.0992 | 0.2378 | **−0.105** |
+
+A classifier with unrestricted access to all ten fields predicts the
+narrative **worse than always guessing the most common one**.
+
+**Candidate C, refined, is established.** The context separates the regimes
+and carries no usable signal for which narrative applies. The model can tell
+a sparse situation from a clear one and cannot tell exfiltration from
+reconnaissance, so it falls back to a prior, and that prior is the invariant
+81 per cent. A and B are moot for hypothesis content: no prompt can extract
+an identity the context does not contain, and however distinguishable the
+underlying signals are, the barrier does not pass it.
+
+## L8.1.2 The proposed widening cannot work, and was not run
+
+Task 2 proposed widening the context with the distribution of
+`Signal.signal_type`, then running one configuration to convert the
+observation into a causal claim. That widening was tested offline before any
+model call was spent on it, and it fails.
+
+`signal_type` is not derived from the scenario's narrative. Signals are
+produced as raw detector payloads and routed through the adapters, so the
+type reflects the adapter's normalisation of a detector family. The result is
+not merely uninformative but actively misleading:
+
+| scenario narrative | anomalous_access | data_exfiltration | intrusion | reconnaissance |
+| --- | --- | --- | --- | --- |
+| brute_force_access | 0.364 | 0.000 | 0.636 | 0.000 |
+| data_exfiltration | 0.099 | 0.682 | 0.220 | 0.000 |
+| lateral_movement | 0.315 | 0.213 | 0.472 | 0.000 |
+| physical_intrusion | 0.389 | 0.000 | 0.130 | **0.481** |
+| reconnaissance_sweep | 0.000 | **0.611** | 0.157 | 0.232 |
+| service_denial | 0.277 | 0.400 | 0.253 | 0.071 |
+
+Reconnaissance scenarios carry 61 per cent data exfiltration signals, and
+physical intrusion scenarios carry 48 per cent reconnaissance signals.
+
+Measured on the same group aware protocol:
+
+| feature set | accuracy | base rate | lift |
+| --- | --- | --- | --- |
+| signal_type shares | 0.1500 ± 0.1458 | 0.2750 | −0.1250 |
+| source shares | 0.1000 ± 0.0935 | 0.2750 | −0.1750 |
+| both together | 0.1000 ± 0.0935 | 0.2750 | −0.1750 |
+
+Every candidate is worse than guessing. Running the widening would have cost
+model calls to demonstrate nothing, or worse, would have steered the model
+toward the wrong narrative and been read as success.
+
+The reason is structural and is worth recording, because it bounds what this
+suite can ever measure. A `Category` is defined by its detector families and
+its keywords. The detector signatures are:
+
+| category | detectors |
+| --- | --- |
+| data_exfiltration | network_anomaly |
+| service_denial | network_anomaly |
+| brute_force_access | auth_anomaly |
+| physical_intrusion | video_detection |
+| reconnaissance_sweep | network_anomaly + video_detection |
+| lateral_movement | network_anomaly + auth_anomaly |
+
+**`data_exfiltration` and `service_denial` share an identical signature.** No
+aggregate field derived from detectors, sources or signal types can separate
+them, at any sample size, because there is nothing to separate. The narrative
+lives only in the ground truth keywords, and exposing those is label leakage
+by definition.
+
+The honest conclusion is stronger than the one Task 2 sought. It is not that
+the current context happens to be too narrow. It is that **on this suite, the
+narrative a scenario is about is not recoverable from any aggregate the
+information barrier could legitimately expose.**
+
+## L8.1.3 What that means for the two conclusion metrics
+
+Three independent findings now bear on `correct_conclusion_rate` and
+`false_conclusion_rate`, and they compound rather than overlap.
+
+L7.9 could not validate a scorer: keyword matching is the better of the two
+tried, and the embedding scorer was rejected at precision 0.2917 against
+0.8125. L8.7 found the model's narrative choice invariant to regime. L8.1.1
+now shows why, and L8.1.2 shows it cannot be fixed by widening the context.
+
+A metric that asks whether the named narrative matches the ground truth is,
+on this suite, asking a question the system was never given the information
+to answer. That is not a defect of the reasoner and it is not noise. It is a
+property of the instrument.
+
+## L8.1.4 The declared Level 9 metric set
+
+Declared before the run. Three tiers.
+
+**Primary outcomes, reported as the result.** These depend only on whether
+the system concluded or abstained and on the evidence count at termination.
+None consults a keyword, none depends on narrative identity, and all four
+moved materially in the clock study.
+
+| metric | why it is sound |
+| --- | --- |
+| abstention_rate | counts a decision, not a narrative |
+| appropriate_abstention_rate | same, restricted to truth that says abstain |
+| inappropriate_abstention_rate | same, restricted to truth that says conclude |
+| premature_convergence_rate | evidence count against the sufficiency threshold, `scoring.py:168` |
+
+**Dead at the current threshold, reported once and then excluded.**
+
+| metric | value observed | across |
+| --- | --- | --- |
+| single_iteration_conclusion_rate | 0.0000 | 26496 mock, 128 real, 43335 clock study calls |
+| mean_iterations_to_termination | 3.0000 | the same |
+
+Both are pinned because the 0.8 convergence threshold is never reached. They
+are excluded from the primary analysis, **and the threshold sweep in L8.1.5
+is the test of whether they can be revived at all.** If they move at a lower
+threshold they return as secondary outcomes; if they do not, the finding is
+that the persistence and inertia mechanisms, not the threshold, are what
+prevent convergence, which is itself a result.
+
+**Compromised, reported with the caveat attached and never as a headline.**
+
+| metric | status |
+| --- | --- |
+| false_conclusion_rate | depends on narrative matching, which L8.1.2 shows is unrecoverable on this suite |
+| correct_conclusion_rate, on the sparse, ambiguous and unknown attack regimes | **sound**, because `correct = abstained` at `scoring.py:161` when the truth says abstain and no keyword is read |
+| correct_conclusion_rate, on the clear regime | **unsound**, it is the only regime whose truth says conclude and therefore the only one where narrative matching is consulted |
+
+The clear regime is 10 of the 40 scenarios. Its `correct_conclusion_rate`
+will be reported separately and labelled unsound rather than pooled into an
+overall figure that would inherit the problem silently. The overall figure
+will be reported too, with this caveat referenced, because L8.5 showed how
+easily a pooled conclusion rate misleads: conflation appeared to double it
+while making the clear regime worse.
+
+## L8.1.5 The convergence threshold as a swept parameter
+
+`graph_convergence_threshold` becomes a swept parameter rather than the
+constant 0.8 it has been since Level 2.
+
+| value | rationale |
+| --- | --- |
+| 0.30 | below every ceiling measured, so convergence should become reachable |
+| 0.50 | just above the observed ceilings of 0.385 in L7.8 and 0.4620 in the clock study |
+| 0.80 | the current constant, carried as the control |
+
+The three bracket the observed range rather than exploring beyond it, because
+the question is whether the two pinned metrics can move at all, not where the
+optimum lies.
+
+## L8.1.6 Grid cost and the budget
+
+Priced on measured throughput: 8.927 s per call, a requests per minute
+ceiling of 728.7 with no refusal ever observed, concurrency 40, and the
+sub-suite's 2889 calls per pass with a longest unit of 225 calls.
+
+The cache rate is predicted structurally rather than assumed. Only S and A
+alter the confidences printed into the next iteration's prompt; U and P
+change no prompt, as L6.8 reasoned and L7.8.7 measured. The sixteen
+configurations therefore collapse to **four distinct prompt families**, so
+within a seed three quarters of the grid is served from cache. The threshold
+behaves like U and P at the first iteration and can only shorten an analysis,
+never lengthen it, so it adds no prompts of its own.
+
+A predicted hit rate of 0.75 is used for budgeting, deliberately below the
+0.9092 measured per switch in L7.8.7 and the 0.8908 measured in the clock
+study, so the estimate is conservative.
+
+| option | units | paid calls | predicted hours | fits 24 h |
+| --- | --- | --- | --- | --- |
+| **full factorial at every threshold** | **9600** | **173340** | **10.75** | **yes** |
+| full factorial, threshold sweep at one seed | 4480 | 80892 | 5.01 | yes |
+| threshold sweep on the all on configuration only | 600 | 10834 | 0.67 | yes |
+
+**The full factorial at every threshold fits and is what will run**: 16
+configurations by 3 thresholds by 5 seeds by 40 scenarios, 9600 units,
+scheduled as one cross product pool. No reduction in seeds is needed and the
+two fallbacks are recorded only so the choice is visible.
+
+The predicted critical path is 2009 s, the longest unit at 225 calls. The
+Level 8 run of 600 units predicted the same 2009 s and took 1980 s, a ratio
+of 0.986, which is the third confirmation of that model and the basis for
+trusting this one.
+
+## L8.1.7 What this preparation establishes
+
+Established. The information barrier passes evidence sufficiency and not
+narrative identity, measured rather than argued, with the regime target as a
+positive control showing the method can detect separation when it is there.
+The proposed widening cannot work, and the reason is structural rather than
+incidental. The Level 9 metric set is declared in advance, in three tiers,
+with the unsound cell named. The threshold sweep is designed to bracket the
+observed ceiling, and the full grid is priced at 10.75 hours against a 24
+hour budget.
+
+Not established. Whether the two pinned metrics move at a lower threshold,
+which the sweep will answer. Whether the invariant narrative would persist on
+a suite whose categories carried distinct detector signatures, which this
+suite cannot answer because two of its six do not. And whether any of this
+generalises beyond 40 scenarios and 66 situations.

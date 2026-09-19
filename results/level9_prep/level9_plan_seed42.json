@@ -1,0 +1,101 @@
+{
+  "seed": 42,
+  "suite": "results/scenarios/sub_suite.jsonl",
+  "scenarios": 40,
+  "calls_per_pass": 2889,
+  "longest_unit_calls": 225,
+  "switches": [
+    "U",
+    "S",
+    "A",
+    "P"
+  ],
+  "configurations": 16,
+  "thresholds_swept": [
+    0.3,
+    0.5,
+    0.8
+  ],
+  "threshold_rationale": "The real model ceiling was 0.385 in L7.8 and 0.4620 in the clock study, and the convergence fraction is 0.0000 at 0.80. These three values bracket the observed range: 0.30 sits below every ceiling measured, 0.50 sits just above them, and 0.80 is the current constant and the control.",
+  "seeds": 5,
+  "concurrency": 40,
+  "measured_inputs": {
+    "seconds_per_model_call": 8.927,
+    "requests_per_minute_ceiling": 728.7,
+    "level8_units": 600,
+    "level8_predicted_critical_path_seconds": 2009.0,
+    "level8_actual_wall_clock_seconds": 1980.0,
+    "level8_ratio": 0.986
+  },
+  "predicted_critical_path_seconds": 2008.6,
+  "cache": {
+    "distinct_prompt_families": 4,
+    "configurations": 16,
+    "prompt_changing_switches": [
+      "S",
+      "A"
+    ],
+    "free_switches": [
+      "U",
+      "P"
+    ],
+    "share_of_configurations_that_must_be_paid": 0.25,
+    "predicted_hit_rate_within_a_seed": 0.75,
+    "measured_comparison": {
+      "l7_8_7_per_switch_real": 0.9092,
+      "l8_clock_study_real": 0.8908,
+      "l6_8_mock_upper_bound": 0.936
+    },
+    "caveat": "Caches are scoped per seed so the five replicates remain independent draws, which means the paid fraction is paid once per seed rather than once for the grid."
+  },
+  "options": [
+    {
+      "seed": 42,
+      "option": "full factorial at every threshold",
+      "configurations": 16,
+      "thresholds": 3,
+      "seeds_on_sweep": 5,
+      "units": 9600,
+      "calls_if_all_missed": 693360,
+      "calls_actually_paid": 173340,
+      "predicted_wall_clock_hours": 10.746,
+      "fits_budget": true
+    },
+    {
+      "seed": 42,
+      "option": "full factorial, threshold sweep at one seed",
+      "configurations": 16,
+      "thresholds": 3,
+      "seeds_on_sweep": 1,
+      "units": 4480,
+      "calls_if_all_missed": 323568,
+      "calls_actually_paid": 80892,
+      "predicted_wall_clock_hours": 5.015,
+      "fits_budget": true
+    },
+    {
+      "seed": 42,
+      "option": "threshold sweep on the all on configuration only",
+      "configurations": 1,
+      "thresholds": 3,
+      "seeds_on_sweep": 5,
+      "units": 600,
+      "calls_if_all_missed": 43335,
+      "calls_actually_paid": 10834,
+      "predicted_wall_clock_hours": 0.672,
+      "fits_budget": true
+    }
+  ],
+  "recommended": {
+    "seed": 42,
+    "option": "full factorial at every threshold",
+    "configurations": 16,
+    "thresholds": 3,
+    "seeds_on_sweep": 5,
+    "units": 9600,
+    "calls_if_all_missed": 693360,
+    "calls_actually_paid": 173340,
+    "predicted_wall_clock_hours": 10.746,
+    "fits_budget": true
+  }
+}

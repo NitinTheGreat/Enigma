@@ -1,0 +1,77 @@
+{
+  "experiment": "level9_ablation",
+  "seed": 42,
+  "started_at_utc": "2026-09-19T21:00:43.236370+00:00",
+  "ended_at_utc": "2026-09-19T23:23:23.494827+00:00",
+  "wall_clock_seconds": 8560.258,
+  "git_commits": {
+    "Enigma-AIAgent": "fe3ba97454bc0f3083c1cffb31daf005a67476b6-dirty",
+    "Enigma-ML-Layer": "15e70802ecdecc2e0f38d45d1fac71e55327315e-dirty",
+    "Enigma-Frontend": "5899d098eb39f05b38065f201ccf0bd74edcd1fb-dirty"
+  },
+  "config": {
+    "suite": "results/scenarios/sub_suite.jsonl",
+    "suite_hash": "a2b37f29b163ea310586f3073e88bddd5f0628667ba0c0595ddfa88d708c3911",
+    "configurations": [
+      "",
+      "U",
+      "S",
+      "A",
+      "P",
+      "US",
+      "UA",
+      "UP",
+      "SA",
+      "SP",
+      "AP",
+      "USA",
+      "USP",
+      "UAP",
+      "SAP",
+      "USAP"
+    ],
+    "thresholds": [
+      0.3,
+      0.5,
+      0.8
+    ],
+    "seeds": [
+      42,
+      123,
+      456,
+      789,
+      1024
+    ],
+    "concurrency": 40,
+    "model_name": "gemini-2.5-flash"
+  },
+  "model_artefact": {
+    "path": null,
+    "hash": "absent"
+  },
+  "dataset": {
+    "path": "/mnt/f/XAI Project/results/scenarios/sub_suite.jsonl",
+    "hash": "14c0fe508cc92e7e4cc298a41b87afe43286047029afc642af65b7ad1fb30331"
+  },
+  "environment": {
+    "os": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "processor": "x86_64",
+    "cpu_count": 12,
+    "python_version": "3.12.3",
+    "python_implementation": "CPython",
+    "tensorflow_version": "absent",
+    "langgraph_version": "1.0.6",
+    "langchain_core_version": "1.2.7",
+    "pydantic_version": "2.12.5"
+  },
+  "extra": {
+    "units": 9600,
+    "cache": {
+      "hits": 651255,
+      "misses": 5851,
+      "lookups": 657106,
+      "hit_rate": 0.9911
+    }
+  }
+}

@@ -1,0 +1,3355 @@
+{
+  "seed": 42,
+  "suite": "results/scenarios/sub_suite.jsonl",
+  "cells_scored": 240,
+  "cells_missing": [],
+  "seeds": [
+    42,
+    123,
+    456,
+    789,
+    1024
+  ],
+  "thresholds": [
+    0.3,
+    0.5,
+    0.8
+  ],
+  "metric_tiers": {
+    "live": [
+      "abstention_rate",
+      "appropriate_abstention_rate",
+      "inappropriate_abstention_rate",
+      "premature_convergence_rate"
+    ],
+    "carried_with_caveat": [
+      "correct_conclusion_rate",
+      "false_conclusion_rate"
+    ],
+    "dead_at_08": [
+      "single_iteration_conclusion_rate",
+      "mean_iterations_to_termination"
+    ]
+  },
+  "main_effects": [
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "abstention_rate",
+      "switch": "U",
+      "tier": "live",
+      "effect_mean": -0.0993,
+      "effect_sd": 0.0074,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "abstention_rate",
+      "switch": "S",
+      "tier": "live",
+      "effect_mean": -0.0841,
+      "effect_sd": 0.0111,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "abstention_rate",
+      "switch": "A",
+      "tier": "live",
+      "effect_mean": -0.003,
+      "effect_sd": 0.0028,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "abstention_rate",
+      "switch": "P",
+      "tier": "live",
+      "effect_mean": 0.0008,
+      "effect_sd": 0.0015,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "appropriate_abstention_rate",
+      "switch": "U",
+      "tier": "live",
+      "effect_mean": -0.1402,
+      "effect_sd": 0.0093,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "appropriate_abstention_rate",
+      "switch": "S",
+      "tier": "live",
+      "effect_mean": -0.1185,
+      "effect_sd": 0.0151,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "appropriate_abstention_rate",
+      "switch": "A",
+      "tier": "live",
+      "effect_mean": -0.0043,
+      "effect_sd": 0.0041,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "appropriate_abstention_rate",
+      "switch": "P",
+      "tier": "live",
+      "effect_mean": 0.0011,
+      "effect_sd": 0.0022,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "inappropriate_abstention_rate",
+      "switch": "U",
+      "tier": "live",
+      "effect_mean": -0.005,
+      "effect_sd": 0.01,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "inappropriate_abstention_rate",
+      "switch": "S",
+      "tier": "live",
+      "effect_mean": -0.005,
+      "effect_sd": 0.01,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "inappropriate_abstention_rate",
+      "switch": "A",
+      "tier": "live",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "inappropriate_abstention_rate",
+      "switch": "P",
+      "tier": "live",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "premature_convergence_rate",
+      "switch": "U",
+      "tier": "live",
+      "effect_mean": 0.1765,
+      "effect_sd": 0.0094,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "premature_convergence_rate",
+      "switch": "S",
+      "tier": "live",
+      "effect_mean": 0.0583,
+      "effect_sd": 0.0097,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "premature_convergence_rate",
+      "switch": "A",
+      "tier": "live",
+      "effect_mean": 0.0023,
+      "effect_sd": 0.0033,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "premature_convergence_rate",
+      "switch": "P",
+      "tier": "live",
+      "effect_mean": 0.081,
+      "effect_sd": 0.0053,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "correct_conclusion_rate",
+      "switch": "U",
+      "tier": "carried",
+      "effect_mean": -0.103,
+      "effect_sd": 0.0081,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "correct_conclusion_rate",
+      "switch": "S",
+      "tier": "carried",
+      "effect_mean": -0.0773,
+      "effect_sd": 0.0149,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "correct_conclusion_rate",
+      "switch": "A",
+      "tier": "carried",
+      "effect_mean": -0.003,
+      "effect_sd": 0.0028,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "correct_conclusion_rate",
+      "switch": "P",
+      "tier": "carried",
+      "effect_mean": -0.0091,
+      "effect_sd": 0.01,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "false_conclusion_rate",
+      "switch": "U",
+      "tier": "carried",
+      "effect_mean": 0.1045,
+      "effect_sd": 0.0092,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "false_conclusion_rate",
+      "switch": "S",
+      "tier": "carried",
+      "effect_mean": 0.0788,
+      "effect_sd": 0.015,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "false_conclusion_rate",
+      "switch": "A",
+      "tier": "carried",
+      "effect_mean": 0.003,
+      "effect_sd": 0.0028,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "false_conclusion_rate",
+      "switch": "P",
+      "tier": "carried",
+      "effect_mean": 0.0091,
+      "effect_sd": 0.01,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "single_iteration_conclusion_rate",
+      "switch": "U",
+      "tier": "dead",
+      "effect_mean": 0.0447,
+      "effect_sd": 0.0061,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "single_iteration_conclusion_rate",
+      "switch": "S",
+      "tier": "dead",
+      "effect_mean": -0.0053,
+      "effect_sd": 0.0045,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "single_iteration_conclusion_rate",
+      "switch": "A",
+      "tier": "dead",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "single_iteration_conclusion_rate",
+      "switch": "P",
+      "tier": "dead",
+      "effect_mean": 0.0447,
+      "effect_sd": 0.0061,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "mean_iterations_to_termination",
+      "switch": "U",
+      "tier": "dead",
+      "effect_mean": -0.1159,
+      "effect_sd": 0.0191,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "mean_iterations_to_termination",
+      "switch": "S",
+      "tier": "dead",
+      "effect_mean": 0.0189,
+      "effect_sd": 0.0049,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "mean_iterations_to_termination",
+      "switch": "A",
+      "tier": "dead",
+      "effect_mean": -0.0008,
+      "effect_sd": 0.0009,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "mean_iterations_to_termination",
+      "switch": "P",
+      "tier": "dead",
+      "effect_mean": -0.1159,
+      "effect_sd": 0.0191,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "abstention_rate",
+      "switch": "U",
+      "tier": "live",
+      "effect_mean": -0.0985,
+      "effect_sd": 0.008,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "abstention_rate",
+      "switch": "S",
+      "tier": "live",
+      "effect_mean": -0.0833,
+      "effect_sd": 0.0115,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "abstention_rate",
+      "switch": "A",
+      "tier": "live",
+      "effect_mean": -0.003,
+      "effect_sd": 0.0028,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "abstention_rate",
+      "switch": "P",
+      "tier": "live",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "appropriate_abstention_rate",
+      "switch": "U",
+      "tier": "live",
+      "effect_mean": -0.1391,
+      "effect_sd": 0.0101,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "appropriate_abstention_rate",
+      "switch": "S",
+      "tier": "live",
+      "effect_mean": -0.1174,
+      "effect_sd": 0.0156,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "appropriate_abstention_rate",
+      "switch": "A",
+      "tier": "live",
+      "effect_mean": -0.0044,
+      "effect_sd": 0.0041,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "appropriate_abstention_rate",
+      "switch": "P",
+      "tier": "live",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "inappropriate_abstention_rate",
+      "switch": "U",
+      "tier": "live",
+      "effect_mean": -0.005,
+      "effect_sd": 0.01,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "inappropriate_abstention_rate",
+      "switch": "S",
+      "tier": "live",
+      "effect_mean": -0.005,
+      "effect_sd": 0.01,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "inappropriate_abstention_rate",
+      "switch": "A",
+      "tier": "live",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "inappropriate_abstention_rate",
+      "switch": "P",
+      "tier": "live",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "premature_convergence_rate",
+      "switch": "U",
+      "tier": "live",
+      "effect_mean": 0.097,
+      "effect_sd": 0.007,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "premature_convergence_rate",
+      "switch": "S",
+      "tier": "live",
+      "effect_mean": 0.0818,
+      "effect_sd": 0.0109,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "premature_convergence_rate",
+      "switch": "A",
+      "tier": "live",
+      "effect_mean": 0.003,
+      "effect_sd": 0.0028,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "premature_convergence_rate",
+      "switch": "P",
+      "tier": "live",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "correct_conclusion_rate",
+      "switch": "U",
+      "tier": "carried",
+      "effect_mean": -0.0977,
+      "effect_sd": 0.0097,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "correct_conclusion_rate",
+      "switch": "S",
+      "tier": "carried",
+      "effect_mean": -0.0689,
+      "effect_sd": 0.0173,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "correct_conclusion_rate",
+      "switch": "A",
+      "tier": "carried",
+      "effect_mean": -0.003,
+      "effect_sd": 0.0028,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "correct_conclusion_rate",
+      "switch": "P",
+      "tier": "carried",
+      "effect_mean": -0.0008,
+      "effect_sd": 0.0037,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "false_conclusion_rate",
+      "switch": "U",
+      "tier": "carried",
+      "effect_mean": 0.0992,
+      "effect_sd": 0.0103,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "false_conclusion_rate",
+      "switch": "S",
+      "tier": "carried",
+      "effect_mean": 0.0704,
+      "effect_sd": 0.0175,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "false_conclusion_rate",
+      "switch": "A",
+      "tier": "carried",
+      "effect_mean": 0.003,
+      "effect_sd": 0.0028,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "false_conclusion_rate",
+      "switch": "P",
+      "tier": "carried",
+      "effect_mean": 0.0008,
+      "effect_sd": 0.0037,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "single_iteration_conclusion_rate",
+      "switch": "U",
+      "tier": "dead",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "single_iteration_conclusion_rate",
+      "switch": "S",
+      "tier": "dead",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "single_iteration_conclusion_rate",
+      "switch": "A",
+      "tier": "dead",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "single_iteration_conclusion_rate",
+      "switch": "P",
+      "tier": "dead",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "mean_iterations_to_termination",
+      "switch": "U",
+      "tier": "dead",
+      "effect_mean": 0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "mean_iterations_to_termination",
+      "switch": "S",
+      "tier": "dead",
+      "effect_mean": 0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "mean_iterations_to_termination",
+      "switch": "A",
+      "tier": "dead",
+      "effect_mean": 0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "mean_iterations_to_termination",
+      "switch": "P",
+      "tier": "dead",
+      "effect_mean": 0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "abstention_rate",
+      "switch": "U",
+      "tier": "live",
+      "effect_mean": -0.0985,
+      "effect_sd": 0.008,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "abstention_rate",
+      "switch": "S",
+      "tier": "live",
+      "effect_mean": -0.0833,
+      "effect_sd": 0.0115,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "abstention_rate",
+      "switch": "A",
+      "tier": "live",
+      "effect_mean": -0.003,
+      "effect_sd": 0.0028,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "abstention_rate",
+      "switch": "P",
+      "tier": "live",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "appropriate_abstention_rate",
+      "switch": "U",
+      "tier": "live",
+      "effect_mean": -0.1391,
+      "effect_sd": 0.0101,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "appropriate_abstention_rate",
+      "switch": "S",
+      "tier": "live",
+      "effect_mean": -0.1174,
+      "effect_sd": 0.0156,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "appropriate_abstention_rate",
+      "switch": "A",
+      "tier": "live",
+      "effect_mean": -0.0044,
+      "effect_sd": 0.0041,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "appropriate_abstention_rate",
+      "switch": "P",
+      "tier": "live",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "inappropriate_abstention_rate",
+      "switch": "U",
+      "tier": "live",
+      "effect_mean": -0.005,
+      "effect_sd": 0.01,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "inappropriate_abstention_rate",
+      "switch": "S",
+      "tier": "live",
+      "effect_mean": -0.005,
+      "effect_sd": 0.01,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "inappropriate_abstention_rate",
+      "switch": "A",
+      "tier": "live",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "inappropriate_abstention_rate",
+      "switch": "P",
+      "tier": "live",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "premature_convergence_rate",
+      "switch": "U",
+      "tier": "live",
+      "effect_mean": 0.097,
+      "effect_sd": 0.007,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "premature_convergence_rate",
+      "switch": "S",
+      "tier": "live",
+      "effect_mean": 0.0818,
+      "effect_sd": 0.0109,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "premature_convergence_rate",
+      "switch": "A",
+      "tier": "live",
+      "effect_mean": 0.003,
+      "effect_sd": 0.0028,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "premature_convergence_rate",
+      "switch": "P",
+      "tier": "live",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "correct_conclusion_rate",
+      "switch": "U",
+      "tier": "carried",
+      "effect_mean": -0.097,
+      "effect_sd": 0.007,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "correct_conclusion_rate",
+      "switch": "S",
+      "tier": "carried",
+      "effect_mean": -0.0697,
+      "effect_sd": 0.021,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "correct_conclusion_rate",
+      "switch": "A",
+      "tier": "carried",
+      "effect_mean": -0.003,
+      "effect_sd": 0.0028,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "correct_conclusion_rate",
+      "switch": "P",
+      "tier": "carried",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "false_conclusion_rate",
+      "switch": "U",
+      "tier": "carried",
+      "effect_mean": 0.0985,
+      "effect_sd": 0.008,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "false_conclusion_rate",
+      "switch": "S",
+      "tier": "carried",
+      "effect_mean": 0.0712,
+      "effect_sd": 0.0211,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "false_conclusion_rate",
+      "switch": "A",
+      "tier": "carried",
+      "effect_mean": 0.003,
+      "effect_sd": 0.0028,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "false_conclusion_rate",
+      "switch": "P",
+      "tier": "carried",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "single_iteration_conclusion_rate",
+      "switch": "U",
+      "tier": "dead",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "single_iteration_conclusion_rate",
+      "switch": "S",
+      "tier": "dead",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "single_iteration_conclusion_rate",
+      "switch": "A",
+      "tier": "dead",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "single_iteration_conclusion_rate",
+      "switch": "P",
+      "tier": "dead",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "mean_iterations_to_termination",
+      "switch": "U",
+      "tier": "dead",
+      "effect_mean": 0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "mean_iterations_to_termination",
+      "switch": "S",
+      "tier": "dead",
+      "effect_mean": 0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "mean_iterations_to_termination",
+      "switch": "A",
+      "tier": "dead",
+      "effect_mean": 0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "mean_iterations_to_termination",
+      "switch": "P",
+      "tier": "dead",
+      "effect_mean": 0,
+      "effect_sd": 0.0,
+      "seeds": 5
+    }
+  ],
+  "regime_effects": [
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "clear",
+      "metric": "abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.005,
+      "effect_sd": 0.01
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "ambiguous",
+      "metric": "abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.0425,
+      "effect_sd": 0.0245
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "sparse",
+      "metric": "abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.55,
+      "effect_sd": 0.0158
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "unknown_attack",
+      "metric": "abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.0063,
+      "effect_sd": 0.0125
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "clear",
+      "metric": "abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.005,
+      "effect_sd": 0.01
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "ambiguous",
+      "metric": "abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.0425,
+      "effect_sd": 0.0245
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "sparse",
+      "metric": "abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.45,
+      "effect_sd": 0.0158
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "unknown_attack",
+      "metric": "abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.0063,
+      "effect_sd": 0.0125
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "clear",
+      "metric": "abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "ambiguous",
+      "metric": "abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "sparse",
+      "metric": "abstention_rate",
+      "switch": "A",
+      "effect_mean": -0.02,
+      "effect_sd": 0.0187
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "unknown_attack",
+      "metric": "abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "clear",
+      "metric": "abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "ambiguous",
+      "metric": "abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0025,
+      "effect_sd": 0.005
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "sparse",
+      "metric": "abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "unknown_attack",
+      "metric": "abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "clear",
+      "metric": "appropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "ambiguous",
+      "metric": "appropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.0425,
+      "effect_sd": 0.0245
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "sparse",
+      "metric": "appropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.55,
+      "effect_sd": 0.0158
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "unknown_attack",
+      "metric": "appropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.0063,
+      "effect_sd": 0.0125
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "clear",
+      "metric": "appropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "ambiguous",
+      "metric": "appropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.0425,
+      "effect_sd": 0.0245
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "sparse",
+      "metric": "appropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.45,
+      "effect_sd": 0.0158
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "unknown_attack",
+      "metric": "appropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.0063,
+      "effect_sd": 0.0125
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "clear",
+      "metric": "appropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "ambiguous",
+      "metric": "appropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "sparse",
+      "metric": "appropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": -0.02,
+      "effect_sd": 0.0187
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "unknown_attack",
+      "metric": "appropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "clear",
+      "metric": "appropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "ambiguous",
+      "metric": "appropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0025,
+      "effect_sd": 0.005
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "sparse",
+      "metric": "appropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "unknown_attack",
+      "metric": "appropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "clear",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.005,
+      "effect_sd": 0.01
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "ambiguous",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "sparse",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "unknown_attack",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "clear",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.005,
+      "effect_sd": 0.01
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "ambiguous",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "sparse",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "unknown_attack",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "clear",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "ambiguous",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "sparse",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "unknown_attack",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "clear",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "ambiguous",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "sparse",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "unknown_attack",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "clear",
+      "metric": "premature_convergence_rate",
+      "switch": "U",
+      "effect_mean": 0.26,
+      "effect_sd": 0.0188
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "ambiguous",
+      "metric": "premature_convergence_rate",
+      "switch": "U",
+      "effect_mean": 0.0425,
+      "effect_sd": 0.0245
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "sparse",
+      "metric": "premature_convergence_rate",
+      "switch": "U",
+      "effect_mean": 0.55,
+      "effect_sd": 0.0158
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "unknown_attack",
+      "metric": "premature_convergence_rate",
+      "switch": "U",
+      "effect_mean": 0.0063,
+      "effect_sd": 0.0125
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "clear",
+      "metric": "premature_convergence_rate",
+      "switch": "S",
+      "effect_mean": -0.08,
+      "effect_sd": 0.0191
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "ambiguous",
+      "metric": "premature_convergence_rate",
+      "switch": "S",
+      "effect_mean": 0.0425,
+      "effect_sd": 0.0245
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "sparse",
+      "metric": "premature_convergence_rate",
+      "switch": "S",
+      "effect_mean": 0.45,
+      "effect_sd": 0.0158
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "unknown_attack",
+      "metric": "premature_convergence_rate",
+      "switch": "S",
+      "effect_mean": 0.0063,
+      "effect_sd": 0.0125
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "clear",
+      "metric": "premature_convergence_rate",
+      "switch": "A",
+      "effect_mean": -0.0025,
+      "effect_sd": 0.0031
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "ambiguous",
+      "metric": "premature_convergence_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "sparse",
+      "metric": "premature_convergence_rate",
+      "switch": "A",
+      "effect_mean": 0.02,
+      "effect_sd": 0.0187
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "unknown_attack",
+      "metric": "premature_convergence_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "clear",
+      "metric": "premature_convergence_rate",
+      "switch": "P",
+      "effect_mean": 0.27,
+      "effect_sd": 0.0133
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "ambiguous",
+      "metric": "premature_convergence_rate",
+      "switch": "P",
+      "effect_mean": -0.0025,
+      "effect_sd": 0.005
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "sparse",
+      "metric": "premature_convergence_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "regime": "unknown_attack",
+      "metric": "premature_convergence_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "clear",
+      "metric": "abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.005,
+      "effect_sd": 0.01
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "ambiguous",
+      "metric": "abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.04,
+      "effect_sd": 0.0255
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "sparse",
+      "metric": "abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.55,
+      "effect_sd": 0.0158
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "unknown_attack",
+      "metric": "abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.0063,
+      "effect_sd": 0.0125
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "clear",
+      "metric": "abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.005,
+      "effect_sd": 0.01
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "ambiguous",
+      "metric": "abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.04,
+      "effect_sd": 0.0255
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "sparse",
+      "metric": "abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.45,
+      "effect_sd": 0.0158
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "unknown_attack",
+      "metric": "abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.0063,
+      "effect_sd": 0.0125
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "clear",
+      "metric": "abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "ambiguous",
+      "metric": "abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "sparse",
+      "metric": "abstention_rate",
+      "switch": "A",
+      "effect_mean": -0.02,
+      "effect_sd": 0.0187
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "unknown_attack",
+      "metric": "abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "clear",
+      "metric": "abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "ambiguous",
+      "metric": "abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "sparse",
+      "metric": "abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "unknown_attack",
+      "metric": "abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "clear",
+      "metric": "appropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "ambiguous",
+      "metric": "appropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.04,
+      "effect_sd": 0.0255
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "sparse",
+      "metric": "appropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.55,
+      "effect_sd": 0.0158
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "unknown_attack",
+      "metric": "appropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.0063,
+      "effect_sd": 0.0125
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "clear",
+      "metric": "appropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "ambiguous",
+      "metric": "appropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.04,
+      "effect_sd": 0.0255
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "sparse",
+      "metric": "appropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.45,
+      "effect_sd": 0.0158
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "unknown_attack",
+      "metric": "appropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.0063,
+      "effect_sd": 0.0125
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "clear",
+      "metric": "appropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "ambiguous",
+      "metric": "appropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "sparse",
+      "metric": "appropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": -0.02,
+      "effect_sd": 0.0187
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "unknown_attack",
+      "metric": "appropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "clear",
+      "metric": "appropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "ambiguous",
+      "metric": "appropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "sparse",
+      "metric": "appropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "unknown_attack",
+      "metric": "appropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "clear",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.005,
+      "effect_sd": 0.01
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "ambiguous",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "sparse",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "unknown_attack",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "clear",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.005,
+      "effect_sd": 0.01
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "ambiguous",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "sparse",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "unknown_attack",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "clear",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "ambiguous",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "sparse",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "unknown_attack",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "clear",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "ambiguous",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "sparse",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "unknown_attack",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "clear",
+      "metric": "premature_convergence_rate",
+      "switch": "U",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "ambiguous",
+      "metric": "premature_convergence_rate",
+      "switch": "U",
+      "effect_mean": 0.04,
+      "effect_sd": 0.0255
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "sparse",
+      "metric": "premature_convergence_rate",
+      "switch": "U",
+      "effect_mean": 0.55,
+      "effect_sd": 0.0158
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "unknown_attack",
+      "metric": "premature_convergence_rate",
+      "switch": "U",
+      "effect_mean": 0.0063,
+      "effect_sd": 0.0125
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "clear",
+      "metric": "premature_convergence_rate",
+      "switch": "S",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "ambiguous",
+      "metric": "premature_convergence_rate",
+      "switch": "S",
+      "effect_mean": 0.04,
+      "effect_sd": 0.0255
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "sparse",
+      "metric": "premature_convergence_rate",
+      "switch": "S",
+      "effect_mean": 0.45,
+      "effect_sd": 0.0158
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "unknown_attack",
+      "metric": "premature_convergence_rate",
+      "switch": "S",
+      "effect_mean": 0.0063,
+      "effect_sd": 0.0125
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "clear",
+      "metric": "premature_convergence_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "ambiguous",
+      "metric": "premature_convergence_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "sparse",
+      "metric": "premature_convergence_rate",
+      "switch": "A",
+      "effect_mean": 0.02,
+      "effect_sd": 0.0187
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "unknown_attack",
+      "metric": "premature_convergence_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "clear",
+      "metric": "premature_convergence_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "ambiguous",
+      "metric": "premature_convergence_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "sparse",
+      "metric": "premature_convergence_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "regime": "unknown_attack",
+      "metric": "premature_convergence_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "clear",
+      "metric": "abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.005,
+      "effect_sd": 0.01
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "ambiguous",
+      "metric": "abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.04,
+      "effect_sd": 0.0255
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "sparse",
+      "metric": "abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.55,
+      "effect_sd": 0.0158
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "unknown_attack",
+      "metric": "abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.0063,
+      "effect_sd": 0.0125
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "clear",
+      "metric": "abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.005,
+      "effect_sd": 0.01
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "ambiguous",
+      "metric": "abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.04,
+      "effect_sd": 0.0255
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "sparse",
+      "metric": "abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.45,
+      "effect_sd": 0.0158
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "unknown_attack",
+      "metric": "abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.0063,
+      "effect_sd": 0.0125
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "clear",
+      "metric": "abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "ambiguous",
+      "metric": "abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "sparse",
+      "metric": "abstention_rate",
+      "switch": "A",
+      "effect_mean": -0.02,
+      "effect_sd": 0.0187
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "unknown_attack",
+      "metric": "abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "clear",
+      "metric": "abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "ambiguous",
+      "metric": "abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "sparse",
+      "metric": "abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "unknown_attack",
+      "metric": "abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "clear",
+      "metric": "appropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "ambiguous",
+      "metric": "appropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.04,
+      "effect_sd": 0.0255
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "sparse",
+      "metric": "appropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.55,
+      "effect_sd": 0.0158
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "unknown_attack",
+      "metric": "appropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.0063,
+      "effect_sd": 0.0125
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "clear",
+      "metric": "appropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "ambiguous",
+      "metric": "appropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.04,
+      "effect_sd": 0.0255
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "sparse",
+      "metric": "appropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.45,
+      "effect_sd": 0.0158
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "unknown_attack",
+      "metric": "appropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.0063,
+      "effect_sd": 0.0125
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "clear",
+      "metric": "appropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "ambiguous",
+      "metric": "appropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "sparse",
+      "metric": "appropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": -0.02,
+      "effect_sd": 0.0187
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "unknown_attack",
+      "metric": "appropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "clear",
+      "metric": "appropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "ambiguous",
+      "metric": "appropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "sparse",
+      "metric": "appropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "unknown_attack",
+      "metric": "appropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "clear",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": -0.005,
+      "effect_sd": 0.01
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "ambiguous",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "sparse",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "unknown_attack",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "U",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "clear",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": -0.005,
+      "effect_sd": 0.01
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "ambiguous",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "sparse",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "unknown_attack",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "S",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "clear",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "ambiguous",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "sparse",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "unknown_attack",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "clear",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "ambiguous",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "sparse",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "unknown_attack",
+      "metric": "inappropriate_abstention_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "clear",
+      "metric": "premature_convergence_rate",
+      "switch": "U",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "ambiguous",
+      "metric": "premature_convergence_rate",
+      "switch": "U",
+      "effect_mean": 0.04,
+      "effect_sd": 0.0255
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "sparse",
+      "metric": "premature_convergence_rate",
+      "switch": "U",
+      "effect_mean": 0.55,
+      "effect_sd": 0.0158
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "unknown_attack",
+      "metric": "premature_convergence_rate",
+      "switch": "U",
+      "effect_mean": 0.0063,
+      "effect_sd": 0.0125
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "clear",
+      "metric": "premature_convergence_rate",
+      "switch": "S",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "ambiguous",
+      "metric": "premature_convergence_rate",
+      "switch": "S",
+      "effect_mean": 0.04,
+      "effect_sd": 0.0255
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "sparse",
+      "metric": "premature_convergence_rate",
+      "switch": "S",
+      "effect_mean": 0.45,
+      "effect_sd": 0.0158
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "unknown_attack",
+      "metric": "premature_convergence_rate",
+      "switch": "S",
+      "effect_mean": 0.0063,
+      "effect_sd": 0.0125
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "clear",
+      "metric": "premature_convergence_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "ambiguous",
+      "metric": "premature_convergence_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "sparse",
+      "metric": "premature_convergence_rate",
+      "switch": "A",
+      "effect_mean": 0.02,
+      "effect_sd": 0.0187
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "unknown_attack",
+      "metric": "premature_convergence_rate",
+      "switch": "A",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "clear",
+      "metric": "premature_convergence_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "ambiguous",
+      "metric": "premature_convergence_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "sparse",
+      "metric": "premature_convergence_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "regime": "unknown_attack",
+      "metric": "premature_convergence_rate",
+      "switch": "P",
+      "effect_mean": 0.0,
+      "effect_sd": 0.0
+    }
+  ],
+  "interactions": [
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "abstention_rate",
+      "pair": "UxS",
+      "interaction_mean": 0.0841,
+      "interaction_sd": 0.0111
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "abstention_rate",
+      "pair": "UxA",
+      "interaction_mean": 0.003,
+      "interaction_sd": 0.0028
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "abstention_rate",
+      "pair": "UxP",
+      "interaction_mean": -0.0008,
+      "interaction_sd": 0.0015
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "abstention_rate",
+      "pair": "SxA",
+      "interaction_mean": -0.003,
+      "interaction_sd": 0.0028
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "abstention_rate",
+      "pair": "SxP",
+      "interaction_mean": -0.0008,
+      "interaction_sd": 0.0015
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "abstention_rate",
+      "pair": "AxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "appropriate_abstention_rate",
+      "pair": "UxS",
+      "interaction_mean": 0.1185,
+      "interaction_sd": 0.0151
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "appropriate_abstention_rate",
+      "pair": "UxA",
+      "interaction_mean": 0.0043,
+      "interaction_sd": 0.0041
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "appropriate_abstention_rate",
+      "pair": "UxP",
+      "interaction_mean": -0.0011,
+      "interaction_sd": 0.0022
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "appropriate_abstention_rate",
+      "pair": "SxA",
+      "interaction_mean": -0.0043,
+      "interaction_sd": 0.0041
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "appropriate_abstention_rate",
+      "pair": "SxP",
+      "interaction_mean": -0.0011,
+      "interaction_sd": 0.0022
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "appropriate_abstention_rate",
+      "pair": "AxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "inappropriate_abstention_rate",
+      "pair": "UxS",
+      "interaction_mean": 0.005,
+      "interaction_sd": 0.01
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "inappropriate_abstention_rate",
+      "pair": "UxA",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "inappropriate_abstention_rate",
+      "pair": "UxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "inappropriate_abstention_rate",
+      "pair": "SxA",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "inappropriate_abstention_rate",
+      "pair": "SxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "inappropriate_abstention_rate",
+      "pair": "AxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "premature_convergence_rate",
+      "pair": "UxS",
+      "interaction_mean": -0.1038,
+      "interaction_sd": 0.0106
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "premature_convergence_rate",
+      "pair": "UxA",
+      "interaction_mean": -0.0038,
+      "interaction_sd": 0.0027
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "premature_convergence_rate",
+      "pair": "UxP",
+      "interaction_mean": 0.0795,
+      "interaction_sd": 0.0055
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "premature_convergence_rate",
+      "pair": "SxA",
+      "interaction_mean": 0.0038,
+      "interaction_sd": 0.0027
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "premature_convergence_rate",
+      "pair": "SxP",
+      "interaction_mean": -0.0235,
+      "interaction_sd": 0.0052
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "metric": "premature_convergence_rate",
+      "pair": "AxP",
+      "interaction_mean": -0.0008,
+      "interaction_sd": 0.0009
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "abstention_rate",
+      "pair": "UxS",
+      "interaction_mean": 0.0833,
+      "interaction_sd": 0.0115
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "abstention_rate",
+      "pair": "UxA",
+      "interaction_mean": 0.003,
+      "interaction_sd": 0.0028
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "abstention_rate",
+      "pair": "UxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "abstention_rate",
+      "pair": "SxA",
+      "interaction_mean": -0.003,
+      "interaction_sd": 0.0028
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "abstention_rate",
+      "pair": "SxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "abstention_rate",
+      "pair": "AxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "appropriate_abstention_rate",
+      "pair": "UxS",
+      "interaction_mean": 0.1174,
+      "interaction_sd": 0.0156
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "appropriate_abstention_rate",
+      "pair": "UxA",
+      "interaction_mean": 0.0044,
+      "interaction_sd": 0.0041
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "appropriate_abstention_rate",
+      "pair": "UxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "appropriate_abstention_rate",
+      "pair": "SxA",
+      "interaction_mean": -0.0044,
+      "interaction_sd": 0.0041
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "appropriate_abstention_rate",
+      "pair": "SxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "appropriate_abstention_rate",
+      "pair": "AxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "inappropriate_abstention_rate",
+      "pair": "UxS",
+      "interaction_mean": 0.005,
+      "interaction_sd": 0.01
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "inappropriate_abstention_rate",
+      "pair": "UxA",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "inappropriate_abstention_rate",
+      "pair": "UxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "inappropriate_abstention_rate",
+      "pair": "SxA",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "inappropriate_abstention_rate",
+      "pair": "SxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "inappropriate_abstention_rate",
+      "pair": "AxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "premature_convergence_rate",
+      "pair": "UxS",
+      "interaction_mean": -0.0818,
+      "interaction_sd": 0.0109
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "premature_convergence_rate",
+      "pair": "UxA",
+      "interaction_mean": -0.003,
+      "interaction_sd": 0.0028
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "premature_convergence_rate",
+      "pair": "UxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "premature_convergence_rate",
+      "pair": "SxA",
+      "interaction_mean": 0.003,
+      "interaction_sd": 0.0028
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "premature_convergence_rate",
+      "pair": "SxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "metric": "premature_convergence_rate",
+      "pair": "AxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "abstention_rate",
+      "pair": "UxS",
+      "interaction_mean": 0.0833,
+      "interaction_sd": 0.0115
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "abstention_rate",
+      "pair": "UxA",
+      "interaction_mean": 0.003,
+      "interaction_sd": 0.0028
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "abstention_rate",
+      "pair": "UxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "abstention_rate",
+      "pair": "SxA",
+      "interaction_mean": -0.003,
+      "interaction_sd": 0.0028
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "abstention_rate",
+      "pair": "SxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "abstention_rate",
+      "pair": "AxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "appropriate_abstention_rate",
+      "pair": "UxS",
+      "interaction_mean": 0.1174,
+      "interaction_sd": 0.0156
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "appropriate_abstention_rate",
+      "pair": "UxA",
+      "interaction_mean": 0.0044,
+      "interaction_sd": 0.0041
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "appropriate_abstention_rate",
+      "pair": "UxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "appropriate_abstention_rate",
+      "pair": "SxA",
+      "interaction_mean": -0.0044,
+      "interaction_sd": 0.0041
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "appropriate_abstention_rate",
+      "pair": "SxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "appropriate_abstention_rate",
+      "pair": "AxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "inappropriate_abstention_rate",
+      "pair": "UxS",
+      "interaction_mean": 0.005,
+      "interaction_sd": 0.01
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "inappropriate_abstention_rate",
+      "pair": "UxA",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "inappropriate_abstention_rate",
+      "pair": "UxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "inappropriate_abstention_rate",
+      "pair": "SxA",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "inappropriate_abstention_rate",
+      "pair": "SxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "inappropriate_abstention_rate",
+      "pair": "AxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "premature_convergence_rate",
+      "pair": "UxS",
+      "interaction_mean": -0.0818,
+      "interaction_sd": 0.0109
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "premature_convergence_rate",
+      "pair": "UxA",
+      "interaction_mean": -0.003,
+      "interaction_sd": 0.0028
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "premature_convergence_rate",
+      "pair": "UxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "premature_convergence_rate",
+      "pair": "SxA",
+      "interaction_mean": 0.003,
+      "interaction_sd": 0.0028
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "premature_convergence_rate",
+      "pair": "SxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "metric": "premature_convergence_rate",
+      "pair": "AxP",
+      "interaction_mean": 0.0,
+      "interaction_sd": 0.0
+    }
+  ],
+  "threshold_sweep": [
+    {
+      "seed": 42,
+      "convergence_threshold": 0.3,
+      "convergence_fraction_mean": 0.2781,
+      "convergence_fraction_sd": 0.347,
+      "max_convergence_mean": 0.3934,
+      "max_convergence_sd": 0.1175,
+      "single_iteration_conclusion_rate_mean": 0.0224,
+      "single_iteration_conclusion_rate_sd": 0.0398,
+      "mean_iterations_to_termination_mean": 2.942,
+      "mean_iterations_to_termination_sd": 0.1041,
+      "convergence_fraction_P_enabled": 0.0,
+      "convergence_fraction_P_ablated": 0.5561,
+      "max_convergence_P_enabled": 0.29,
+      "max_convergence_P_ablated": 0.6
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.5,
+      "convergence_fraction_mean": 0.028,
+      "convergence_fraction_sd": 0.0625,
+      "max_convergence_mean": 0.4956,
+      "max_convergence_sd": 0.0597,
+      "single_iteration_conclusion_rate_mean": 0.0,
+      "single_iteration_conclusion_rate_sd": 0.0,
+      "mean_iterations_to_termination_mean": 3.0,
+      "mean_iterations_to_termination_sd": 0.0,
+      "convergence_fraction_P_enabled": 0.0,
+      "convergence_fraction_P_ablated": 0.0559,
+      "max_convergence_P_enabled": 0.49,
+      "max_convergence_P_ablated": 0.6015
+    },
+    {
+      "seed": 42,
+      "convergence_threshold": 0.8,
+      "convergence_fraction_mean": 0.0,
+      "convergence_fraction_sd": 0.0,
+      "max_convergence_mean": 0.5265,
+      "max_convergence_sd": 0.0797,
+      "single_iteration_conclusion_rate_mean": 0.0,
+      "single_iteration_conclusion_rate_sd": 0.0,
+      "mean_iterations_to_termination_mean": 3.0,
+      "mean_iterations_to_termination_sd": 0.0,
+      "convergence_fraction_P_enabled": 0.0,
+      "convergence_fraction_P_ablated": 0.0,
+      "max_convergence_P_enabled": 0.65,
+      "max_convergence_P_ablated": 0.65
+    }
+  ],
+  "power_statement": "Five seeds. Main effects that move a metric by more than about 0.05 are resolved; interaction terms are reported but are not, because the interaction estimator differences two differences and its deviation across five seeds is of the same order as the terms themselves."
+}

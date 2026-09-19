@@ -1,0 +1,56 @@
+{
+  "seed": 42,
+  "seeds": [
+    42,
+    123,
+    456,
+    789,
+    1024
+  ],
+  "thresholds": [
+    0.3,
+    0.5,
+    0.8
+  ],
+  "configurations": [
+    "",
+    "U",
+    "S",
+    "A",
+    "P",
+    "US",
+    "UA",
+    "UP",
+    "SA",
+    "SP",
+    "AP",
+    "USA",
+    "USP",
+    "UAP",
+    "SAP",
+    "USAP"
+  ],
+  "suite": "results/scenarios/sub_suite.jsonl",
+  "suite_hash": "a2b37f29b163ea310586f3073e88bddd5f0628667ba0c0595ddfa88d708c3911",
+  "scenarios": 40,
+  "units_total": 9600,
+  "units_skipped_from_checkpoint": 0,
+  "units_run": 9600,
+  "units_failed": 0,
+  "retries": 0,
+  "concurrency": 40,
+  "llm": "real",
+  "model_name": "gemini-2.5-flash",
+  "cache_scope": "one cache per seed, seeded from the clock study",
+  "cache_warm_entries_at_start": 28209,
+  "cache": {
+    "hits": 651255,
+    "misses": 5851,
+    "lookups": 657106,
+    "hit_rate": 0.9911
+  },
+  "predicted_critical_path_seconds": 2008.6,
+  "actual_wall_clock_seconds": 8691.7,
+  "actual_wall_clock_hours": 2.414,
+  "started_at_utc": "2026-09-19T21:00:43.236370+00:00"
+}

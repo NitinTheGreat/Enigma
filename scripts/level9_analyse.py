@@ -315,6 +315,10 @@ def main() -> int:
         writer.writeheader()
         writer.writerows(sweep)
 
+    (RESULTS_DIR / f"cells_detail_seed{args.seed}.json").write_text(
+        json.dumps(cells, indent=2), encoding="utf-8"
+    )
+
     report = {
         "seed": args.seed,
         "suite": str(suite_path.relative_to(PROJECT_ROOT)),

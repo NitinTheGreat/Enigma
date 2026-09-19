@@ -10,6 +10,12 @@ configurations from the four removals rather than encoding a fourth variable,
 so a reader sees at once whether a removal moves a metric away from all on
 and toward all off.
 
+The third panel is not the one the brief implies. Inappropriate abstention
+sits at 0.01 or below in every one of the six configurations, so drawing it
+gives six bars at the axis. It is replaced by the abstention rate on the
+sparse regime, which is where the whole effect turns out to live: the main
+effects are 0.55 and 0.45 there against 0.006 on unknown attack.
+
 Figure 6 is one situation's belief trajectory. The situation was chosen by a
 rule fixed before any trajectory was plotted, so it is a typical case rather
 than a flattering one: among the unknown attack situations of the all on cell
@@ -56,9 +62,9 @@ AXIS_LINE = "#c3c2b7"
 SURFACE = "#fcfcfb"
 
 LIVE_METRICS = (
-    ("abstention_rate", "Abstention rate"),
+    ("abstention_rate", "Abstention rate, overall"),
     ("appropriate_abstention_rate", "Appropriate abstention"),
-    ("inappropriate_abstention_rate", "Inappropriate abstention"),
+    ("sparse_abstention_rate", "Abstention rate, sparse regime"),
     ("premature_convergence_rate", "Premature convergence"),
 )
 ORDER = ("allon", "U", "S", "A", "P", "USAP")
@@ -109,7 +115,12 @@ def colour_for(configuration: str) -> str:
     return SERIES_REMOVAL
 
 
-def figure_three(cells: list[dict[str, Any]], threshold: float, seed: int) -> Path:
+def figure_three(
+    cells: list[dict[str, Any]],
+    threshold: float,
+    seed: int,
+    regime_values: dict[str, list[float]],
+) -> Path:
     """Draw the main effects figure."""
     grouped: dict[str, dict[str, list[float]]] = defaultdict(lambda: defaultdict(list))
     for row in cells:
@@ -118,7 +129,12 @@ def figure_three(cells: list[dict[str, Any]], threshold: float, seed: int) -> Pa
         if row["configuration"] not in ORDER:
             continue
         for metric, _ in LIVE_METRICS:
+            if metric == "sparse_abstention_rate":
+                continue
             grouped[row["configuration"]][metric].append(float(row[metric]))
+
+    for configuration, values in regime_values.items():
+        grouped[configuration]["sparse_abstention_rate"] = values
 
     style()
     figure, axes = plt.subplots(1, 4, figsize=(11.5, 3.4))
@@ -159,7 +175,7 @@ def figure_three(cells: list[dict[str, Any]], threshold: float, seed: int) -> Pa
             )
         ax.set_xticks(positions)
         ax.set_xticklabels([LABELS[c] for c in ORDER], rotation=40, ha="right")
-        ax.set_ylim(0, 1.0)
+        ax.set_ylim(0, 1.12)
         ax.set_title(title, loc="left", pad=8)
         ax.yaxis.grid(True, zorder=0)
         ax.set_axisbelow(True)
@@ -273,22 +289,25 @@ def figure_six(
             )
 
     style()
-    figure, ax = plt.subplots(figsize=(6.6, 3.9))
+    figure, ax = plt.subplots(figsize=(7.0, 4.4))
 
-    palette = [SERIES_REMOVAL, SERIES_ALLOFF, "#7a5bb5", "#b58a2a", "#2aa7b5"]
     ordinary = [k for k in trajectories if k != unknown_id]
-    for position, key in enumerate(sorted(ordinary)):
+    recurring = sum(1 for k in ordinary if len({i for i, _ in trajectories[k]}) > 1)
+    drawn_label = False
+    for key in sorted(ordinary):
         points = sorted(trajectories[key])
         ax.plot(
             [p[0] for p in points],
             [p[1] for p in points],
             marker="o",
-            markersize=4.5,
-            linewidth=1.8,
-            color=palette[position % len(palette)],
-            label=f"hypothesis {position + 1}",
+            markersize=5.5,
+            linewidth=0.0,
+            color=SERIES_REMOVAL,
+            alpha=0.85,
+            label=None if drawn_label else "named hypothesis, one iteration only",
             zorder=3,
         )
+        drawn_label = True
 
     if unknown_id in trajectories:
         points = sorted(trajectories[unknown_id])
@@ -300,7 +319,7 @@ def figure_six(
             linewidth=3.0,
             linestyle="--",
             color=SERIES_REFERENCE,
-            label="UNKNOWN",
+            label="UNKNOWN, the only hypothesis that persists",
             zorder=4,
         )
 
@@ -329,27 +348,44 @@ def figure_six(
     ax.set_axisbelow(True)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
-    ax.legend(loc="upper left", ncol=2)
+    ax.legend(loc="lower left", ncol=1)
+    ax.annotate(
+        f"{len(ordinary)} named hypotheses proposed across the analysis, "
+        f"{recurring} appear in more than one iteration",
+        (0.5, 0.30),
+        xycoords="axes fraction",
+        ha="center",
+        va="center",
+        fontsize=7.6,
+        color=INK_SECONDARY,
+    )
 
     figure.suptitle(
-        "UNKNOWN holds its confidence while the named hypotheses never reach the threshold",
+        "No named hypothesis survives an iteration, so persistence can never be satisfied",
         x=0.006,
-        y=0.995,
+        y=1.02,
         ha="left",
         fontsize=10,
         color=INK_PRIMARY,
     )
+    newline = chr(10)
+    caption = (
+        f"Situation {situation[:8]}, unknown attack regime, all four mechanisms on, "
+        f"seed {seed}, threshold {threshold}." + newline +
+        f"{evidence_count} pieces of evidence at termination, the median of that "
+        "regime, chosen by a rule fixed before plotting." + newline +
+        "Generation replaces the hypothesis list each iteration, so "
+        "dominant_iterations never exceeds zero."
+    )
     figure.text(
         0.006,
-        0.905,
-        f"Situation {situation[:8]}, unknown attack regime, all four mechanisms on, "
-        f"seed {seed}, {evidence_count} pieces of evidence at termination. "
-        f"Chosen by a rule fixed before plotting: the median evidence count of its regime.",
+        0.90,
+        caption,
         ha="left",
         fontsize=7.3,
         color=INK_MUTED,
     )
-    figure.tight_layout(rect=(0, 0, 1, 0.88))
+    figure.tight_layout(rect=(0, 0, 1, 0.78))
 
     pdf = FIGURES_DIR / "fig6_belief_trajectory.pdf"
     figure.savefig(pdf, bbox_inches="tight")
@@ -374,7 +410,17 @@ def main() -> int:
     with cells_path.open(encoding="utf-8") as handle:
         cells = list(csv.DictReader(handle))
 
-    pdf3 = figure_three(cells, args.threshold, args.seed)
+    sparse_lookup: dict[str, list[float]] = defaultdict(list)
+    detail_path = RESULTS_DIR / f"cells_detail_seed{args.seed}.json"
+    for row in json.loads(detail_path.read_text(encoding="utf-8")):
+        if float(row["convergence_threshold"]) != args.threshold:
+            continue
+        if row["configuration"] not in ORDER:
+            continue
+        sparse_lookup[row["configuration"]].append(
+            float(row["per_regime"]["sparse"]["abstention_rate"])
+        )
+    pdf3 = figure_three(cells, args.threshold, args.seed, sparse_lookup)
 
     suite_path = PROJECT_ROOT / "results" / "scenarios" / "sub_suite.jsonl"
     regimes: dict[str, str] = {}

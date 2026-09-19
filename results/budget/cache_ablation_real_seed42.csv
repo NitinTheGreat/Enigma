@@ -1,0 +1,6 @@
+seed,configuration,ablated,lookups,hits,misses,hit_rate,elapsed_seconds,seconds_per_model_call
+42,baseline,none,369,369,0,1.0,5.9,0.0
+42,minus_U,U,369,369,0,1.0,6.2,0.0
+42,minus_S,S,369,259,110,0.7019,1016.2,9.238
+42,minus_A,A,369,345,24,0.935,233.8,9.742
+42,minus_P,P,369,369,0,1.0,5.6,0.0

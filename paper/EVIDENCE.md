@@ -2692,3 +2692,401 @@ every number in L7.4 as provisional until then.
 A further limit is the keyword matching in `scenarios/scoring.py`. A hypothesis
 right in substance but sharing no vocabulary with its category is scored as a
 false conclusion, so the reported correct conclusion rate is a lower bound.
+
+---
+
+# Appendix L7.8. The real model path, restored, scored and budgeted
+
+Appendix L7.7 ends with an instruction: rerun `scripts/level7_validate.py
+--llm real` once an API key exists. A key has existed since 7 August. The
+flag never did. This appendix records what was restored, what a real model
+does to the Level 7 result, and one finding that reorders the critical path
+into Level 9.
+
+## L7.8.1 What was missing
+
+`level7_validate.py` declared `choices=("mock", "fallback")`. There was no
+real path to run. The file was last written at 03:42 on 7 August, the same
+minute the smoke log beside it was finished, so a real path existed briefly
+and was lost. Nothing under `scripts/` was in any repository at the time, so
+there was no history to recover it from. The project root is now a
+repository, and this loss is the reason it is.
+
+Three further defects were found and fixed.
+
+The script never loaded `.env`. `enigma_reason.config.Settings` carries
+`env_prefix` but no `env_file`, so nothing in that file reached the process.
+`settings.gemini_model` resolved to its `gemini-2.0-flash` default rather
+than the configured `gemini-2.5-flash`, `gemini_max_output_tokens` to 1024
+rather than 4096, and `GOOGLE_API_KEY` was absent from the environment
+altogether. The script now loads it exactly as `scripts/demo_server.py`
+already did.
+
+A relative `--suite` crashed the report writer at `relative_to`, which
+nothing had exercised because the default is absolute. The same defect class
+later cost the cache measurement its report, recorded at L7.8.7.
+
+Most seriously, every `--llm fallback` run mirrored its output over
+`validation_run.json` and `metric_distributions.csv`, the canonical files
+behind L7.4, with no check on what had produced it. A sixty scenario sizing
+run during this work silently replaced the four hundred scenario result. It
+was recovered from the previous commit. The mirror now requires the
+unablated full suite at its canonical path and a scenario count of 400.
+
+`_default_llm_factory` read `GOOGLE_API_KEY` and `ENIGMA_GEMINI_API_KEY`. It
+now also reads `GEMINI_API_KEY`, the name the upstream SDK documents, which
+previously failed as though no key were present.
+
+## L7.8.2 The 7 August smoke could not be rescued
+
+The smoke log was the only unmanifested artefact in the project. It was also
+not what it appeared to be.
+
+`scripts/check_fallback_absent.py` hashes the three fixed strings at
+`nodes.py:200-202` and searches a run log for them. Their presence proves
+generation raised and was substituted on at least one iteration; their
+absence across every iteration proves every hypothesis came from the model.
+The run log stores only a twelve character hash of each description, so this
+cannot be read off by eye.
+
+| quantity | 7 August smoke |
+| --- | --- |
+| iterations | 128 |
+| iterations containing a fallback hypothesis | 8 |
+| fallback iteration fraction | **0.0625** |
+| hypothesis rows | 581 |
+| hypothesis rows that are fallback | 24 |
+
+The smoke was therefore roughly 94 per cent real model output and 6 per cent
+silent substitution. The most likely mechanism is the unloaded `.env`
+described above: at the 1024 token default the model's JSON was truncated,
+parsing raised, and `_fallback_hypotheses` was substituted with nothing in
+the log marking it. The re-run below, with 4096 tokens loaded, falls back
+zero times in 369 iterations, which is consistent with that mechanism but
+does not prove it.
+
+Its eight outcome metrics cannot be recovered at all. Scoring needs the
+scenario to situation mapping and the hypothesis texts behind the hashes, and
+the run that produced the log saved neither. This is not a limitation of the
+scoring code. It is the reason the smoke had to be run again, and the reason
+a run log on its own is not a result.
+
+## L7.8.3 The re-run
+
+| property | value |
+| --- | --- |
+| suite | `results/scenarios/suite.jsonl` |
+| parent suite hash | `52b89293...f0efc`, verified equal to L7.1 |
+| slice | one scenario per regime, `s00000` `s00100` `s00200` `s00300` |
+| slice hash | `094c582059410e8693bdb873259b1a132251d713fe85ebd3732f3297e28aef29` |
+| seed | 42 |
+| model | `gemini-2.5-flash`, temperature 0.2, 4096 output tokens |
+| situations | 7 |
+| analyses | 123 |
+| iterations logged | 369, none dropped |
+| wall clock | 3294 s |
+| seconds per model call | **8.927** |
+| fallback iterations | **0 of 369** |
+| distinct hypothesis texts | **365**, against 4 on both substitute paths |
+
+Outputs are the full quartet the other runs carry and the smoke did not:
+`validation_run_real.json`, `validation_run_log_real.jsonl`,
+`metric_distributions_real.csv`, `validation_outcomes_real.jsonl` and
+`manifest_validate_real.json`, the manifest pinning all three repository
+commits, the seed, the model name, the resolved config and the suite hash.
+
+The slice is small and is declared as such. It is one scenario per regime
+rather than a sample of each, so every rate below rests on seven situations
+and none is a population estimate. What it settles are the three structural
+questions L7.7 left open. It includes `s00100`, the ambiguous scenario
+dissected as the worked example in L7.6.
+
+## L7.8.4 Outcome metrics across every model path
+
+| metric | fallback | mock | real | 7 Aug smoke |
+| --- | --- | --- | --- | --- |
+| correct_conclusion_rate | 0.7120 | 0.3440 | 0.2857 | not recoverable |
+| false_conclusion_rate | 0.0000 | 0.6112 | 0.7143 | not recoverable |
+| abstention_rate | 1.0000 | 0.3744 | 0.2857 | not recoverable |
+| appropriate_abstention_rate | 1.0000 | 0.4629 | 0.4000 | not recoverable |
+| inappropriate_abstention_rate | 1.0000 | 0.1556 | 0.0000 | not recoverable |
+| premature_convergence_rate | 0.0000 | 0.3824 | 0.4286 | not recoverable |
+| single_iteration_conclusion_rate | 0.0000 | 0.0000 | 0.0000 | not recoverable |
+| mean_iterations_to_termination | 3.0 | 3.0 | 3.0 | not recoverable |
+| situations | 625 | 625 | **7** | 2 |
+| analyses | 8832 | 8832 | 123 | about 43 |
+| distinct hypothesis texts | 4 | 4 | **365** | 342 |
+
+**The denominators differ by two orders of magnitude and these columns are
+not a like for like comparison.** What the table supports is a statement
+about direction and kind, not about magnitude.
+
+The direction inverts L7.4. The unmodified system with no key abstains on
+every situation it ever sees, scoring exactly the always abstain policy. With
+a real model it abstains on two of seven and concludes on five, and its false
+conclusion rate of 0.7143 is precisely the always conclude baseline. The
+system did not move from abstaining to judging. It moved from one degenerate
+policy to the other.
+
+**L7.4 is superseded for any claim about reasoning quality**, as L7.7 said it
+would be. It remains the correct description of the unconfigured system,
+which is a real deployment state and worth keeping measured.
+
+## L7.8.5 The scorer does not survive contact with a real model
+
+This is the finding that reorders the work before Level 9.
+
+Across all seven situations, `matched_expected` is False and
+`matched_competitor` is also False. Not one hypothesis Gemini produced shared
+vocabulary with either the category it was supposed to reach or the rival it
+was supposed to be confused by.
+
+Scenario `s00000` expects `data_exfiltration`, whose keywords are
+`exfiltrat`, `data transfer`, `outbound`, `upload`, `leak`, `volume`. What
+the model writes, read from the response cache, is prose of this kind:
+
+    Coordinated reconnaissance activity from multiple distinct sources.
+    Automated external scanning or vulnerability assessment.
+    Misconfigured or malfunctioning benign automation causing anomalous events.
+    Persistent, low-volume anomalous activity from diverse internal sources.
+
+This is competent security English. It is not the generator's vocabulary. The
+mock scored well under keyword matching because its text is drawn from that
+vocabulary by construction, which made the scorer look adequate for as long
+as nothing real was scored.
+
+L7.7 already recorded that keyword matching makes the correct conclusion rate
+a lower bound. What is new is the magnitude. On real text the match rate is
+zero of seven, so the scorer is not merely deflating a rate, it is not
+discriminating at all on the axis it exists to measure.
+
+Which metrics this contaminates can be read off `scenarios/scoring.py`.
+
+| metric | keyword dependent | trustworthy on the real path |
+| --- | --- | --- |
+| correct_conclusion_rate, truth says conclude | yes, `scoring.py:155,159` | **no** |
+| correct_conclusion_rate, truth says abstain | no, `correct = abstained`, `scoring.py:161` | yes |
+| false_conclusion_rate | inherits the above | partly |
+| abstention_rate | no | yes |
+| appropriate and inappropriate abstention | no | yes |
+| premature_convergence_rate | no, evidence count only, `scoring.py:168` | yes |
+| single_iteration_conclusion_rate | no | yes |
+| mean_iterations_to_termination | no | yes |
+
+Of the seven situations, five carry ground truth UNKNOWN, where `correct` is
+simply whether the system abstained and no keyword is consulted. Those five
+are scored correctly. The two clear regime situations are the keyword
+dependent ones, and both are recorded as false conclusions on a test the
+scorer cannot currently pass.
+
+**Consequence for Level 9.** The brief names `premature_convergence_rate` and
+`false_conclusion_rate` as the primary outcomes. The first is keyword
+independent and is safe. The second is not. The LLM judge panel planned for
+Level 10, validated against fifty hand labelled cases, is therefore a
+prerequisite for Level 9's primary outcome rather than a later refinement,
+unless the keyword scorer is replaced by semantic matching first. Running the
+factorial against the current scorer would produce a false conclusion rate
+that measures vocabulary overlap rather than reasoning.
+
+## L7.8.6 Convergence, now confirmed against a real model
+
+L7.5 established under the mock that the 0.8 threshold is unreachable and
+that every analysis terminates by exhausting its iteration budget, and
+flagged both as provisional until a real model ran. Both survive.
+
+| quantity | fallback | mock | real |
+| --- | --- | --- | --- |
+| iterations | 26496 | 26496 | 369 |
+| highest convergence observed | 0.0000 | 0.6245 | **0.3850** |
+| mean convergence | 0.0000 | 0.1733 | 0.1428 |
+| iterations reaching the 0.8 threshold | 0 | 0 | **0** |
+| analyses terminating on `max_iterations` | all | all | **all 123** |
+| UNKNOWN dominant at termination | 1.0000 | 0.4550 | 0.3089 |
+
+The real model's ceiling is **lower** than the mock's, 0.385 against 0.6245,
+so the gap to the threshold widens rather than closes when the substitute is
+removed. The threshold is not merely unreached, it is not approached.
+`graph_convergence_threshold` must therefore be a swept parameter in Level 9
+rather than a constant, or `single_iteration_conclusion_rate` and
+`mean_iterations_to_termination` stay pinned at 0.0 and 3.0 in every cell of
+the factorial, exactly as they are in every configuration tried so far.
+
+The UNKNOWN dominance figures show the epistemic control competing rather
+than dominating for the first time. Under the fallback it wins every
+termination by construction, which is L6.4 restated as a rate. Under a real
+model it wins roughly a third.
+
+The mock figure of 0.6245 is measured here from
+`validation_run_log_mock.jsonl`. L7.5 quotes 0.6225 across a wider set of
+runs. The two are consistent in substance and the discrepancy is noted rather
+than reconciled.
+
+## L7.8.7 Cache hit rate per switch, against a real model
+
+L6.8 measured 0.936 across sixteen configurations and stated plainly that the
+figure is an upper bound taken with a mock whose three descriptions never
+vary, with a first iteration floor of 0.31. The true rate was declared
+unknown until measured against a real model. It has now been measured.
+
+Five configurations over the same four scenario slice, sharing one cache,
+with the baseline populating it. 369 lookups each.
+
+| configuration | ablated | lookups | hits | misses | hit rate | elapsed |
+| --- | --- | --- | --- | --- | --- | --- |
+| baseline | none | 369 | 369 | 0 | 1.0000 | 5.9 s |
+| minus_U | U | 369 | 369 | 0 | **1.0000** | 6.2 s |
+| minus_S | S | 369 | 259 | 110 | **0.7019** | 1016.2 s |
+| minus_A | A | 369 | 345 | 24 | **0.9350** | 233.8 s |
+| minus_P | P | 369 | 369 | 0 | **1.0000** | 5.6 s |
+| pooled, excluding baseline | | 1476 | 1342 | 134 | **0.9092** | |
+
+**The structural predictions in L6.8 hold exactly.** U and P change no prompt
+and hit at 1.0, because persistence affects only convergence gating and
+`_build_existing_hypothesis_context` already filters UNKNOWN out. S and A
+alter the confidences printed into the next iteration's prompt and are the
+only switches that cost model calls.
+
+What L6.8 could not predict is the magnitude, and the answer is that the
+reuse largely survives a real model: **0.9092 measured against 0.936 under
+the mock**, far above the 0.31 floor. The sanity gate is the expensive
+switch, not asymmetric decay as the mock suggested.
+
+The measurement is sound; its report writer was not. The run completed all
+five configurations and printed these figures, then raised on a relative
+`--cache` path, the defect class already fixed once in `level7_validate.py`.
+Re-running would report 1.0 everywhere because the misses it paid for are now
+in the cache, and the pre ablation cache cannot be reconstructed because
+nothing recorded which entries the run added. The figures were therefore
+transcribed by `scripts/level9_cache_recover.py`, and every artefact it
+writes carries a `recovered_from_stdout` flag. The 1845 record run log is the
+authentic artefact of the same run and is unaffected.
+
+## L7.8.8 The rate limit, measured rather than assumed
+
+Every concurrency figure depends on the tier, which the API does not report.
+`scripts/probe_rate_limit.py` infers it from behaviour.
+
+| requests | concurrency | elapsed | succeeded | refused | achieved rpm | mean latency |
+| --- | --- | --- | --- | --- | --- | --- |
+| 12 | 6 | 5.0 s | 12 | 0 | 143.9 | 2.40 s |
+| 60 | 20 | 8.0 s | 60 | 0 | 449.7 | 2.49 s |
+| 150 | 50 | 12.4 s | 150 | 0 | 728.7 | 3.58 s |
+
+**No refusal at any point, 222 requests in total.** The free tier for
+`gemini-2.5-flash` is 10 requests per minute, so this key is definitively not
+on it. 728.7 rpm is a floor rather than a ceiling: the limit was never
+reached. Latency is flat to concurrency 20 and begins to climb by 50, which
+is the first sign of queueing and the reason the recommendation below stops
+at 25.
+
+These trivial prompts return in about 2.5 s. The reasoning prompts in the
+real run average **8.927 s**, so per call latency in the budget is taken from
+the run and not from the probe.
+
+## L7.8.9 Level 8 and Level 9, re-budgeted
+
+A pass costs three model calls per signal, because every arriving signal
+triggers an analysis and every analysis runs its three iteration budget. The
+full suite is 8832 signals and therefore 26496 calls per pass. At the
+measured 8.927 s serially that is 65.7 hours for a single pass, which is why
+the plan's Level 8 budget of 8 hours and its Level 9 shape were both
+unreachable.
+
+Two corrections to the plan's arithmetic. The four evidence regimes are
+already inside the suite, so the plan's additional factor of four in Level 9
+is double counting and is dropped. Against that, `graph_convergence_threshold`
+must now be swept, which the plan did not budget for; three values are
+assumed below.
+
+    calls        = 3 * signals * passes
+    uncached     = calls * (1 - hit_rate)
+    wall_seconds = max(uncached * latency / concurrency, uncached / rpm * 60)
+
+Wall clock in hours, at the measured hit rate of 0.9092 and, in brackets, at
+a pessimistic 0.70 chosen because it is the worst single switch measured.
+
+| per regime | scenarios | situations | seeds | concurrency | Level 8 | Level 9 |
+| --- | --- | --- | --- | --- | --- | --- |
+| 5 | 20 | about 33 | 5 | 25 | 0.20 (0.65) | 3.16 (10.43) |
+| **10** | **40** | **66** | **5** | **25** | **0.39 (1.30)** | **6.31 (20.85)** |
+| 15 | 60 | 102 | 5 | 25 | 0.59 (1.96) | 9.47 (31.28) |
+| 25 | 100 | about 170 | 5 | 25 | 0.99 (3.26) | 15.78 (52.13) |
+| 50 | 200 | about 340 | 5 | 50 | 0.99 (1.63) | 15.78 (26.07) |
+| 100, full suite | 400 | 625 | 3 | 50 | 1.18 | 18.93 (not measured) |
+
+**Recommended: 10 scenarios per regime, 40 scenarios, 66 situations, 5 seeds,
+concurrency 25.** Level 8 lands at 0.39 hours and Level 9 at 6.31 hours
+against targets of 6 and 24. It is the largest configuration that still fits
+both targets if the hit rate turns out to be 0.70 rather than 0.9092, where
+it costs 1.30 and 20.85 hours. The full suite fits on the measured rate but
+only at 3 seeds and concurrency 50, and it has no margin at all if the rate
+falls, so it is not recommended.
+
+The sub-suite is frozen accordingly by `scripts/level9_subsuite.py`, which
+verifies the parent against the L7.1 hash before drawing and refuses
+otherwise. It samples uniformly without replacement within each regime rather
+than taking a prefix, because the suite is written regime by regime in
+scenario id order and a prefix samples the generator's early state.
+
+| property | value |
+| --- | --- |
+| sub-suite hash | `a2b37f29b163ea310586f3073e88bddd5f0628667ba0c0595ddfa88d708c3911` |
+| parent hash | `52b89293...f0efc`, verified |
+| seed | 42 |
+| scenarios | 40, ten per regime |
+| signals | 963 |
+| situations under entity grouping | 66 |
+| abstained signals | 220 |
+
+**One thing the budget assumes that does not exist.** Every figure at
+concurrency above 1 requires a concurrent driver. `OfflineReplay` is strictly
+serial, and at concurrency 1 nothing in the grid fits: the smallest
+configuration is 47 hours for Level 9. Building concurrent execution into the
+Level 8 and Level 9 drivers is therefore a prerequisite for both, and is not
+optional work that can be deferred.
+
+**Statistical power given up.** Estimating any single rate:
+
+| scope | n | 95 per cent interval half width at p = 0.5 |
+| --- | --- | --- |
+| full suite, overall | 625 | 0.039 |
+| full suite, per regime | 156 | 0.078 |
+| sub-suite, overall | 66 | 0.121 |
+| sub-suite, per regime | 16 | 0.245 |
+
+Per regime cells become nearly uninformative in isolation, at plus or minus
+24 points, and the headline four cell table crossing the unknown attack
+regime with the sensor reject option will rest on about 16 situations per
+cell. That must be stated in the paper rather than implied.
+
+The loss is smaller than those figures suggest for the comparisons the
+ablation actually makes. Every configuration runs the same frozen situations,
+so differences between configurations are paired rather than independent, and
+the variance that matters is the variance of the per situation difference.
+Main effects of the four switches remain detectable where they are large.
+Interactions will not be, and the plan's instruction to report interactions
+only if the data supports it should be read strictly.
+
+## L7.8.10 What this establishes and what it does not
+
+Established. The real path exists, is documented and is reproducible. Three
+findings previously flagged provisional now hold against `gemini-2.5-flash`:
+the convergence threshold is unreachable and the real ceiling is lower than
+the mock's; termination is always by iteration exhaustion; and the cache
+reuse that Level 9 depends on is real at 0.9092 rather than a mock artefact.
+The rate limit is measured, the tier is not free, and both levels have a
+budget resting on measurement.
+
+Not established. Reasoning quality, still, and now for a sharper reason than
+in L7.7: the scorer cannot recognise a correct real hypothesis, so
+`correct_conclusion_rate` and `false_conclusion_rate` on the real path are not
+yet meaningful. The seven situation slice is too small for any rate quoted in
+L7.8.4 to be a population estimate. The 0.9092 hit rate is measured over four
+switches on four scenarios with the threshold held constant, and the
+threshold sweep's effect on it is unmeasured, though sweeping downward should
+if anything raise it because earlier termination reuses prefixes already
+cached.
+
+The next action is not Level 8. It is replacing or validating the scorer,
+because Level 9's primary outcome depends on it, and building concurrent
+execution, because every budget above depends on that.

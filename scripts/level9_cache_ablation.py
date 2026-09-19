@@ -100,6 +100,8 @@ def main() -> int:
         scenarios = stratified_sample(scenarios, args.limit)
 
     cache_path = Path(args.cache)
+    if not cache_path.is_absolute():
+        cache_path = (PROJECT_ROOT / cache_path).resolve()
     cache_path.parent.mkdir(parents=True, exist_ok=True)
     cache = ResponseCache(cache_path, model=settings.gemini_model)
     factory = CachingLLMFactory(_default_llm_factory, cache)

@@ -1,0 +1,78 @@
+{
+  "seed": 42,
+  "recovered_at_utc": "2026-09-19T00:28:48.279244+00:00",
+  "recovered_from_stdout": true,
+  "provenance": "Transcribed from the completed run of level9_cache_ablation.py, which measured all five configurations and then raised in its report writer. The run log beside this file is that run's own artefact and is authentic.",
+  "model": "gemini-2.5-flash",
+  "suite": "results/scenarios/suite.jsonl",
+  "slice": "one scenario per regime, s00000 s00100 s00200 s00300",
+  "run_log": "results/budget/cache_ablation_run_log_seed42.jsonl",
+  "configurations": [
+    {
+      "seed": 42,
+      "configuration": "baseline",
+      "ablated": "none",
+      "lookups": 369,
+      "hits": 369,
+      "misses": 0,
+      "hit_rate": 1.0,
+      "elapsed_seconds": 5.9,
+      "seconds_per_model_call": 0.0
+    },
+    {
+      "seed": 42,
+      "configuration": "minus_U",
+      "ablated": "U",
+      "lookups": 369,
+      "hits": 369,
+      "misses": 0,
+      "hit_rate": 1.0,
+      "elapsed_seconds": 6.2,
+      "seconds_per_model_call": 0.0
+    },
+    {
+      "seed": 42,
+      "configuration": "minus_S",
+      "ablated": "S",
+      "lookups": 369,
+      "hits": 259,
+      "misses": 110,
+      "hit_rate": 0.7019,
+      "elapsed_seconds": 1016.2,
+      "seconds_per_model_call": 9.238
+    },
+    {
+      "seed": 42,
+      "configuration": "minus_A",
+      "ablated": "A",
+      "lookups": 369,
+      "hits": 345,
+      "misses": 24,
+      "hit_rate": 0.935,
+      "elapsed_seconds": 233.8,
+      "seconds_per_model_call": 9.742
+    },
+    {
+      "seed": 42,
+      "configuration": "minus_P",
+      "ablated": "P",
+      "lookups": 369,
+      "hits": 369,
+      "misses": 0,
+      "hit_rate": 1.0,
+      "elapsed_seconds": 5.6,
+      "seconds_per_model_call": 0.0
+    }
+  ],
+  "pooled_excluding_baseline": {
+    "lookups": 1476,
+    "hits": 1342,
+    "misses": 134,
+    "hit_rate": 0.9092
+  },
+  "comparison": {
+    "l6_8_mock_upper_bound": 0.936,
+    "l6_8_first_iteration_floor": 0.31
+  },
+  "reading": "U and P change no prompt and hit at 1.0, exactly as L6.8 predicts, because persistence affects only convergence gating and the existing hypothesis context already filters UNKNOWN out. S and A both alter the confidences printed into the next iteration's prompt and are the only switches that cost model calls. The pooled rate is the figure a Level 9 budget may use."
+}

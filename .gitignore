@@ -15,5 +15,8 @@ node_modules/
 *.zip
 
 results/scenarios/validation_run_log_*.jsonl
+!results/scenarios/validation_run_log_real.jsonl
+!results/scenarios/validation_run_log_real_smoke.jsonl
+results/budget/cache_ablation_run_log_*.jsonl
 results/level6/run_log_*.jsonl
 results/level6/cache_*.json

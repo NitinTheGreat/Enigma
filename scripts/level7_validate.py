@@ -82,6 +82,7 @@ from scenarios.generator import (  # noqa: E402
     Regime,
     Scenario,
     ScenarioParameters,
+    suite_hash,
 )
 from scenarios.scoring import OutcomeMetrics, aggregate, score_run  # noqa: E402
 
@@ -598,6 +599,7 @@ def main() -> int:
         dataset=suite_path,
         extra={
             "situations_scored": overall.situations,
+            "suite_hash": suite_hash(scenarios),
             "model_calls": model_calls,
             "seconds_per_model_call": seconds_per_model_call,
             "cache": cache_stats,

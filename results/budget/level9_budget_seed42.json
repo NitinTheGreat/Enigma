@@ -1,6 +1,6 @@
 {
   "seed": 42,
-  "generated_at_utc": "2026-09-18T23:17:48.116687+00:00",
+  "generated_at_utc": "2026-09-18T23:23:01.688041+00:00",
   "measured_inputs": {
     "seconds_per_model_call": 8.44,
     "requests_per_minute": 728.7,
@@ -1747,20 +1747,21 @@
   ],
   "recommended": {
     "seed": 42,
-    "situations_per_regime": 100,
-    "scenarios": 400,
-    "signals": 9733,
-    "calls_per_pass": 29200,
-    "seeds": 5,
+    "situations_per_regime": 10,
+    "scenarios": 40,
+    "signals": 973,
+    "calls_per_pass": 2920,
+    "seeds": 3,
     "concurrency": 50,
-    "cache_hit_rate": 0.936,
-    "cache_hit_source": "L6.8 upper bound, mock inflated",
-    "level8_passes": 15,
-    "level8_calls": 438000,
-    "level8_hours": 1.31,
-    "level9_passes": 240,
-    "level9_calls": 7008000,
-    "level9_hours": 21.03,
+    "cache_hit_rate": 0.0,
+    "cache_hit_source": "supplied on the command line",
+    "level8_passes": 9,
+    "level8_calls": 26280,
+    "level8_hours": 1.23,
+    "level9_passes": 144,
+    "level9_calls": 420480,
+    "level9_hours": 19.72,
     "within_budget": true
-  }
+  },
+  "recommendation_basis": "measured cache hit rate only. The 0.936 rows are carried in the grid for comparison and are never recommended from, because L6.8 records that figure as a mock inflated upper bound."
 }

@@ -1,0 +1,9 @@
+seed,metric,fallback,mock,real,real_smoke_7aug
+42,correct_conclusion_rate,0.712,0.344,0.2857,not recoverable
+42,false_conclusion_rate,0.0,0.6112,0.7143,not recoverable
+42,abstention_rate,1.0,0.3744,0.2857,not recoverable
+42,appropriate_abstention_rate,1.0,0.4629,0.4,not recoverable
+42,inappropriate_abstention_rate,1.0,0.1556,0.0,not recoverable
+42,premature_convergence_rate,0.0,0.3824,0.4286,not recoverable
+42,single_iteration_conclusion_rate,0.0,0.0,0.0,not recoverable
+42,mean_iterations_to_termination,3,3,3,not recoverable

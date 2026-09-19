@@ -1,0 +1,63 @@
+{
+  "experiment": "level7_validate_real",
+  "seed": 42,
+  "started_at_utc": "2026-09-18T23:10:20.050444+00:00",
+  "ended_at_utc": "2026-09-19T00:05:14.654866+00:00",
+  "wall_clock_seconds": 3294.604,
+  "git_commits": {
+    "Enigma-AIAgent": "e212f880b6bc2c520e182981b2c6c0e18f4b923e-dirty",
+    "Enigma-ML-Layer": "15e70802ecdecc2e0f38d45d1fac71e55327315e-dirty",
+    "Enigma-Frontend": "5899d098eb39f05b38065f201ccf0bd74edcd1fb-dirty"
+  },
+  "config": {
+    "suite": "/mnt/f/XAI Project/results/scenarios/suite.jsonl",
+    "scenarios": 4,
+    "llm_mode": "real",
+    "model_name": "gemini-2.5-flash",
+    "cache_path": "results/scenarios/gemini_cache_real.json",
+    "ablate": "",
+    "epistemic_controls": {
+      "unknown_hypothesis_enabled": true,
+      "sanity_gate_enabled": true,
+      "asymmetric_decay_enabled": true,
+      "persistence_required": true,
+      "max_confidence_delta": 0.15,
+      "inertia_enabled": true
+    },
+    "graph_max_iterations": 3,
+    "graph_convergence_threshold": 0.8
+  },
+  "model_artefact": {
+    "path": null,
+    "hash": "absent"
+  },
+  "dataset": {
+    "path": "/mnt/f/XAI Project/results/scenarios/suite.jsonl",
+    "hash": "78271245a4a1dd6e47d3cd11eeac9d681553afb15a9dc69e7a9d14fe7c125afd"
+  },
+  "environment": {
+    "os": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "processor": "x86_64",
+    "cpu_count": 12,
+    "python_version": "3.12.3",
+    "python_implementation": "CPython",
+    "tensorflow_version": "absent",
+    "langgraph_version": "1.0.6",
+    "langchain_core_version": "1.2.7",
+    "pydantic_version": "2.12.5"
+  },
+  "extra": {
+    "situations_scored": 7,
+    "model_calls": 369,
+    "seconds_per_model_call": 8.927,
+    "cache": {
+      "hits": 0,
+      "misses": 369,
+      "writes": 369,
+      "errors": 0,
+      "lookups": 369,
+      "hit_rate": 0.0
+    }
+  }
+}

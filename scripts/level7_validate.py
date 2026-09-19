@@ -581,6 +581,8 @@ def main() -> int:
         "llm": llm_description,
         "llm_mode": args.llm,
         "scorer": args.scorer,
+        "concurrency": args.concurrency,
+        "retry_count": len(retries),
         "model_name": settings.gemini_model if args.llm == "real" else args.llm,
         "cache_path": str(cache_path) if cache_path else None,
         "cache": cache_stats,

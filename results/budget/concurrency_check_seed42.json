@@ -8,7 +8,7 @@
     "analyses_run": 963,
     "iterations_logged": 2889,
     "retries": 0,
-    "wall_clock_seconds": 42.514,
+    "wall_clock_seconds": 43.528,
     "distinct_analyses": 66
   },
   "parallel": {
@@ -16,11 +16,11 @@
     "analyses_run": 963,
     "iterations_logged": 2889,
     "retries": 0,
-    "wall_clock_seconds": 28.282,
+    "wall_clock_seconds": 28.205,
     "distinct_analyses": 66
   },
   "sorted_analysis_sets_identical": true,
   "only_in_serial": [],
   "only_in_parallel": [],
-  "speedup": 1.5
+  "speedup": 1.54
 }

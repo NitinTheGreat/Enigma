@@ -57,6 +57,7 @@ from enigma_reason.observability.run_log import RunLogWriter, text_hash  # noqa:
 from enigma_reason.replay.concurrent import ConcurrentReplay  # noqa: E402
 from enigma_reason.replay.offline import OfflineReplay, mock_llm_factory  # noqa: E402
 from enigma_reason.store.correlation import EntityCorrelation  # noqa: E402
+from enigma_reason.graph.nodes import _fallback_hypotheses  # noqa: E402
 from scenarios.generator import Regime, suite_hash  # noqa: E402
 from scenarios.scoring import score_run  # noqa: E402
 
@@ -78,8 +79,23 @@ METRIC_NAMES = (
 )
 
 
+def fallback_hashes() -> set[str]:
+    """Return the hashes of the three fixed strings the node substitutes."""
+    return {text_hash(entry["description"]) for entry in _fallback_hypotheses()}
+
+
 def log_statistics(path: Path, threshold: float) -> dict[str, Any]:
-    """Summarise the temporal and belief quantities one run log carries."""
+    """Summarise the temporal and belief quantities one run log carries.
+
+    Fallback contamination is counted here rather than checked afterwards. A
+    model call that fails every retry is caught by the generation node, which
+    substitutes three fixed strings and logs a warning, so a contaminated cell
+    is indistinguishable from a clean one in its own output unless something
+    looks for those strings. Twenty five iterations were lost this way in the
+    first attempt at this study.
+    """
+    substituted = fallback_hashes()
+    fallback_iterations = 0
     trends: Counter[str] = Counter()
     quiet = 0
     burst = 0
@@ -97,6 +113,11 @@ def log_statistics(path: Path, threshold: float) -> dict[str, Any]:
         if record.get("record_type") == "retry":
             continue
         records += 1
+        if any(
+            hypothesis.get("text_hash") in substituted
+            for hypothesis in record.get("hypotheses", [])
+        ):
+            fallback_iterations += 1
         trends[str(record.get("trend", "unknown"))] += 1
         if record.get("is_quiet"):
             quiet += 1
@@ -116,6 +137,8 @@ def log_statistics(path: Path, threshold: float) -> dict[str, Any]:
 
     return {
         "iteration_records": records,
+        "fallback_iterations": fallback_iterations,
+        "fallback_fraction": round(fallback_iterations / records, 6) if records else 0.0,
         "trend_distribution": dict(sorted(trends.items())),
         "trend_labels_seen": len(trends),
         "quiet_fraction": round(quiet / records, 4) if records else 0.0,
@@ -392,6 +415,7 @@ def main() -> int:
         "retries": len(outcome.retries),
         "analyses_run": outcome.analyses_run,
         "convergence_threshold": threshold,
+        "fallback_iterations_total": sum(c["fallback_iterations"] for c in cells),
         "cells": cells,
         "summaries": summaries,
     }
@@ -428,6 +452,22 @@ def main() -> int:
         f"ratio {elapsed / predicted_critical_path:.2f}"
     )
     print(f"units failed {outcome.units_failed}   retries {len(outcome.retries)}")
+    total_fallback = sum(c["fallback_iterations"] for c in cells)
+    total_records = sum(c["iteration_records"] for c in cells)
+    print(
+        f"fallback iterations {total_fallback} of {total_records} "
+        f"({total_fallback / total_records:.5f})"
+        if total_records
+        else "fallback iterations 0"
+    )
+    if total_fallback:
+        print("  CONTAMINATED cells:")
+        for cell in cells:
+            if cell["fallback_iterations"]:
+                print(
+                    f"    {cell['clock_mode']}_{cell['seed']} "
+                    f"{cell['fallback_iterations']} iterations"
+                )
     print(
         f"cache hits {cache_totals['hits']} misses {cache_totals['misses']} "
         f"hit rate {hit_rate:.4f}"

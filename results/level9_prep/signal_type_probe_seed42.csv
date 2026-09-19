@@ -1,0 +1,7 @@
+seed,category,anomalous_access,data_exfiltration,intrusion,reconnaissance
+42,brute_force_access,0.3636,0.0,0.6364,0.0
+42,data_exfiltration,0.0985,0.6818,0.2197,0.0
+42,lateral_movement,0.3148,0.213,0.4722,0.0
+42,physical_intrusion,0.3889,0.0,0.1296,0.4815
+42,reconnaissance_sweep,0.0,0.6111,0.1574,0.2315
+42,service_denial,0.2765,0.4,0.2529,0.0706

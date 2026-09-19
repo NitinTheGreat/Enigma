@@ -1,0 +1,440 @@
+{
+  "seed": 42,
+  "suite": "results/scenarios/sub_suite.jsonl",
+  "clock_mode": "separated",
+  "contexts_captured": 2889,
+  "contexts_per_regime": {
+    "ambiguous": 993,
+    "clear": 1152,
+    "sparse": 69,
+    "unknown_attack": 675
+  },
+  "alpha": 0.01,
+  "effect_floor_continuous": 0.01,
+  "effect_floor_categorical": 0.1,
+  "fields": [
+    {
+      "seed": 42,
+      "field": "evidence_count",
+      "kind": "continuous",
+      "test": "Kruskal-Wallis H across four regimes",
+      "statistic": 210.6189,
+      "p_value": 2.1400389746106112e-45,
+      "effect_size_name": "epsilon squared",
+      "effect_size": 0.07196,
+      "effect_floor": 0.01,
+      "separates": true,
+      "per_regime": {
+        "ambiguous": {
+          "n": 993,
+          "median": 9.0,
+          "mean": 9.1601,
+          "sd": 5.3895
+        },
+        "clear": {
+          "n": 1152,
+          "median": 10.0,
+          "mean": 10.9167,
+          "sd": 6.7495
+        },
+        "sparse": {
+          "n": 69,
+          "median": 2.0,
+          "mean": 1.7826,
+          "sd": 0.7778
+        },
+        "unknown_attack": {
+          "n": 675,
+          "median": 8.0,
+          "mean": 8.1911,
+          "sd": 4.9963
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "field": "event_rate_per_minute",
+      "kind": "continuous",
+      "test": "Kruskal-Wallis H across four regimes",
+      "statistic": 36.1288,
+      "p_value": 7.033069387715817e-08,
+      "effect_size_name": "epsilon squared",
+      "effect_size": 0.01148,
+      "effect_floor": 0.01,
+      "separates": true,
+      "per_regime": {
+        "ambiguous": {
+          "n": 993,
+          "median": 2.4789,
+          "mean": 2.2701,
+          "sd": 1.3386
+        },
+        "clear": {
+          "n": 1152,
+          "median": 2.5108,
+          "mean": 2.5386,
+          "sd": 1.4019
+        },
+        "sparse": {
+          "n": 69,
+          "median": 0.1663,
+          "mean": 49.9852,
+          "sd": 133.4366
+        },
+        "unknown_attack": {
+          "n": 675,
+          "median": 2.6711,
+          "mean": 3.3622,
+          "sd": 10.4304
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "field": "active_duration_seconds",
+      "kind": "continuous",
+      "test": "Kruskal-Wallis H across four regimes",
+      "statistic": 155.6906,
+      "p_value": 1.5597095476488834e-33,
+      "effect_size_name": "epsilon squared",
+      "effect_size": 0.05293,
+      "effect_floor": 0.01,
+      "separates": true,
+      "per_regime": {
+        "ambiguous": {
+          "n": 993,
+          "median": 242.69,
+          "mean": 361.9849,
+          "sd": 344.0801
+        },
+        "clear": {
+          "n": 1152,
+          "median": 262.0395,
+          "mean": 328.8549,
+          "sd": 270.9764
+        },
+        "sparse": {
+          "n": 69,
+          "median": 0.314,
+          "mean": 104.471,
+          "sd": 250.3534
+        },
+        "unknown_attack": {
+          "n": 675,
+          "median": 155.784,
+          "mean": 255.9096,
+          "sd": 286.685
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "field": "confidence_level",
+      "kind": "continuous",
+      "test": "Kruskal-Wallis H across four regimes",
+      "statistic": 532.546,
+      "p_value": 4.217316939521755e-115,
+      "effect_size_name": "epsilon squared",
+      "effect_size": 0.18355,
+      "effect_floor": 0.01,
+      "separates": true,
+      "per_regime": {
+        "ambiguous": {
+          "n": 993,
+          "median": 0.6186,
+          "mean": 0.5793,
+          "sd": 0.1242
+        },
+        "clear": {
+          "n": 1152,
+          "median": 0.7056,
+          "mean": 0.6535,
+          "sd": 0.1052
+        },
+        "sparse": {
+          "n": 69,
+          "median": 0.3003,
+          "mean": 0.3256,
+          "sd": 0.0995
+        },
+        "unknown_attack": {
+          "n": 675,
+          "median": 0.6187,
+          "mean": 0.5922,
+          "sd": 0.1028
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "field": "source_diversity",
+      "kind": "continuous",
+      "test": "Kruskal-Wallis H across four regimes",
+      "statistic": 368.166,
+      "p_value": 1.737458808391439e-79,
+      "effect_size_name": "epsilon squared",
+      "effect_size": 0.12657,
+      "effect_floor": 0.01,
+      "separates": true,
+      "per_regime": {
+        "ambiguous": {
+          "n": 993,
+          "median": 3.0,
+          "mean": 3.0755,
+          "sd": 0.857
+        },
+        "clear": {
+          "n": 1152,
+          "median": 3.0,
+          "mean": 2.974,
+          "sd": 0.8319
+        },
+        "sparse": {
+          "n": 69,
+          "median": 1.0,
+          "mean": 1.3043,
+          "sd": 0.4601
+        },
+        "unknown_attack": {
+          "n": 675,
+          "median": 2.0,
+          "mean": 2.4889,
+          "sd": 0.8595
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "field": "mean_anomaly_score",
+      "kind": "continuous",
+      "test": "Kruskal-Wallis H across four regimes",
+      "statistic": 1891.1512,
+      "p_value": 0.0,
+      "effect_size_name": "epsilon squared",
+      "effect_size": 0.65447,
+      "effect_floor": 0.01,
+      "separates": true,
+      "per_regime": {
+        "ambiguous": {
+          "n": 993,
+          "median": 0.5795,
+          "mean": 0.5673,
+          "sd": 0.0976
+        },
+        "clear": {
+          "n": 1152,
+          "median": 0.7933,
+          "mean": 0.7996,
+          "sd": 0.0548
+        },
+        "sparse": {
+          "n": 69,
+          "median": 0.5,
+          "mean": 0.4687,
+          "sd": 0.113
+        },
+        "unknown_attack": {
+          "n": 675,
+          "median": 0.7625,
+          "mean": 0.752,
+          "sd": 0.0808
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "field": "iteration",
+      "kind": "continuous",
+      "test": "Kruskal-Wallis H across four regimes",
+      "statistic": 0.0,
+      "p_value": 1.0,
+      "effect_size_name": "epsilon squared",
+      "effect_size": 0.0,
+      "effect_floor": 0.01,
+      "separates": false,
+      "per_regime": {
+        "ambiguous": {
+          "n": 993,
+          "median": 1.0,
+          "mean": 1.0,
+          "sd": 0.8165
+        },
+        "clear": {
+          "n": 1152,
+          "median": 1.0,
+          "mean": 1.0,
+          "sd": 0.8165
+        },
+        "sparse": {
+          "n": 69,
+          "median": 1.0,
+          "mean": 1.0,
+          "sd": 0.8165
+        },
+        "unknown_attack": {
+          "n": 675,
+          "median": 1.0,
+          "mean": 1.0,
+          "sd": 0.8165
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "field": "burst_detected",
+      "kind": "categorical",
+      "test": "chi-square test of independence",
+      "statistic": 80.9059,
+      "p_value": 1.9620367712862243e-17,
+      "effect_size_name": "Cramers V",
+      "effect_size": 0.16735,
+      "effect_floor": 0.1,
+      "separates": true,
+      "levels": [
+        "False",
+        "True"
+      ],
+      "per_regime": {
+        "ambiguous": {
+          "False": 0.8882,
+          "True": 0.1118
+        },
+        "clear": {
+          "False": 0.9531,
+          "True": 0.0469
+        },
+        "sparse": {
+          "False": 1.0,
+          "True": 0.0
+        },
+        "unknown_attack": {
+          "False": 0.9867,
+          "True": 0.0133
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "field": "quiet_detected",
+      "kind": "categorical",
+      "test": "chi-square test of independence",
+      "statistic": 71.02,
+      "p_value": 2.581261206708007e-15,
+      "effect_size_name": "Cramers V",
+      "effect_size": 0.15679,
+      "effect_floor": 0.1,
+      "separates": true,
+      "levels": [
+        "False",
+        "True"
+      ],
+      "per_regime": {
+        "ambiguous": {
+          "False": 0.8036,
+          "True": 0.1964
+        },
+        "clear": {
+          "False": 0.724,
+          "True": 0.276
+        },
+        "sparse": {
+          "False": 1.0,
+          "True": 0.0
+        },
+        "unknown_attack": {
+          "False": 0.8622,
+          "True": 0.1378
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "field": "trend",
+      "kind": "categorical",
+      "test": "chi-square test of independence",
+      "statistic": 207.6648,
+      "p_value": 4.427484825126435e-42,
+      "effect_size_name": "Cramers V",
+      "effect_size": 0.18958,
+      "effect_floor": 0.1,
+      "separates": true,
+      "levels": [
+        "Trend.DEESCALATING",
+        "Trend.ESCALATING",
+        "Trend.STABLE"
+      ],
+      "per_regime": {
+        "ambiguous": {
+          "Trend.DEESCALATING": 0.2085,
+          "Trend.ESCALATING": 0.2296,
+          "Trend.STABLE": 0.5619
+        },
+        "clear": {
+          "Trend.DEESCALATING": 0.3177,
+          "Trend.ESCALATING": 0.0755,
+          "Trend.STABLE": 0.6068
+        },
+        "sparse": {
+          "Trend.DEESCALATING": 0.0,
+          "Trend.ESCALATING": 0.0,
+          "Trend.STABLE": 1.0
+        },
+        "unknown_attack": {
+          "Trend.DEESCALATING": 0.1911,
+          "Trend.ESCALATING": 0.0889,
+          "Trend.STABLE": 0.72
+        }
+      }
+    }
+  ],
+  "fields_that_separate": [
+    "evidence_count",
+    "event_rate_per_minute",
+    "active_duration_seconds",
+    "confidence_level",
+    "source_diversity",
+    "mean_anomaly_score",
+    "burst_detected",
+    "quiet_detected",
+    "trend"
+  ],
+  "multivariate": {
+    "model": "RandomForestClassifier, 200 trees, five fold cross validation",
+    "features": [
+      "evidence_count",
+      "event_rate_per_minute",
+      "active_duration_seconds",
+      "confidence_level",
+      "source_diversity",
+      "mean_anomaly_score",
+      "iteration",
+      "burst_detected",
+      "quiet_detected",
+      "trend=Trend.DEESCALATING",
+      "trend=Trend.ESCALATING",
+      "trend=Trend.STABLE"
+    ],
+    "accuracy_mean": 0.6867,
+    "accuracy_sd": 0.0398,
+    "majority_class_base_rate": 0.3988,
+    "lift_over_base_rate": 0.288
+  },
+  "narrative_identity": {
+    "rows": 2145,
+    "scenarios": 20,
+    "classes": [
+      "brute_force_access",
+      "data_exfiltration",
+      "lateral_movement",
+      "physical_intrusion",
+      "reconnaissance_sweep",
+      "service_denial"
+    ],
+    "cross_validation": "GroupKFold by scenario, so no scenario spans folds",
+    "accuracy_mean": 0.1328,
+    "accuracy_sd": 0.0992,
+    "majority_class_base_rate": 0.2378,
+    "lift_over_base_rate": -0.105
+  },
+  "verdict": "C_refined_context_separates_regime_but_not_narrative"
+}

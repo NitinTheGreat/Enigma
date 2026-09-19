@@ -1,0 +1,11 @@
+seed,field,kind,test,statistic,p_value,effect_size_name,effect_size,effect_floor,separates
+42,evidence_count,continuous,Kruskal-Wallis H across four regimes,210.6189,2.140e-45,epsilon squared,0.07196,0.01,True
+42,event_rate_per_minute,continuous,Kruskal-Wallis H across four regimes,36.1288,7.033e-08,epsilon squared,0.01148,0.01,True
+42,active_duration_seconds,continuous,Kruskal-Wallis H across four regimes,155.6906,1.560e-33,epsilon squared,0.05293,0.01,True
+42,confidence_level,continuous,Kruskal-Wallis H across four regimes,532.546,4.217e-115,epsilon squared,0.18355,0.01,True
+42,source_diversity,continuous,Kruskal-Wallis H across four regimes,368.166,1.737e-79,epsilon squared,0.12657,0.01,True
+42,mean_anomaly_score,continuous,Kruskal-Wallis H across four regimes,1891.1512,0.000e+00,epsilon squared,0.65447,0.01,True
+42,iteration,continuous,Kruskal-Wallis H across four regimes,0.0,1.000e+00,epsilon squared,0.0,0.01,False
+42,burst_detected,categorical,chi-square test of independence,80.9059,1.962e-17,Cramers V,0.16735,0.1,True
+42,quiet_detected,categorical,chi-square test of independence,71.02,2.581e-15,Cramers V,0.15679,0.1,True
+42,trend,categorical,chi-square test of independence,207.6648,4.427e-42,Cramers V,0.18958,0.1,True

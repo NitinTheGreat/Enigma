@@ -1,0 +1,105 @@
+{
+  "seed": 42,
+  "suite": "results/scenarios/sub_suite.jsonl",
+  "signal_types": [
+    "anomalous_access",
+    "data_exfiltration",
+    "intrusion",
+    "reconnaissance"
+  ],
+  "situations_with_a_narrative": 40,
+  "scenarios_with_a_narrative": 20,
+  "categories": [
+    "brute_force_access",
+    "data_exfiltration",
+    "lateral_movement",
+    "physical_intrusion",
+    "reconnaissance_sweep",
+    "service_denial"
+  ],
+  "cross_validation": "GroupKFold by scenario, so no scenario spans folds",
+  "signal_type": {
+    "accuracy_mean": 0.15,
+    "accuracy_sd": 0.1458,
+    "lift_over_base_rate": -0.125
+  },
+  "source": {
+    "accuracy_mean": 0.1,
+    "accuracy_sd": 0.0935,
+    "lift_over_base_rate": -0.175
+  },
+  "signal_type_and_source": {
+    "accuracy_mean": 0.1,
+    "accuracy_sd": 0.0935,
+    "lift_over_base_rate": -0.175
+  },
+  "detectors_by_category": {
+    "data_exfiltration": [
+      "network_anomaly"
+    ],
+    "brute_force_access": [
+      "auth_anomaly"
+    ],
+    "reconnaissance_sweep": [
+      "network_anomaly",
+      "video_detection"
+    ],
+    "lateral_movement": [
+      "network_anomaly",
+      "auth_anomaly"
+    ],
+    "physical_intrusion": [
+      "video_detection"
+    ],
+    "service_denial": [
+      "network_anomaly"
+    ]
+  },
+  "categories_sharing_a_detector_signature": {
+    "network_anomaly": [
+      "data_exfiltration",
+      "service_denial"
+    ]
+  },
+  "majority_class_base_rate": 0.275,
+  "signal_type_share_per_category": {
+    "brute_force_access": {
+      "anomalous_access": 0.3636,
+      "data_exfiltration": 0.0,
+      "intrusion": 0.6364,
+      "reconnaissance": 0.0
+    },
+    "data_exfiltration": {
+      "anomalous_access": 0.0985,
+      "data_exfiltration": 0.6818,
+      "intrusion": 0.2197,
+      "reconnaissance": 0.0
+    },
+    "lateral_movement": {
+      "anomalous_access": 0.3148,
+      "data_exfiltration": 0.213,
+      "intrusion": 0.4722,
+      "reconnaissance": 0.0
+    },
+    "physical_intrusion": {
+      "anomalous_access": 0.3889,
+      "data_exfiltration": 0.0,
+      "intrusion": 0.1296,
+      "reconnaissance": 0.4815
+    },
+    "reconnaissance_sweep": {
+      "anomalous_access": 0.0,
+      "data_exfiltration": 0.6111,
+      "intrusion": 0.1574,
+      "reconnaissance": 0.2315
+    },
+    "service_denial": {
+      "anomalous_access": 0.2765,
+      "data_exfiltration": 0.4,
+      "intrusion": 0.2529,
+      "reconnaissance": 0.0706
+    }
+  },
+  "would_carry_narrative_identity": false,
+  "reading": "The widening proposed in Task 2 can only make the narrative regime dependent if the field it adds separates the narratives. A lift at or below zero means it does not, and that adding it would at best change nothing and at worst point the model at the wrong narrative."
+}

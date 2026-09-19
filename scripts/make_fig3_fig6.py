@@ -185,7 +185,7 @@ def figure_three(
             ax.set_ylabel("rate")
 
     figure.suptitle(
-        "Removing the UNKNOWN hypothesis is the only mechanism that moves abstention",
+        "UNKNOWN and the sanity gate move abstention; decay and persistence do not",
         x=0.006,
         y=0.995,
         ha="left",

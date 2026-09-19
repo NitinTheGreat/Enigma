@@ -45,6 +45,7 @@ from enigma_reason.graph.builder import EpistemicControls  # noqa: E402
 from enigma_reason.graph.runner import _default_llm_factory  # noqa: E402
 from enigma_reason.observability.llm_cache import CachingLLMFactory, ResponseCache  # noqa: E402
 from enigma_reason.observability.run_log import RunLogWriter  # noqa: E402
+from enigma_reason.replay.concurrent import ConcurrentReplay  # noqa: E402
 from enigma_reason.replay.offline import OfflineReplay, mock_llm_factory  # noqa: E402
 from enigma_reason.store.correlation import EntityCorrelation  # noqa: E402
 
@@ -96,6 +97,7 @@ def main() -> int:
     parser.add_argument("--seeds", type=str, default="42,123,456,789,1024")
     parser.add_argument("--threshold", type=float, default=0.30)
     parser.add_argument("--llm", choices=("real", "mock"), default="real")
+    parser.add_argument("--concurrency", type=int, default=40)
     parser.add_argument(
         "--suite", type=str, default=str(SCENARIOS_DIR / "sub_suite.jsonl")
     )
@@ -122,8 +124,11 @@ def main() -> int:
         caches[seed] = cache
         factories[seed] = CachingLLMFactory(_default_llm_factory, cache)
 
-    rows: list[dict[str, Any]] = []
+    writers: dict[tuple[bool, bool, int], Any] = {}
+    paths: dict[tuple[bool, bool, int], Path] = {}
+    units: list[tuple[str, Any]] = []
     for persistence, inertia, seed in product((True, False), (True, False), seeds):
+        key = (persistence, inertia, seed)
         name = (
             f"P{'on' if persistence else 'off'}"
             f"_inertia{'on' if inertia else 'off'}_{seed}"
@@ -131,23 +136,53 @@ def main() -> int:
         path = RESULTS_DIR / f"{name}.jsonl"
         if path.exists():
             path.unlink()
+        paths[key] = path
+        writer = RunLogWriter(path)
+        writer.__enter__()
+        writers[key] = writer
+        for scenario in scenarios:
+            units.append(
+                (
+                    f"{'Pon' if persistence else 'Poff'}|"
+                    f"{'inertiaon' if inertia else 'inertiaoff'}|"
+                    f"{seed}|{scenario.scenario_id}",
+                    scenario.signals,
+                )
+            )
+
+    def build_replay(unit: str, _factory):
+        """Create the replay for one cell and scenario."""
+        persistence_text, inertia_text, seed_text, _ = unit.split("|")
+        persistence = persistence_text == "Pon"
+        inertia = inertia_text == "inertiaon"
+        seed = int(seed_text)
         controls = EpistemicControls(
             persistence_required=persistence,
             max_confidence_delta=0.15 if inertia else INERTIA_OFF,
         )
-        with RunLogWriter(path) as writer:
-            for scenario in scenarios:
-                replay = OfflineReplay(
-                    factories[seed],
-                    run_log=writer,
-                    seed=seed,
-                    correlation=EntityCorrelation(),
-                    controls=controls,
-                    convergence_threshold=args.threshold,
-                )
-                replay.run(scenario.signals)
-            writer.flush()
-        stats = summarise(path, args.threshold)
+        return OfflineReplay(
+            factories[seed],
+            run_log=writers[(persistence, inertia, seed)],
+            seed=seed,
+            correlation=EntityCorrelation(),
+            controls=controls,
+            convergence_threshold=args.threshold,
+        )
+
+    driver = ConcurrentReplay(
+        build_replay, lambda: None, concurrency=args.concurrency, run_log=None
+    )
+    print(f"units {len(units)} at concurrency {args.concurrency}", flush=True)
+    outcome = driver.run(units)
+    print(f"units failed {outcome.units_failed}  retries {len(outcome.retries)}", flush=True)
+
+    for writer in writers.values():
+        writer.flush()
+        writer.__exit__(None, None, None)
+
+    rows: list[dict[str, Any]] = []
+    for persistence, inertia, seed in product((True, False), (True, False), seeds):
+        stats = summarise(paths[(persistence, inertia, seed)], args.threshold)
         rows.append(
             {
                 "seed": seed,
@@ -157,13 +192,6 @@ def main() -> int:
                 "max_confidence_delta": 0.15 if inertia else INERTIA_OFF,
                 **stats,
             }
-        )
-        print(
-            f"  P {'on ' if persistence else 'off'}  inertia "
-            f"{'on ' if inertia else 'off'}  seed {seed:<5} "
-            f"convergence {stats['convergence_fraction']:.4f}  "
-            f"max {stats['max_convergence']:.4f}",
-            flush=True,
         )
 
     for cache in caches.values():

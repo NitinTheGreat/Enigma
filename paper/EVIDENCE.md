@@ -3959,3 +3959,422 @@ which the sweep will answer. Whether the invariant narrative would persist on
 a suite whose categories carried distinct detector signatures, which this
 suite cannot answer because two of its six do not. And whether any of this
 generalises beyond 40 scenarios and 66 situations.
+
+---
+
+# Appendix L9. The epistemic control ablation
+
+The primary contribution, and it is largely a negative result. Two of the
+four mechanisms do nothing measurable, the third does nothing except where a
+fourth has already been removed, and the sensor level of the two level
+abstention claim is not wired to the reasoning level at all. The metric set
+below is the one declared in L8.1.4 before the run, and it is reported as
+declared.
+
+## L9.1 What ran
+
+| property | value |
+| --- | --- |
+| design | 16 configurations by 3 thresholds by 5 seeds by 40 scenarios |
+| units | 9600, scheduled as one cross product pool |
+| suite | sub-suite `a2b37f29`, 40 scenarios, 66 situations |
+| model | `gemini-2.5-flash`, real, cache on |
+| wall clock | **8692 s, 2.41 h** |
+| units failed | **0** |
+| retries | **0** |
+| fallback iterations | **0 of 9600 units** |
+| cache | 651255 hits, 5851 misses, hit rate **0.9911** |
+
+The budget in L8.1.6 predicted 10.75 hours on a deliberately conservative
+0.75 hit rate. The realised rate was 0.9911, so only 5851 model calls were
+actually paid for. Two things account for that. The clock study cache already
+held the all on cell at the standing threshold in separated mode, which is
+one of the 240 cells here. And the structural prediction held exactly: U and
+P change no prompt, so the sixteen configurations collapse to four prompt
+families and the threshold adds none of its own.
+
+The run finished in 2.41 hours against a predicted critical path of 2009 s,
+a ratio of 4.33. Unlike Levels 8, this run was not critical path bound: at
+9600 units the work over concurrency term dominates, which is the regime the
+budget model says it should be in.
+
+## L9.2 Main effects on the four live metrics
+
+Ablated minus enabled, averaged over every combination of the other three
+switches, computed per seed and then deviated across the five. Threshold
+0.80, the standing value.
+
+| metric | U | S | A | P |
+| --- | --- | --- | --- | --- |
+| abstention_rate | **−0.0985 ± 0.008** | **−0.0833 ± 0.011** | −0.0030 ± 0.003 | **0.0000 ± 0.000** |
+| appropriate_abstention_rate | **−0.1391 ± 0.010** | **−0.1174 ± 0.016** | −0.0044 ± 0.004 | **0.0000 ± 0.000** |
+| inappropriate_abstention_rate | −0.0050 ± 0.010 | −0.0050 ± 0.010 | 0.0000 ± 0.000 | 0.0000 ± 0.000 |
+| premature_convergence_rate | **+0.0970 ± 0.007** | **+0.0818 ± 0.011** | +0.0030 ± 0.003 | 0.0000 ± 0.000 |
+
+Read as mechanisms:
+
+**U, the non prunable UNKNOWN hypothesis, is the mechanism.** Removing it
+costs 0.0985 of abstention and 0.1391 of appropriate abstention, and buys
+0.0970 of premature convergence. Its effect is twelve standard deviations
+from zero.
+
+**S, the sanity gate, is the second mechanism**, at roughly five sixths of
+U's size and with the same sign everywhere.
+
+**A, asymmetric confidence decay, does nothing.** −0.0030 against a deviation
+of 0.003 is one standard deviation from zero on a metric that ranges over
+0.18. It is not a small effect, it is an absent one, subject to the
+qualification in L9.5.
+
+**P, the persistence requirement, does nothing at all** at this threshold.
+Not approximately nothing: 0.0000 with deviation 0.0000 on every live metric.
+Its behaviour at lower thresholds is L9.6.
+
+## L9.3 The sixteen configurations collapse to five outcomes
+
+The full table the plan asked to be relegated to an appendix, threshold 0.80,
+five seeds.
+
+| configuration | U | S | A | P | abstention | appropriate | inappropriate | premature |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| all on | on | on | on | on | 0.1818 ± 0.019 | 0.2565 ± 0.025 | 0.0100 ± 0.020 | 0.5182 ± 0.018 |
+| minus A | on | on | **off** | on | 0.1818 ± 0.019 | 0.2565 ± 0.025 | 0.0100 ± 0.020 | 0.5182 ± 0.018 |
+| minus P | on | on | on | **off** | 0.1818 ± 0.019 | 0.2565 ± 0.025 | 0.0100 ± 0.020 | 0.5182 ± 0.018 |
+| minus AP | on | on | **off** | **off** | 0.1818 ± 0.019 | 0.2565 ± 0.025 | 0.0100 ± 0.020 | 0.5182 ± 0.018 |
+| minus S | on | **off** | on | on | 0.0212 ± 0.007 | 0.0304 ± 0.011 | 0.0000 | 0.6758 ± 0.007 |
+| minus SP | on | **off** | on | **off** | 0.0212 ± 0.007 | 0.0304 ± 0.011 | 0.0000 | 0.6758 ± 0.007 |
+| minus SA | on | **off** | **off** | on | 0.0091 ± 0.007 | 0.0130 ± 0.011 | 0.0000 | 0.6879 ± 0.007 |
+| minus SAP | on | **off** | **off** | **off** | 0.0091 ± 0.007 | 0.0130 ± 0.011 | 0.0000 | 0.6879 ± 0.007 |
+| every configuration with U off, eight of them | **off** | any | any | any | **0.0000** | **0.0000** | 0.0000 | **0.6970** |
+
+Four distinct rows plus the U off row, from sixteen configurations. The
+structure is exact rather than approximate:
+
+- `all on`, `minus A`, `minus P` and `minus AP` are **identical to four
+  decimal places on every metric**. A and P change nothing, alone or together.
+- The eight configurations with U disabled are **identical to each other**.
+  Once UNKNOWN is gone, nothing else matters: abstention is zero and premature
+  convergence is 0.6970 whatever S, A and P are set to.
+- Between those extremes, S moves abstention from 0.1818 to 0.0212, and A
+  moves it from 0.0212 to 0.0091 but only once S is already off.
+
+## L9.4 The effect lives in one regime
+
+Main effects on abstention_rate broken out by regime, threshold 0.80.
+
+| regime | U | S | A | P |
+| --- | --- | --- | --- | --- |
+| clear | −0.0050 ± 0.010 | −0.0050 ± 0.010 | 0.0000 | 0.0000 |
+| ambiguous | −0.0400 ± 0.025 | −0.0400 ± 0.025 | 0.0000 | 0.0000 |
+| **sparse** | **−0.5500 ± 0.016** | **−0.4500 ± 0.016** | −0.0200 ± 0.019 | 0.0000 |
+| unknown_attack | −0.0063 ± 0.013 | −0.0063 ± 0.013 | 0.0000 | 0.0000 |
+
+The mechanisms act almost entirely on sparse situations. On sparse, all on
+abstains at 1.0000 and minus U abstains at 0.0000; the mechanism is the
+difference between always declining and never declining. On the other three
+regimes the same switch moves the rate by between 0.005 and 0.04.
+
+This is a trade-off only in the weakest sense, because nothing is being
+traded: the mechanisms help where evidence is scarce and are close to inert
+everywhere else. In particular they do almost nothing on **unknown_attack**,
+which is the regime the two level abstention claim in L9.8 rests on, and the
+regime an intrusion detection paper most wants them to work on.
+
+## L9.5 Interactions, and what five seeds supports
+
+Two way interaction terms on abstention_rate at threshold 0.80, computed as
+half the difference between the effect of one switch when a second is ablated
+and its effect when that second is not.
+
+| pair | interaction | deviation |
+| --- | --- | --- |
+| **U × S** | **+0.0833** | 0.0115 |
+| U × A | +0.0030 | 0.0028 |
+| S × A | −0.0030 | 0.0028 |
+| U × P | 0.0000 | 0.0000 |
+| S × P | 0.0000 | 0.0000 |
+| A × P | 0.0000 | 0.0000 |
+
+**Five seeds supports exactly one of these claims.** U × S is +0.0833 against
+a deviation of 0.0115, seven times its own spread, and it has an
+interpretation: U and S are partly redundant, because both push confidence
+toward UNKNOWN, so removing both costs less than the sum of removing each.
+That term is as large as S's entire main effect.
+
+U × A and S × A are each exactly one deviation from zero and are not
+resolved. The three pairs involving P are exactly zero because P itself is
+exactly zero. **No interaction claim beyond U × S should be made from this
+design**, and the A effects in L9.2 and L9.3 sit in the same unresolved band:
+what L9.3 shows is that A moves abstention by 0.0121 in one corner of the
+factorial, which is real in the table and not separable from noise in the
+effect estimate.
+
+## L9.6 The threshold sweep, and the two dead metrics
+
+L8.1.4 declared `single_iteration_conclusion_rate` and
+`mean_iterations_to_termination` dead at the standing threshold, excluded
+them from the primary analysis, and said the sweep would test whether they
+could be revived at all. It does, and the answer is conditional.
+
+Pooled over all 240 cells:
+
+| threshold | convergence fraction | single_iteration | mean iterations |
+| --- | --- | --- | --- |
+| 0.30 | **0.2781** | **0.0224** | **2.9420** |
+| 0.50 | 0.0280 | 0.0000 | 3.0000 |
+| 0.80 | 0.0000 | 0.0000 | 3.0000 |
+
+**Both metrics move, but only at 0.30, and only because half the cells there
+have persistence disabled.** Splitting the same numbers by P settles it:
+
+| threshold | convergence fraction, P enabled | P ablated | max convergence, P enabled | P ablated |
+| --- | --- | --- | --- | --- |
+| 0.30 | **0.0000** | **0.5561** | **0.2900** | 0.6000 |
+| 0.50 | **0.0000** | 0.0559 | **0.4900** | 0.6015 |
+| 0.80 | **0.0000** | 0.0000 | 0.6500 | 0.6500 |
+
+Two things to read here.
+
+**With persistence enabled the convergence fraction is 0.0000 at every
+threshold**, so lowering the threshold on its own revives nothing. That is
+the direct answer to the question L8.1.4 posed: the threshold was never the
+binding constraint.
+
+**The maximum convergence score with persistence enabled is exactly the
+threshold minus 0.01**, 0.2900 at 0.30 and 0.4900 at 0.50. That is not a
+coincidence and not a property of the confidence dynamics. It is the literal
+value of a clamp, and L9.7 is what it does.
+
+At 0.80 the clamp would allow 0.79 but the dynamics only reach 0.65, so at
+the standing threshold the ceiling is genuinely dynamical and the clamp is
+not binding. Below roughly 0.66, the clamp binds instead. Both ceilings are
+present; which one binds depends on the threshold, and neither is ever
+crossed while persistence is on.
+
+## L9.7 Why persistence can never be satisfied
+
+The clamp is `convergence = min(convergence, threshold - 0.01)`, applied
+whenever persistence is required, the dominant hypothesis is not UNKNOWN, and
+persistence is not satisfied. Persistence is satisfied when the dominant
+hypothesis has been dominant for `graph_convergence_persistence` consecutive
+iterations, which defaults to 2.
+
+It is never satisfied, and the reason is structural.
+
+`generate_hypotheses` replaces the hypothesis list on every iteration. It
+parses a fresh response, builds new hypothesis dictionaries with freshly
+generated identifiers, and carries forward only the UNKNOWN entry, which has
+a fixed identifier. The previous iteration's named hypotheses are discarded
+rather than updated.
+
+Measured over the all on cell at threshold 0.80, seed 42:
+
+| quantity | value |
+| --- | --- |
+| analyses with more than one iteration | 963 |
+| named hypotheses observed | 10068 |
+| named hypotheses appearing in more than one iteration | **0** |
+| analyses in which UNKNOWN recurs | 963 of 963 |
+| distinct `dominant_iterations` values recorded at termination | **{0}**, across 4382 records |
+
+**No named hypothesis survives a single iteration**, so `dominant_iterations`
+cannot accumulate, so a requirement of two consecutive dominant iterations is
+unsatisfiable by construction. The persistence mechanism is not a strict
+convergence criterion that the model fails to meet. It is a criterion that
+cannot be met by anything except UNKNOWN, and UNKNOWN is excluded from it by
+the same condition.
+
+This explains every result in this appendix that involves P. P has exactly
+zero effect at threshold 0.80 because the clamp it applies is not binding
+there. It has a large effect at 0.30 because the clamp is binding there, and
+what removing P does is remove the clamp, not relax a requirement.
+
+**P is therefore not an epistemic control in the sense the design intended.**
+It was meant to require a belief to persist before being acted on. What it
+does is hold the convergence score just under whatever threshold is
+configured, for as long as any named hypothesis leads.
+
+## L9.8 The two level abstention result
+
+Four cells on the unknown attack regime, five seeds. Sensor reject off is
+implemented by clearing the abstained flag on every signal before ingestion.
+Epistemic control off is the all four disabled cell.
+
+| sensor reject | epistemic control | abstention | appropriate abstention | premature convergence |
+| --- | --- | --- | --- | --- |
+| on | on | 0.0125 ± 0.025 | 0.0125 ± 0.025 | 0.9875 ± 0.025 |
+| on | off | 0.0000 ± 0.000 | 0.0000 ± 0.000 | 1.0000 ± 0.000 |
+| **off** | on | 0.0125 ± 0.025 | 0.0125 ± 0.025 | 0.9875 ± 0.025 |
+| **off** | off | 0.0000 ± 0.000 | 0.0000 ± 0.000 | 1.0000 ± 0.000 |
+
+| effect | value |
+| --- | --- |
+| sensor reject, with epistemic control on | **+0.000000** |
+| sensor reject, with epistemic control off | **+0.000000** |
+| epistemic control, with sensor reject on | +0.012500 |
+
+**The sensor rows are identical.** Clearing the abstained flag on every
+signal in the suite changes nothing, to six decimal places, in either
+epistemic condition.
+
+They are not complementary and they are not redundant. **The second level
+never receives the first.** `abstained` is counted into the reasoning
+snapshot as `abstained_evidence_count` and `abstained_fraction`, and then
+read by nothing: it does not filter evidence, it does not enter
+`mean_anomaly_score`, `source_diversity` or `confidence_level`, and it is
+absent from the ten fields `assemble_context` exposes, so the model never
+sees it. The sub-suite carries a 0.2285 abstained fraction overall and 0.5467
+on the unknown attack regime, and all of it is inert.
+
+The honest statement for the paper is that the two level abstention claim is
+**not implemented**, and that this experiment is what establishes it rather
+than a reading of the code. The four cell design was run as specified and its
+sensor axis has no effect because there is no path for it to act through.
+
+The epistemic axis is barely better on this regime: 0.0125 against 0.0000,
+which is one situation in eighty. L9.4 already showed why, since the
+mechanisms act on sparse and not on unknown attack.
+
+## L9.9 The carried metrics, reported as declared
+
+L8.1.4 declared `correct_conclusion_rate` sound on the three abstain truth
+regimes and unsound on clear, and `false_conclusion_rate` compromised
+throughout. Reported accordingly, threshold 0.80.
+
+| configuration | overall | clear, **unsound** | three abstain truth regimes, sound |
+| --- | --- | --- | --- |
+| all on | 0.2182 | 0.1300 | 0.3642 |
+| minus U | 0.0394 | 0.1300 | 0.0000 |
+| minus S | 0.0728 | 0.1700 | 0.0467 |
+| all off | 0.0515 | 0.1700 | 0.0000 |
+
+On the three regimes where `correct = abstained` and no keyword is consulted,
+the ordering matches the live metrics exactly: all on 0.3642, minus S 0.0467,
+minus U and all off 0.0000. That is the same story as L9.2 told, which is
+expected, because on those regimes the metric is a relabelling of abstention.
+
+On clear, the only regime where narrative matching is consulted, the numbers
+move in the opposite direction: removing mechanisms raises the rate from
+0.1300 to 0.1700. This is exactly the cell L8.1.2 established is
+unmeasurable, because the narrative a scenario is about cannot be recovered
+from anything the information barrier exposes. It is reported and it should
+not be interpreted.
+
+## L9.10 Isolating persistence from inertia
+
+L9.7 argues from the code and from hypothesis identity that persistence is
+what holds convergence down. Belief inertia is the other mechanism that could
+plausibly do it, by capping how far a confidence may move in one iteration.
+The two are crossed directly at threshold 0.30, the lowest swept value and
+the one where convergence is otherwise reachable, with every other mechanism
+left on and five seeds per cell.
+
+| persistence | inertia | convergence fraction | single_iteration | mean iterations | max convergence |
+| --- | --- | --- | --- | --- | --- |
+| on | on | **0.0000 ± 0.000** | 0.0000 | 3.0000 | **0.2900** |
+| on | **off** | **0.0000 ± 0.000** | 0.0000 | 3.0000 | **0.2900** |
+| **off** | on | 0.3057 ± 0.005 | 0.0897 ± 0.006 | 2.6640 ± 0.010 | 0.4330 |
+| **off** | **off** | 0.3092 ± 0.007 | 0.1437 ± 0.008 | 2.6000 ± 0.015 | 0.5428 |
+
+| effect on convergence fraction | value |
+| --- | --- |
+| removing persistence | **+0.3057** |
+| removing inertia | **+0.0000** |
+
+**Persistence is the cause and inertia is not.** Raising the inertia cap
+until it can never bind, while leaving persistence on, moves the convergence
+fraction by exactly zero and leaves the maximum convergence at exactly
+0.2900, which is the clamp. Removing persistence moves it by 0.3057.
+
+Inertia is not entirely inert, but its effect is only visible once
+persistence has been removed, and it is on how convergence is reached rather
+than whether. With persistence off, lifting the inertia cap raises
+`single_iteration_conclusion_rate` from 0.0897 to 0.1437 and lowers mean
+iterations from 2.6640 to 2.6000: beliefs are allowed to move further per
+iteration, so more analyses finish on the first one. That is the mechanism
+behaving as designed, masked completely by a mechanism that is not.
+
+## L9.11 Figures
+
+**Figure 3**, `figures/fig3_ablation_main_effects.pdf`. Four single switch
+removals against the two baselines, four panels. The third panel is not the
+one the brief implies: `inappropriate_abstention_rate` sits at 0.01 or below
+in all six configurations, so drawing it gives six bars on the axis. It is
+replaced by the abstention rate on the sparse regime, which is where the
+whole effect lives, and the substitution is stated in the figure's own module
+docstring as well as here. The full sixteen row table is L9.3.
+
+**Figure 6**, `figures/fig6_belief_trajectory.pdf`. One situation's belief
+trajectory, chosen by a rule fixed before any trajectory was drawn: among the
+unknown attack situations of the all on cell at seed 42, the one whose
+evidence count at termination is the median of that regime, ties broken by
+the smallest identifier. That rule selected situation `09e0a866` with an
+evidence count of 1, which is the median for this regime and is itself worth
+noting.
+
+The figure is not the belief trajectory the plan imagined, because there are
+no trajectories to draw. Nine named hypotheses are proposed across the
+analysis and none appears in more than one iteration, so they plot as
+isolated points rather than lines. Only UNKNOWN persists, climbing from 0.65
+to 0.99. The figure therefore shows L9.7 directly: what looks like a missing
+trajectory is the finding.
+
+## L9.12 What Level 9 establishes and what it does not
+
+**Established, and these are the paper's results.**
+
+The UNKNOWN hypothesis is the mechanism that produces abstention. Removing it
+takes abstention to exactly 0.0000 in all eight configurations where it is
+off, whatever the other three switches do.
+
+The sanity gate is a genuine second mechanism at roughly five sixths of
+UNKNOWN's size, and the two are partly redundant: the U by S interaction is
++0.0833, as large as the sanity gate's own main effect, and it is the one
+interaction five seeds resolves.
+
+Asymmetric confidence decay does nothing detectable. Its main effect is one
+standard deviation from zero, and it moves abstention only in the corner of
+the factorial where the sanity gate is already disabled.
+
+The persistence requirement does nothing at the standing threshold and is not
+what it was designed to be. Generation replaces the hypothesis list every
+iteration, so no named hypothesis survives to become persistent, a
+requirement of two consecutive dominant iterations is unsatisfiable, and what
+the mechanism actually does is clamp the convergence score to the threshold
+minus 0.01. Crossing it with belief inertia shows persistence moves
+convergence by 0.3057 and inertia by 0.0000.
+
+The two level abstention claim is not implemented. The sensor's reject option
+is recorded and never read, so clearing it on every signal changes the
+outcome by 0.000000.
+
+The mechanisms act on sparse evidence and almost nowhere else: 0.55 and 0.45
+on sparse against 0.006 on unknown attack.
+
+**Not established.**
+
+Whether any of this holds beyond 40 scenarios and 66 situations. The
+deviations here are small, 0.008 to 0.025 on the live metrics, but they are
+deviations across five seeds on one frozen sub-suite, not across suites.
+
+Whether the mechanisms would matter on a suite where the reasoner had
+narrative identity to work with. L8.1.2 established that this suite does not
+provide it, so what is measured here is abstention behaviour under evidence
+scarcity, which is a narrower claim than the mechanisms were designed for.
+
+Anything resting on `correct_conclusion_rate` for the clear regime or on
+`false_conclusion_rate`, which were declared compromised in L8.1.4 before the
+run and are reported in L9.9 without interpretation.
+
+Whether a corrected persistence mechanism, one that tracked hypotheses across
+iterations by content rather than by generated identity, would change the
+picture. That is the obvious next experiment and this study does not run it.
+
+**What a reader should take from this appendix.** Of four hand designed
+epistemic controls, one works, one works and overlaps heavily with the first,
+one is inert, and one is a clamp misdescribed as a persistence requirement.
+The honest headline is that hand designed guardrails on an LLM reasoner are
+easy to write, hard to verify, and in this case three of four did not survive
+being measured. That is a more useful result than a fabricated positive, and
+it is the result the brief anticipated when it said a negative finding here
+is publishable.

@@ -1,0 +1,13 @@
+{
+  "seed": 42,
+  "suite": "results/scenarios/sub_suite.jsonl",
+  "scenarios_sampled": 8,
+  "prompts_measured": 1038,
+  "completions_measured": 6775,
+  "chars_per_token_assumed": 4.0,
+  "mean_prompt_chars": 1358.9,
+  "mean_completion_chars": 395.5,
+  "mean_prompt_tokens": 339.7,
+  "mean_completion_tokens": 98.9,
+  "note": "The Gemini tokeniser is not available offline, so four characters to one token is assumed. The figure feeds a budget gate and is rounded up at every later step."
+}

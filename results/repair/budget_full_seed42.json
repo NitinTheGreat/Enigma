@@ -1,0 +1,65 @@
+{
+  "seed": 42,
+  "stage": "full",
+  "suite": "results/scenarios/sub_suite.jsonl",
+  "suite_hash": "a2b37f29b163ea310586f3073e88bddd5f0628667ba0c0595ddfa88d708c3911",
+  "thresholds": [
+    0.3,
+    0.5,
+    0.8
+  ],
+  "seeds": [
+    42,
+    123,
+    456,
+    789,
+    1024
+  ],
+  "scenarios": 40,
+  "units_run": 600,
+  "units_failed": 0,
+  "retries": 0,
+  "concurrency": 40,
+  "model_name": "gemini-2.5-flash",
+  "identity_match_rule": "normalise to lowercase alphanumeric words, difflib SequenceMatcher ratio, greedy one to one assignment in descending similarity, UNKNOWN and pruned hypotheses excluded",
+  "identity_match_threshold": 0.7,
+  "threshold_fixed_before_run": true,
+  "pricing": {
+    "input_usd_per_million": 0.3,
+    "output_usd_per_million": 2.5,
+    "source": "published Gemini 2.5 Flash paid tier, standard",
+    "mean_prompt_tokens": 340.0,
+    "mean_completion_tokens": 99.0
+  },
+  "prior_estimate": {
+    "uncached_calls": 386,
+    "input_tokens": 131240,
+    "output_tokens": 38214,
+    "input_usd": 0.0394,
+    "output_usd": 0.0955,
+    "total_usd": 0.1349,
+    "wall_clock_seconds": 86.1,
+    "wall_clock_minutes": 1.44
+  },
+  "cache": {
+    "hits": 42863,
+    "misses": 0,
+    "lookups": 42863,
+    "hit_rate": 1.0
+  },
+  "realised": {
+    "uncached_calls": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "input_usd": 0.0,
+    "output_usd": 0.0,
+    "total_usd": 0.0,
+    "wall_clock_seconds": 623.3,
+    "wall_clock_minutes": 10.39
+  },
+  "projection_to_full_grid": null,
+  "limits": {
+    "wall_clock_minutes": 30.0,
+    "cost_usd": 2.0
+  }
+}

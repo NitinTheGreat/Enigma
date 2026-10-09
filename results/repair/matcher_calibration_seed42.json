@@ -1,0 +1,144 @@
+{
+  "seed": 42,
+  "cell": "allon_t080_42",
+  "analyses_examined": 120,
+  "rule": "normalise to lowercase alphanumeric words, then difflib SequenceMatcher ratio, greedy one to one assignment in descending similarity, UNKNOWN excluded",
+  "within_analysis_similarity": {
+    "n": 610,
+    "min": 0.1345,
+    "p05": 0.2017,
+    "p25": 0.2975,
+    "median": 0.3692,
+    "mean": 0.4998,
+    "p75": 0.6929,
+    "p95": 1.0,
+    "max": 1.0
+  },
+  "across_analysis_similarity": {
+    "n": 37,
+    "min": 0.1639,
+    "p05": 0.1803,
+    "p25": 0.3333,
+    "median": 0.4122,
+    "mean": 0.5825,
+    "p75": 1.0,
+    "p95": 1.0,
+    "max": 1.0
+  },
+  "threshold_grid": [
+    {
+      "seed": 42,
+      "threshold": 0.3,
+      "within_analysis_pairs_at_or_above": 452,
+      "within_analysis_share": 0.741,
+      "across_analysis_pairs_at_or_above": 29,
+      "across_analysis_share": 0.7838
+    },
+    {
+      "seed": 42,
+      "threshold": 0.35,
+      "within_analysis_pairs_at_or_above": 360,
+      "within_analysis_share": 0.5902,
+      "across_analysis_pairs_at_or_above": 25,
+      "across_analysis_share": 0.6757
+    },
+    {
+      "seed": 42,
+      "threshold": 0.4,
+      "within_analysis_pairs_at_or_above": 265,
+      "within_analysis_share": 0.4344,
+      "across_analysis_pairs_at_or_above": 21,
+      "across_analysis_share": 0.5676
+    },
+    {
+      "seed": 42,
+      "threshold": 0.45,
+      "within_analysis_pairs_at_or_above": 210,
+      "within_analysis_share": 0.3443,
+      "across_analysis_pairs_at_or_above": 17,
+      "across_analysis_share": 0.4595
+    },
+    {
+      "seed": 42,
+      "threshold": 0.5,
+      "within_analysis_pairs_at_or_above": 182,
+      "within_analysis_share": 0.2984,
+      "across_analysis_pairs_at_or_above": 16,
+      "across_analysis_share": 0.4324
+    },
+    {
+      "seed": 42,
+      "threshold": 0.55,
+      "within_analysis_pairs_at_or_above": 166,
+      "within_analysis_share": 0.2721,
+      "across_analysis_pairs_at_or_above": 16,
+      "across_analysis_share": 0.4324
+    },
+    {
+      "seed": 42,
+      "threshold": 0.6,
+      "within_analysis_pairs_at_or_above": 159,
+      "within_analysis_share": 0.2607,
+      "across_analysis_pairs_at_or_above": 15,
+      "across_analysis_share": 0.4054
+    },
+    {
+      "seed": 42,
+      "threshold": 0.65,
+      "within_analysis_pairs_at_or_above": 157,
+      "within_analysis_share": 0.2574,
+      "across_analysis_pairs_at_or_above": 15,
+      "across_analysis_share": 0.4054
+    },
+    {
+      "seed": 42,
+      "threshold": 0.7,
+      "within_analysis_pairs_at_or_above": 152,
+      "within_analysis_share": 0.2492,
+      "across_analysis_pairs_at_or_above": 15,
+      "across_analysis_share": 0.4054
+    },
+    {
+      "seed": 42,
+      "threshold": 0.75,
+      "within_analysis_pairs_at_or_above": 147,
+      "within_analysis_share": 0.241,
+      "across_analysis_pairs_at_or_above": 14,
+      "across_analysis_share": 0.3784
+    },
+    {
+      "seed": 42,
+      "threshold": 0.8,
+      "within_analysis_pairs_at_or_above": 142,
+      "within_analysis_share": 0.2328,
+      "across_analysis_pairs_at_or_above": 12,
+      "across_analysis_share": 0.3243
+    },
+    {
+      "seed": 42,
+      "threshold": 0.85,
+      "within_analysis_pairs_at_or_above": 141,
+      "within_analysis_share": 0.2311,
+      "across_analysis_pairs_at_or_above": 12,
+      "across_analysis_share": 0.3243
+    },
+    {
+      "seed": 42,
+      "threshold": 0.9,
+      "within_analysis_pairs_at_or_above": 137,
+      "within_analysis_share": 0.2246,
+      "across_analysis_pairs_at_or_above": 12,
+      "across_analysis_share": 0.3243
+    },
+    {
+      "seed": 42,
+      "threshold": 0.95,
+      "within_analysis_pairs_at_or_above": 133,
+      "within_analysis_share": 0.218,
+      "across_analysis_pairs_at_or_above": 10,
+      "across_analysis_share": 0.2703
+    }
+  ],
+  "chosen_threshold": null,
+  "chosen_rationale": "lowest threshold at which at most one per cent of across analysis pairs would be matched, chosen before the repair was run"
+}

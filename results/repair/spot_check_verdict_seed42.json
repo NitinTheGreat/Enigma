@@ -1,0 +1,314 @@
+{
+  "seed": 42,
+  "pairs_judged": 30,
+  "judged_same": 30,
+  "judged_different": 0,
+  "identical_text": 3,
+  "borderline": 1,
+  "bar": 24,
+  "passes": true,
+  "annotator": "assistant, single annotator, judged after the run and before any outcome metric was attributed to the match rule",
+  "if_borderline_counted_against": 29,
+  "rows": [
+    {
+      "seed": 42,
+      "pair": 1,
+      "situation_id": "f2f440b3-91fd-42d2-a483-009df20a416c",
+      "iterations": "[1, 2, 3]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "internal compromise, escalating, refined to name C2 or exfiltration",
+      "texts": "[\"Internal compromised host exhibiting anomalous and escalating outbound activity.\", \"Multiple internal compromised hosts exhibiting escalating anomalous activity.\", \"Internal compromised hosts initiating escalating anomalous C2 or data exfiltration.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 2,
+      "situation_id": "fed36dfc-bfb4-42ed-8762-b2fb2e159850",
+      "iterations": "[2, 3]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"Low-intensity probing or reconnaissance from multiple sources.\", \"Low-intensity probing or reconnaissance from multiple distinct sources.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 3,
+      "situation_id": "1b575420-688f-4672-ad43-fc7a652387a3",
+      "iterations": "[1, 2]",
+      "identical_text": true,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"Short, unsuccessful probing or reconnaissance attempt.\", \"Short, unsuccessful probing or reconnaissance attempt.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 4,
+      "situation_id": "0f704e18-d355-49ec-8d4c-30b5ff622789",
+      "iterations": "[2, 3]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"Distributed internal reconnaissance or probing activity.\", \"Distributed internal reconnaissance or probing.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 5,
+      "situation_id": "17f6d664-9399-4c9c-8722-67749265b88b",
+      "iterations": "[1, 2, 3]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "third restatement drops the compromise clause but keeps the subject",
+      "texts": "[\"Distributed anomalous activity potentially indicating an internal compromise.\", \"Distributed anomalous activity indicating potential internal compromise.\", \"Distributed anomalous activity across multiple internal systems.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 6,
+      "situation_id": "3b844fab-04bf-46b0-97e2-5b70052f8ad2",
+      "iterations": "[1, 2]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"Coordinated reconnaissance or probing activity from two distinct external sources.\", \"Coordinated reconnaissance or probing activity from two external sources.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 7,
+      "situation_id": "f52dd8d4-3a0a-47ce-a451-e4b51a8ef63f",
+      "iterations": "[1, 2, 3]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"Brief, multi-source reconnaissance or probing activity.\", \"Brief, multi-source reconnaissance activity concluding.\", \"Brief, multi-source reconnaissance activity concluding.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 8,
+      "situation_id": "efadf320-4e44-4ecd-9570-08c5e6d6cdb1",
+      "iterations": "[1, 2]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"Internal system probing or attempted lateral movement.\", \"Escalating internal system probing or lateral movement attempt.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 9,
+      "situation_id": "d65aa2c4-3220-4cc7-b813-f89d81944a2e",
+      "iterations": "[1, 2, 3]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "probing and reconnaissance are used interchangeably by the model",
+      "texts": "[\"Brief, multi-source reconnaissance activity concluded.\", \"Brief, multi-source probing activity concluded.\", \"Brief, multi-source reconnaissance activity concluded.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 10,
+      "situation_id": "0ade65d3-b282-4508-9649-2f9fb47c47ee",
+      "iterations": "[1, 2, 3]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"Multi-stage reconnaissance or probing activity concluding.\", \"Multi-stage reconnaissance or probing activity from distinct sources deescalating.\", \"Deescalating multi-stage reconnaissance or probing from diverse sources.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 11,
+      "situation_id": "b2f76054-184a-42eb-a64c-0f3e0490e94d",
+      "iterations": "[2, 3]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"Internal system compromise or misconfiguration causing escalating anomalous behavior.\", \"Internal system misconfiguration or compromise causing escalating anomalous events.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 12,
+      "situation_id": "e61438c3-55a8-4f9d-b19f-830ef7485bf3",
+      "iterations": "[2, 3]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"Internal system compromise leading to escalating anomalous network activity.\", \"Internal system compromise exhibiting escalating anomalous activity.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 13,
+      "situation_id": "604587d1-f081-44bf-983b-7dfe41951267",
+      "iterations": "[2, 3]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "misconfiguration or minor bug in a distributed application, reworded",
+      "texts": "[\"Persistent misconfiguration or minor bug in a distributed application.\", \"Consistent event generation from a minor distributed application bug.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 14,
+      "situation_id": "029bfa02-7fea-4b19-905c-4fd75fafebdd",
+      "iterations": "[2, 3]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"Normal operational activity from diverse internal services.\", \"Routine operational activity from multiple internal systems.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 15,
+      "situation_id": "401cf7cf-cf6a-40a5-9d2f-411a8310d96c",
+      "iterations": "[1, 2]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"Anomalous internal activity indicating potential lateral movement or compromise\", \"Anomalous internal activity indicating potential lateral movement or compromise between two hosts.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 16,
+      "situation_id": "aecdc9a6-c19f-4ef3-921d-1ebd82367a69",
+      "iterations": "[1, 2]",
+      "identical_text": true,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"Short-lived, unsuccessful attempt at unauthorized access.\", \"Short-lived, unsuccessful attempt at unauthorized access.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 17,
+      "situation_id": "cd98a2ae-ec9e-43ee-b4e5-dce08329359a",
+      "iterations": "[1, 2]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"Persistent, low-volume reconnaissance or probing from two distinct sources.\", \"Sustained, low-volume reconnaissance from two distinct sources.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 18,
+      "situation_id": "8dad3bae-9131-4b97-a98e-e1420bd72b1d",
+      "iterations": "[1, 2, 3]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"A single highly anomalous event was detected and immediately mitigated or blocked.\", \"A single, highly anomalous event was detected and immediately mitigated or blocked.\", \"A single, highly anomalous event was detected and immediately mitigated or blocked.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 19,
+      "situation_id": "2473c1e6-d3a4-4c2e-bd30-10ff24e5e3be",
+      "iterations": "[1, 2, 3]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"Coordinated reconnaissance or probing activity from multiple sources.\", \"Coordinated reconnaissance or probing activity from multiple sources.\", \"Escalating reconnaissance activity from multiple distinct sources.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 20,
+      "situation_id": "37c6e19a-3c2d-47d4-95db-6ec9a7e9d74e",
+      "iterations": "[1, 2]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"Routine automated system health checks or maintenance activity.\", \"Automated system health checks or routine maintenance activity.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 21,
+      "situation_id": "8043c84e-40fb-4180-8371-3b888fd1192f",
+      "iterations": "[1, 2, 3]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"Automated activity generating anomalous events from two origins.\", \"Automated process generating anomalous events from two origins.\", \"Automated system process generating anomalous events from two linked components.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 22,
+      "situation_id": "b385dd47-be83-41d6-8c93-04817f08e002",
+      "iterations": "[1, 2]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "BORDERLINE. Subject is unchanged, benign automated maintenance, but the severity flips from slightly anomalous to high anomaly. Counted as a match because the hypothesis is the same; a reader who counts it against leaves the result at 29 of 30, still above the bar",
+      "texts": "[\"Routine system maintenance generating slightly anomalous logs\", \"Automated system health check generating high anomaly logs\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 23,
+      "situation_id": "5c15a77f-2b11-40e6-8474-4ce532b0075b",
+      "iterations": "[2, 3]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"Brief, multi-source reconnaissance activity concluded.\", \"Brief, multi-source external reconnaissance activity concluded.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 24,
+      "situation_id": "1dda67ca-afa9-45bb-a148-b398a97cb769",
+      "iterations": "[1, 2, 3]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"Initial reconnaissance or targeted probing from two distinct external sources.\", \"Coordinated low-and-slow probing from two distinct external sources.\", \"Coordinated reconnaissance or probing activity from two distinct external entities.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 25,
+      "situation_id": "61bc5f3c-366c-400a-acc4-c505943ee43d",
+      "iterations": "[2, 3]",
+      "identical_text": true,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"Coordinated external reconnaissance activity from diverse sources.\", \"Coordinated external reconnaissance activity from diverse sources.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 26,
+      "situation_id": "5627fb13-ef9d-4051-8009-32b5938ec66e",
+      "iterations": "[2, 3]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"External reconnaissance activity escalating in bursts from diverse sources.\", \"External probing or reconnaissance activity escalating from multiple sources.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 27,
+      "situation_id": "0ade65d3-b282-4508-9649-2f9fb47c47ee",
+      "iterations": "[2, 3]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"Coordinated external reconnaissance activity generating highly anomalous events.\", \"Coordinated external reconnaissance activity from multiple sources.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 28,
+      "situation_id": "67cf7391-62d8-4155-aede-3dfcda68c593",
+      "iterations": "[1, 2, 3]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "automated attack framework, exploiting to attempting to probing",
+      "texts": "[\"Automated attack framework actively exploiting vulnerabilities\", \"Automated attack framework attempting to exploit vulnerabilities.\", \"Automated attack framework actively probing and attempting exploitation.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 29,
+      "situation_id": "7ada87a4-bace-4dce-ab37-94b721b6a41a",
+      "iterations": "[1, 2]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"Completion of an unusual but legitimate automated task across multiple system components.\", \"Completion of an unusual but legitimate automated system task.\"]"
+    },
+    {
+      "seed": 42,
+      "pair": 30,
+      "situation_id": "eba6b7cc-d350-4637-b0d7-668db459d634",
+      "iterations": "[2, 3]",
+      "identical_text": false,
+      "verdict": "same hypothesis restated",
+      "note": "",
+      "texts": "[\"Persistent external reconnaissance from multiple sources\", \"Persistent external reconnaissance from multiple distinct sources.\"]"
+    }
+  ]
+}

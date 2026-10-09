@@ -262,7 +262,7 @@ def figure_six(
         if not line:
             continue
         record = json.loads(line)
-        if record.get("record_type") == "retry":
+        if "situation_id" not in record or record.get("record_type") == "retry":
             continue
         if str(record.get("situation_id")) != situation:
             continue
@@ -432,13 +432,43 @@ def main() -> int:
 
     tag = f"t{int(round(args.threshold * 100)):03d}"
     log = RESULTS_DIR / f"allon_{tag}_{args.trajectory_seed}.jsonl"
+    extract = RESULTS_DIR / f"fig6_trajectory_seed{args.trajectory_seed}_{tag}.jsonl"
     entity_path = RESULTS_DIR / f"allon_{tag}_{args.trajectory_seed}_entities.json"
-    entities = json.loads(entity_path.read_text(encoding="utf-8"))
-    situation, evidence_count = choose_situation(log, entities, regimes)
-    if situation is None:
-        print("no unknown attack situation found for the trajectory")
+
+    if log.exists():
+        entities = json.loads(entity_path.read_text(encoding="utf-8"))
+        situation, evidence_count = choose_situation(log, entities, regimes)
+        if situation is None:
+            print("no unknown attack situation found for the trajectory")
+            return 1
+        kept = [
+            line
+            for line in log.read_text(encoding="utf-8").splitlines()
+            if line and json.loads(line).get("situation_id") == situation
+        ]
+        payload = json.dumps(
+            {"situation_id": situation, "evidence_count": evidence_count},
+            separators=(",", ":"),
+        )
+        extract.write_text(
+            payload + chr(10) + chr(10).join(kept) + chr(10),
+            encoding="utf-8",
+        )
+        source = log
+    elif extract.exists():
+        lines = extract.read_text(encoding="utf-8").splitlines()
+        header = json.loads(lines[0])
+        situation = header["situation_id"]
+        evidence_count = header["evidence_count"]
+        source = extract
+        print(f"run log absent, drawing from the tracked extract {extract.name}")
+    else:
+        print("neither the run log nor the trajectory extract is present")
         return 1
-    pdf6 = figure_six(log, situation, args.threshold, args.trajectory_seed, evidence_count)
+
+    pdf6 = figure_six(
+        source, situation, args.threshold, args.trajectory_seed, evidence_count
+    )
 
     print(f"seed {args.seed}   threshold {args.threshold}")
     print(f"Figure 3 configurations drawn: {list(ORDER)}")

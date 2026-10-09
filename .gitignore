@@ -21,9 +21,6 @@ results/budget/cache_ablation_run_log_*.jsonl
 results/level6/run_log_*.jsonl
 results/level6/cache_*.json
 
-Enigma-AIAgent/
-Enigma-ML-Layer/
-Enigma-Frontend/
 
 results/ablation/*.jsonl
 !results/ablation/fig6_trajectory_*.jsonl

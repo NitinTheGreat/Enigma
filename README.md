@@ -12,9 +12,8 @@ quotes, from committed machine readable results. It needs no API key and no
 network.
 
 ```
-git clone https://github.com/NitinTheGreat/Enigma.git "XAI Project"
+git clone --recurse-submodules https://github.com/NitinTheGreat/Enigma.git "XAI Project"
 cd "XAI Project"
-git clone https://github.com/NitinTheGreat/Enigma-AIAgent.git
 ./reproduce.sh
 ```
 
@@ -61,16 +60,24 @@ committed and pushed only to its own remote.
 | `Enigma-AIAgent` | <https://github.com/NitinTheGreat/Enigma-AIAgent> |
 | `Enigma-Frontend` | <https://github.com/NitinTheGreat/Enigma-Frontend> |
 
-To set up a working copy, clone this repository and then clone the three
-beside it:
+The three are linked into this repository as git submodules, so each appears
+here as a folder pointing at its own repository and pinned to a specific
+commit. Clone everything in one step:
 
 ```
-git clone https://github.com/NitinTheGreat/Enigma.git "XAI Project"
-cd "XAI Project"
-git clone https://github.com/NitinTheGreat/Enigma-ML-Layer.git
-git clone https://github.com/NitinTheGreat/Enigma-AIAgent.git
-git clone https://github.com/NitinTheGreat/Enigma-Frontend.git
+git clone --recurse-submodules https://github.com/NitinTheGreat/Enigma.git "XAI Project"
 ```
+
+In a copy that was cloned without that flag, fetch them afterwards:
+
+```
+git submodule update --init
+```
+
+Work on a component is committed and pushed in that component's own
+repository. The root then records the new commit with
+`git add <folder>` and a commit here, which is what keeps the pinned versions
+and the evidence trail in step.
 
 This repository holds only what is shared across the three: the evidence
 trail, the experiment drivers, the figures and the machine readable results.

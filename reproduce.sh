@@ -66,19 +66,19 @@ printf '  %-54s %s\n' "api key present" \
 HAVE_AGENT=0
 if [ -d Enigma-AIAgent/enigma_reason ]; then
   HAVE_AGENT=1
-  printf '  %-54s %s\n' "Enigma-AIAgent beside the root" "present"
+  printf '  %-54s %s\n' "Enigma-AIAgent submodule" "present"
 else
-  printf '  %-54s %s\n' "Enigma-AIAgent beside the root" "ABSENT"
-  echo '      The reasoning layer is its own repository and is not tracked here.'
-  echo '      Clone it beside this one to enable the stages that import it:'
-  echo '        git clone https://github.com/NitinTheGreat/Enigma-AIAgent.git'
+  printf '  %-54s %s\n' "Enigma-AIAgent submodule" "ABSENT"
+  echo '      The reasoning layer is a git submodule that has not been fetched.'
+  echo '      Fetch it to enable the stages that import it:'
+  echo '        git submodule update --init'
 fi
 
 say "Stage 1  frozen inputs verified by content hash"
 if [ "$HAVE_AGENT" -eq 1 ]; then
   step "suite and sub-suite hashes" $PYTHON scripts/verify_hashes.py --seed 42
 else
-  skip "suite and sub-suite hashes" "needs Enigma-AIAgent beside the root"
+  skip "suite and sub-suite hashes" "needs the Enigma-AIAgent submodule"
 fi
 
 say "Stage 2  figures"
@@ -107,7 +107,7 @@ if [ "$FULL" -eq 1 ]; then
     step "Level 10 repair, served from cache" \
       $PYTHON scripts/level10_repair.py --seed 42 --stage full
   else
-    skip "Level 9 and Level 10 re-runs" "needs Enigma-AIAgent and the response caches, see README"
+    skip "Level 9 and Level 10 re-runs" "needs the Enigma-AIAgent submodule and the response caches, see README"
   fi
 else
   skip "Level 8, 9 and 10 re-runs" "not requested, pass --full"

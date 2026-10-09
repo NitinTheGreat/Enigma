@@ -5,6 +5,48 @@ uncertainty. A sensor scores flows and abstains when it is not confident, a
 reasoning layer accumulates those scores into situations and argues about what
 they mean, and a dashboard shows the argument as it happens.
 
+## Reproducing the paper
+
+`reproduce.sh` regenerates every figure and recomputes every number the paper
+quotes, from committed machine readable results. It needs no API key and no
+network.
+
+```
+git clone https://github.com/NitinTheGreat/Enigma.git "XAI Project"
+cd "XAI Project"
+git clone https://github.com/NitinTheGreat/Enigma-AIAgent.git
+./reproduce.sh
+```
+
+Stages 0 to 3 are offline. Stage 4 re-runs the model experiments and is
+skipped unless `--full` is passed.
+
+| Property | Value |
+| --- | --- |
+| Python | 3.12.3, in `/opt/enigma/.venv-agent`, override with `ENIGMA_PYTHON` |
+| Platform | WSL2 Ubuntu 24.04 on x86_64, 12 CPUs |
+| GPU | not required for any stage. `CUDA_VISIBLE_DEVICES=-1` is set by the script |
+| Seeds | 42, 123, 456, 789, 1024 throughout |
+| Frozen inputs | suite `52b89293`, sub-suite `a2b37f29`, verified by content hash in stage 1 |
+| Expected runtime | under two minutes for stages 0 to 3 |
+| Expected result | 5 passed, 1 skipped, 0 failed, 18 of 18 numbers reproduced |
+
+The GPU is needed by nothing here. It is 1.8 to 2.4 times slower than the CPU
+for this project's TensorFlow workload, and the one place it helps is
+XGBoost in Level 5, which is not part of `reproduce.sh`.
+
+### What is and is not reproducible offline
+
+91.2 per cent of the 130436 model calls this project has made were served
+from a content addressed cache rather than paid for twice. Every number in
+the paper is recomputed by stage 3 from committed summaries, so the paper
+reproduces fully offline.
+
+Re-running the experiments themselves needs the response cache archive, 74.4
+MB across 25 files, which is **not committed**. Without it, stage 4 needs an
+API key and roughly 130000 model calls. The archive is reproducible on
+request.
+
 ## The three component repositories
 
 `Enigma-ML-Layer`, `Enigma-AIAgent` and `Enigma-Frontend` are independent

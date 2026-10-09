@@ -1,5 +1,28 @@
 # EVAL_STATUS — Phase 2, item 8
 
+> **STATUS HEADER, added 2026-10-09.** Everything below the rule was written
+> on 2026-07-27, before Levels 1 to 10 ran, and is kept unaltered as the
+> record of what the project looked like then. **Most of it is now false.**
+> It is retained because the gap between this document and
+> `EVIDENCE.md` is itself part of the audit trail.
+>
+> | Claim below | Status on 2026-10-09 | Closed by |
+> | --- | --- | --- |
+> | "zero baselines of any kind" | false, RF and XGBoost at five seeds, literature and flat alerting comparisons | L5 |
+> | "zero ablations" | false, a 2^4 factorial by three thresholds by five seeds, 9600 units | L9 |
+> | "no figure is in an exportable state" | false, eleven PDFs in `figures/` with PNG previews | L3, L4, L5, L8, L9, L10 |
+> | "216 test functions, 167 pass" | false, 362 pass, zero collection errors | L2 to L10 |
+> | "no untouched test set" | false, three way split with a held out test partition | L3 |
+> | "no evaluation protocol" | false, metric tiers declared in advance in L8.1.4 | L8.1 |
+> | "no detection latency, throughput or queue depth" | false, all three measured | L6 |
+> | "no situation level ground truth" | false, 400 scenario frozen suite with injected truth | L7 |
+> | "hypothesis quality unmeasured" | **still true**, and L7.9 and L8.1.2 explain why it may be unmeasurable on this suite | not closed |
+> | "explanation quality unmeasured" | **still true** | not closed |
+>
+> For what is actually established, read `EVIDENCE.md` appendices L1 to L10.
+
+---
+
 What evaluation exists today, verbatim, with citations. Nothing here is
 extrapolated.
 

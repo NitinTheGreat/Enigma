@@ -1,5 +1,40 @@
 # GAPS — Phase 3
 
+> **STATUS HEADER, added 2026-10-09.** This document was written on
+> 2026-07-27, before Levels 1 to 10 ran. The prose below is unaltered. The
+> closure table here records which level addressed each gap and how, so a
+> reader can see at once which criticisms still stand.
+>
+> | Gap | Status | Closed by | Evidence |
+> | --- | --- | --- | --- |
+> | G1 train/test leakage | **closed** | L3 | three way split, leakage audit, five seeds, L3.3 and L3.4 |
+> | G2 nothing is reproducible | **closed** | L1, L10 | run manifests pinning three commits, `reproduce.sh` reruns 18 of 18 numbers offline, L10.3 |
+> | G3 no baseline comparison | **closed** | L5 | RF and XGBoost at five seeds, literature, flat alerting, L5.1 to L5.5 |
+> | G4 no evaluation of the contribution | **closed** | L7, L9 | frozen suite with injected truth, 2^4 factorial, L7.1 and L9.2 |
+> | G5 no defensible novelty claim | **changed** | L8, L9 | the novelty is now the audit finding itself, not the mechanisms |
+> | G6 accuracy is the only metric | **closed** | L3, L4 | per class F1, confusion matrices, calibration, risk coverage |
+> | G7 real-time claims unsupported | **partly** | L6, L7.8 | per stage p99 under 0.9 ms, real model latency 8.927 s measured, the phrase remains unsupported end to end |
+> | G8 mixed-clock defect | **closed and studied** | L2, L8 | fixed in L2, then made the Level 8 result, appendix L8 |
+> | G9 cross-layer is a single source | **still open** | none | the multi source condition is constructed, not observed |
+> | G10 two epistemic mechanisms do not work | **confirmed and extended** | L9 | measured: A is inert, P is a clamp, L9.2 and L9.7 |
+> | G11 anomaly_score is classifier confidence | **closed** | L2 | D5, replaced, L2.6 |
+> | G12 confidence weights unjustified | **still open** | none | the five weights were never swept |
+> | G13 no threats to validity | **closed** | L8, L9, L10 | stated in every appendix and in SKELETON.md |
+> | G14 LLM component unevaluated | **partly** | L7.8, L9 | behaviour measured across 130436 model calls, quality still unmeasured |
+> | G15 frontend fabricated zeros | **closed** | L2 | D6, L2.7 |
+> | G16 no adversarial evaluation | **still open** | none | out of scope throughout |
+> | G17 unbounded memory growth | **still open** | none | not revisited since Phase 3 |
+> | G18 explanation quality unmeasured | **still open** | none | no judge panel was built, L7.9 explains why the obvious one was rejected |
+> | G19 prompts unversioned | **partly** | L6, L9 | the prompt is content hashed by the response cache, still not versioned as an artefact |
+> | G20 documentation drift | **closed by this header** | L10 | this table and the one in EVAL_STATUS.md |
+> | G21 backdoor label split | **closed** | L1 | L1.6, variant specific artefact |
+> | G22 no significance or run variance | **partly** | L8, L9 | five seeds with deviations throughout, no significance test claimed, power stated in L8.1.6 |
+>
+> Closed 11, partly closed 4, still open 5, one reframed.
+> For what is actually established, read `EVIDENCE.md` appendices L1 to L10.
+
+---
+
 Target calibration: **mid-tier applied security venue, 8 pages, IEEE
 format** (IEEE TrustCom / ARES / IEEE CSR / DSN industry track class).
 

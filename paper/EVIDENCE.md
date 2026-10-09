@@ -4378,3 +4378,233 @@ easy to write, hard to verify, and in this case three of four did not survive
 being measured. That is a more useful result than a fabricated positive, and
 it is the result the brief anticipated when it said a negative finding here
 is publishable.
+
+---
+
+# Appendix L10. The repair experiment, the artefacts, and the paper skeleton
+
+## L10.1 The persistence repair
+
+L9.7 established that persistence is unsatisfiable because generation
+replaces the hypothesis list every iteration and no named hypothesis
+survives, so `dominant_iterations` never leaves zero. That diagnosis was
+correlational. This experiment makes identity stable and asks whether
+persistence then gates convergence.
+
+**The design was fixed before running.** A new hypothesis inherits the
+identifier and the dominant iteration counter of the prior hypothesis it
+restates. Only those two fields. The description and the confidence stay
+exactly as the model produced them, and
+`_build_existing_hypothesis_context` prints only descriptions and
+confidences, so every prompt a repaired run issues is byte identical to one
+the unrepaired run already issued.
+
+**The matching rule, declared in advance.** Normalise to lowercase
+alphanumeric words, compare with `difflib.SequenceMatcher`, accept at or
+above **0.70**, assign greedily and one to one in descending similarity,
+exclude UNKNOWN and pruned hypotheses. The threshold was calibrated against
+Level 9 output before the repair ran, recorded in
+`results/repair/matcher_calibration_seed42.json`.
+
+This is identity matching *within one analysis*, between consecutive
+iterations of the same loop. That is a different and much easier job than
+the scorer rejected in L7.9, which tried to match free text to a six way
+ground truth catalogue the context carries no signal about. Here the two
+texts were produced seconds apart by the same model about the same
+situation. The calibration bears this out: in the baseline logs, **917 of
+the consecutive iteration pairs are byte identical text that nonetheless
+received a fresh identifier.**
+
+### The budget gate
+
+| quantity | prior estimate | pilot | full grid |
+| --- | --- | --- | --- |
+| basis | L9 hit rate 0.9911 | 20 units measured | 600 units |
+| uncached model calls | 386 | **0** | **0** |
+| wall clock | 1.44 min | 0.45 min | 10.39 min |
+| cost | $0.1349 | **$0.00** | **$0.00** |
+| cache hit rate | assumed 0.9911 | **1.000000** | **1.000000** |
+
+Pricing is the published Gemini 2.5 Flash paid tier, $0.30 per million input
+tokens and $2.50 per million output tokens including thinking tokens, against
+means of 340 prompt and 99 completion tokens measured offline at four
+characters to the token.
+
+The gate required under 30 minutes and under 2 USD. The pilot projected zero
+on both, which is what prompt neutrality predicts, and the full grid returned
+**zero uncached calls across 42863 lookups**. The repair cost nothing because
+it changes no prompt.
+
+### Did the matching rule hold up
+
+Thirty matched chains were sampled and read. **Thirty of thirty are the same
+hypothesis restated**, against a bar of 24. Three are byte identical. One is
+borderline and is recorded as such: `Routine system maintenance generating
+slightly anomalous logs` continued by `Automated system health check
+generating high anomaly logs`, where the subject is unchanged but the
+severity flips. Counting it against still leaves 29 of 30. The judgement is
+recorded per pair in `results/repair/spot_check_verdict_seed42.json`.
+
+Representative chains:
+
+    Coordinated reconnaissance or probing activity from two distinct external sources.
+    Coordinated reconnaissance or probing activity from two external sources.
+
+    Multi-stage reconnaissance or probing activity concluding.
+    Multi-stage reconnaissance or probing activity from distinct sources deescalating.
+    Deescalating multi-stage reconnaissance or probing from diverse sources.
+
+### The result
+
+Five seeds, 40 scenarios, baseline is the Level 9 all on cell at the same
+threshold and seed, not re-run.
+
+| threshold | arm | recurrence | max dominant_iterations | convergence fraction | mean iterations | max convergence |
+| --- | --- | --- | --- | --- | --- | --- |
+| 0.30 | baseline | 0.0000 | 1 | 0.0000 | 3.0000 | 0.2900 |
+| 0.30 | **repair** | **0.2045** | **3** | **0.1551** | **2.9020** | **0.4530** |
+| 0.50 | baseline | 0.0000 | 1 | 0.0000 | 3.0000 | 0.4620 |
+| 0.50 | **repair** | **0.2029** | **3** | 0.0000 | 3.0000 | 0.4620 |
+| 0.80 | baseline | 0.0000 | 1 | 0.0000 | 3.0000 | 0.4620 |
+| 0.80 | **repair** | **0.2029** | **3** | 0.0000 | 3.0000 | 0.4620 |
+
+**The verdict is the first of the three the brief allowed: the mechanism was
+correctly specified and incorrectly coupled.**
+
+Identity is fixed. Recurrence rises from exactly zero to 0.2045, and
+`dominant_iterations` reaches 3 where it never left 1 before.
+
+Persistence then does gate convergence, at threshold 0.30, where the
+convergence fraction rises from 0.0000 to 0.1551 and mean iterations falls
+below three for the first time in the project's history. The clamp is
+released: maximum convergence rises from 0.2900, which is exactly the clamp,
+to 0.4530, which is the dynamics.
+
+At 0.50 and 0.80 convergence stays at zero, and this is not the clamp. The
+maximum convergence with the repair is 0.4620 at both, below either
+threshold, so what binds there is the confidence dynamics. The repair cannot
+help with that and does not claim to.
+
+**Two honest limits.** The recurrence rate is 0.2045, not 1.0, so four
+hypotheses in five are still genuinely new each iteration and the repair
+only helps the fifth. And the convergence gain is demonstrated at one
+threshold on 66 situations; the direction is supported and the level is not.
+
+## L10.2 Figure 1
+
+Figure 1 did not exist before this level. The Level 9 done check reported
+Figures 3 and 6 and the absence of Figure 1 went unremarked, which is itself
+a small instance of the documentation drift G20 names.
+
+`figures/fig1_architecture.pdf` marks four things a conventional block
+diagram would hide, each of them a finding rather than a decoration: the
+information barrier with the ten fields it passes; the three adapters that
+are written, tested and never routed to, greyed rather than omitted; the
+abstention path drawn dashed and labelled specified but not enacted; and
+persistence and belief inertia marked where they act inside the loop.
+
+## L10.3 Reproducibility
+
+`reproduce.sh` at the project root regenerates every figure and recomputes
+eighteen reported numbers from committed machine readable results, with no
+API key and no network.
+
+Run on a clean clone of the root repository with the reasoning layer cloned
+beside it, as the README documents:
+
+    passed  5
+    skipped 1 ( Level 8, 9 and 10 re-runs )
+    failed  0
+    18 of 18 claims reproduce within 0.0005
+
+Two gaps were found by running it, which is the only reason to run it. The
+reasoning layer is its own repository and is deliberately not tracked in the
+root, so every stage importing it failed rather than saying why; those stages
+now detect its absence and print the clone command. And the Figure 6
+trajectory was being read from a gitignored run log, so the figure could not
+be drawn on a clean checkout; the trajectory is now extracted to a tracked
+82 KB file.
+
+### Offline cache coverage
+
+| experiment | model calls | paid | served from cache |
+| --- | --- | --- | --- |
+| L7 real validation | 369 | 369 | 0.0% |
+| L8 throughput probe | 534 | 534 | 0.0% |
+| L8 clock study | 43335 | 4731 | 89.1% |
+| L9 ablation | 43335 | 5851 | 86.5% |
+| L10 repair | 42863 | 0 | **100.0%** |
+| **total** | **130436** | **11485** | **91.2%** |
+
+91.2 per cent of every model call this project has ever made was served from
+cache rather than paid for twice. The cache archive is 74.4 MB across 25
+files and is **not committed**, because the repository already carries 190 MB
+of history from a mistake recorded in the Level 9 commits. What is committed
+is every summary a reader needs to check a number without rerunning anything.
+
+**So the honest statement of reproducibility is in three tiers.** Every
+number and figure in the paper regenerates offline from committed artefacts,
+and `reproduce.sh` proves it on a clean checkout. Re-running the experiments
+against cached responses requires the 74.4 MB archive, which is reproducible
+on request but not distributed. Re-running them from scratch requires a key
+and would cost roughly 130000 model calls.
+
+## L10.4 Stale documents refreshed
+
+`EVAL_STATUS.md` and `GAPS.md` both dated from 2026-07-27 and were being
+contradicted by every appendix after L1. Neither has been edited below its
+new header, because they are the record of what the project looked like
+before the levels ran and that record is part of the audit trail.
+
+`EVAL_STATUS.md` gains a status header listing ten claims it makes and what
+each is now. Eight are false, two remain true: hypothesis quality and
+explanation quality are still unmeasured.
+
+`GAPS.md` gains a closure table naming the level that addressed each of the
+22 gaps. **Eleven closed, four partly closed, five still open, one
+reframed.** The five still open are G9 the multi source condition is
+constructed, G12 the confidence weights were never swept, G16 no adversarial
+evaluation, G17 unbounded memory growth, and G18 explanation quality.
+
+## L10.5 The paper skeleton
+
+`paper/SKELETON.md` is an outline to write from, not a draft. Every line is a
+claim carrying the appendix that supports it, the number, the file under
+`results/` it comes from, and one of three strengths: measured, measured at
+small sample, or code inspection only. The page budget totals 8.25 against a
+target of 8.0, and the skeleton says where to take the quarter page from.
+
+It also carries three lists the authors need.
+
+**Six claims with weak evidence**, each of which must be supported or
+softened. The sharpest is that "the mechanisms were designed for novel
+attacks" rests on inference from the UNKNOWN hypothesis existing, and no
+design document says it.
+
+**Three findings to compress to a paragraph**: narrative non recoverability,
+the classifier characterisation, and the scheduling result from L7.9.8.
+
+**One finding to remove into its own paper**: the validation transfer failure
+across L3.14, L4.2 and L5.2, three independent instances of a validation
+selected procedure failing on test, on the standard UNSW-NB15 protocol. It
+has nothing to do with LLMs and its own skeleton is
+`paper/SKELETON_VALIDATION_TRANSFER.md`. That skeleton states plainly that it
+is not submittable until someone establishes a mechanism and rules out the
+shared preprocessing pipeline as the cause, because three observations
+without a mechanism are one anecdote told three times.
+
+## L10.6 What Level 10 establishes and what it does not
+
+Established. The persistence mechanism was correctly specified and
+incorrectly coupled: restoring hypothesis identity makes it gate convergence
+at threshold 0.30 for the first time, at zero model cost because the repair
+changes no prompt. The matching rule behind that claim was fixed in advance
+and verified at 30 of 30. Figure 1 exists. Every number and figure in the
+paper regenerates offline on a clean checkout, verified by running it. The
+two stale documents carry dated headers and a gap closure table.
+
+Not established. Whether the repair would change any outcome metric at the
+standing threshold, since convergence there is capped by the confidence
+dynamics at 0.4620 and not by the clamp. Whether a recurrence rate of 0.2045
+is the ceiling for this matching rule or for this model. And whether the
+remaining four open gaps matter, since none was investigated at this level.

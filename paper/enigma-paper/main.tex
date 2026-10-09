@@ -15,12 +15,12 @@
 
 \title{Specified but Not Enacted: Auditing Epistemic\\Control Mechanisms in an Agentic\\Intrusion Triage System}
 
-\author{\IEEEauthorblockN{Author One}
-\IEEEauthorblockA{Department\\Institution\\email}
-\and
-\IEEEauthorblockN{Author Two}
-\IEEEauthorblockA{Department\\Institution\\email}
-}
+\author{\IEEEauthorblockN{Abhay Mahantesh Zalaki\textsuperscript{1}, Guneet Kaur Arora\textsuperscript{2}, Nitin Kumar Pandey\textsuperscript{3},\\ Ebenezer Juliet\textsuperscript{4}}
+\IEEEauthorblockA{\textsuperscript{1,2,3,4}School of Computer Science and Engineering, Vellore Institute of Technology,\\
+Vellore, Tamil Nadu, India -- 632014\\
+Email: \textsuperscript{1}abhay.mahantesh2023@vitstudent.ac.in, \textsuperscript{2}guneetkaur.arora2023@vitstudent.ac.in,\\
+\textsuperscript{3}nitinkumar.pandey2023@vitstudent.ac.in, \textsuperscript{4}\textbf{[CORRESPONDING AUTHOR EMAIL REQUIRED]}\\
+\textsuperscript{4}Corresponding author}}
 
 \maketitle
 
@@ -240,19 +240,23 @@ system specifies and does not enact.
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.92\textwidth]{figures/fig1_architecture.pdf}
+\includegraphics[width=\textwidth]{figures/fig1_architecture.pdf}
 \caption{Architecture and data flow, with the audited mechanisms marked.
-Solid arrows carry data that is read by a downstream decision. The dashed
-green rule is the information barrier: the context assembly step passes the
-ten aggregate fields listed beside it and nothing else, so the model never
-sees a raw signal, an entity or a timestamp. The three greyed adapters exist
-in the source and are exercised by unit tests, and no experiment in this
-project routes to them. The dashed orange edge is the sensor abstention path:
-the flag is set, carried into the reasoning snapshot, and read by no
+The reasoning loop is drawn in the order the graph is compiled: context
+assembly, hypothesis generation, the sanity gate, evaluation, belief inertia
+and the convergence update, which either returns to context assembly or ends
+with a conclusion or an abstention. Solid arrows carry data that a downstream
+step reads. The dashed green rule is the information barrier; the ten
+aggregate fields listed in the context assembly box are the only data that
+cross it, so the model never sees a raw signal, an entity or a timestamp. The
+three greyed adapters exist in the source and are exercised by unit tests,
+and no experiment in this project routes to them. The dashed orange edge is
+the sensor abstention path, which stops at the barrier: the flag is counted
+into the reasoning snapshot, is not among the ten fields, and is read by no
 decision, so clearing it changes the outcome by $0.000000$, see
-Section~\ref{sec:findings}. The four audited mechanisms $U$, $S$, $A$ and
-$P$, together with the belief inertia cap, are marked at the graph node at
-which each acts.}
+Section~\ref{sec:findings}. Each audited mechanism is marked on the node at
+which it acts; note that the persistence clamp $P$ sits on the convergence
+update, not on evaluation.}
 \label{fig:arch}
 \end{figure*}
 

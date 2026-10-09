@@ -26,6 +26,7 @@ Enigma-ML-Layer/
 Enigma-Frontend/
 
 results/ablation/*.jsonl
+!results/ablation/fig6_trajectory_*.jsonl
 results/two_level/*.jsonl
 results/convergence_isolation/*.jsonl
 results/ablation/*_descriptions.json

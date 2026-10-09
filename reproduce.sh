@@ -63,8 +63,23 @@ printf '  %-54s %s\n' "working directory" "$ROOT"
 printf '  %-54s %s\n' "api key present" \
   "$(grep -q 'GOOGLE_API_KEY=.' Enigma-AIAgent/.env 2>/dev/null && echo yes || echo no, not required for stages 0 to 3)"
 
+HAVE_AGENT=0
+if [ -d Enigma-AIAgent/enigma_reason ]; then
+  HAVE_AGENT=1
+  printf '  %-54s %s\n' "Enigma-AIAgent beside the root" "present"
+else
+  printf '  %-54s %s\n' "Enigma-AIAgent beside the root" "ABSENT"
+  echo '      The reasoning layer is its own repository and is not tracked here.'
+  echo '      Clone it beside this one to enable the stages that import it:'
+  echo '        git clone https://github.com/NitinTheGreat/Enigma-AIAgent.git'
+fi
+
 say "Stage 1  frozen inputs verified by content hash"
-step "suite and sub-suite hashes" $PYTHON scripts/verify_hashes.py --seed 42
+if [ "$HAVE_AGENT" -eq 1 ]; then
+  step "suite and sub-suite hashes" $PYTHON scripts/verify_hashes.py --seed 42
+else
+  skip "suite and sub-suite hashes" "needs Enigma-AIAgent beside the root"
+fi
 
 say "Stage 2  figures"
 step "Figure 1  architecture" $PYTHON scripts/make_fig1_architecture.py --seed 42
@@ -86,13 +101,13 @@ step "paper numbers, recomputed from committed results" \
 
 say "Stage 4  model experiments"
 if [ "$FULL" -eq 1 ]; then
-  if [ -f results/ablation/cache_seed42.json ]; then
+  if [ "$HAVE_AGENT" -eq 1 ] && [ -f results/ablation/cache_seed42.json ]; then
     step "Level 9 ablation, served from cache" \
       $PYTHON scripts/level9_ablation.py --seed 42 --llm real --concurrency 40
     step "Level 10 repair, served from cache" \
       $PYTHON scripts/level10_repair.py --seed 42 --stage full
   else
-    skip "Level 9 and Level 10 re-runs" "response caches absent, see README"
+    skip "Level 9 and Level 10 re-runs" "needs Enigma-AIAgent and the response caches, see README"
   fi
 else
   skip "Level 8, 9 and 10 re-runs" "not requested, pass --full"

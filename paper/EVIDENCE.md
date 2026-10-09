@@ -4608,3 +4608,145 @@ standing threshold, since convergence there is capped by the confidence
 dynamics at 0.4620 and not by the clamp. Whether a recurrence rate of 0.2045
 is the ceiling for this matching rule or for this model. And whether the
 remaining four open gaps matter, since none was investigated at this level.
+
+---
+
+# Appendix L11. Related work, citation hygiene, and clearing the weak evidence list
+
+## L11.1 There was no bibliography
+
+The brief asked me to confirm the publication status of four arXiv only
+citations, named FIRCE, CALIBURN, LanG and GroundEval, and to redo the
+related work for the audit framing.
+
+**None of those four names occurs anywhere in this repository.** A search
+across every tracked Markdown, Python and text file returns nothing for any
+of them. More broadly, `paper/` contained **no citations of any kind** before
+this level: no arXiv identifiers, no author and year references, no BibTeX
+file. `NOVELTY.md` is a strategy document comparing five candidate framings,
+not a literature review.
+
+So there was no publication status to confirm, and nothing to re-check
+against. The honest record is that the July literature search left no
+artefact, and the bibliography was written from scratch at Level 10. I did
+not create entries under the four names, because inventing a citation to
+satisfy a checklist is the one failure mode worse than having no citation.
+
+## L11.2 The related work the new framing needs
+
+The July search was aimed at abstention and selective prediction. The paper
+now argues about specified versus enacted behaviour, which has its own
+literature. `paper/enigma-paper/refs.bib` holds 18 entries, every one of them
+cited in the text and every one verified as a real publication. The five
+groups are:
+
+| Group | Anchors |
+| --- | --- |
+| machine learning in security, and its evaluation | Sommer and Paxson 2010; Arp et al. 2022; Pendlebury et al. 2019; Chandola et al. 2009 |
+| technical debt and the specification to implementation gap | Sculley et al. 2015; Amodei et al. 2016 |
+| testing and the oracle problem | Barr et al. 2015; Zhang et al. 2022; Chen et al. 2018 |
+| selective prediction and abstention | Chow 1970; Hendrycks and Gimpel 2017; Geifman and El-Yaniv 2019; Guo et al. 2017; Lakshminarayanan et al. 2017 |
+| agent guardrails, and triage agents | Das Antar et al. AIES 2025; Kumar et al. 2025; CORTEX NeurIPS 2025 |
+
+The framing device that ties them together is Sculley's **undeclared
+consumer**. The defect in L9.8 is its mirror image, an undeclared
+non-consumer: a field computed, carried, documented, and read by nobody.
+
+## L11.3 The novelty re-check, and what it cost us
+
+The brief asked whether anyone had published an ablation of epistemic
+guardrails in an LLM security agent since July. **The answer is that
+guardrail ablations now exist**, which narrows our claim and must be
+reported rather than ignored.
+
+The closest work is Das Antar, Huan and Banovic at AIES 2025, who measure the
+contribution of individual moderation guardrails and their interactions with
+a Bayesian procedure, and who make the same observation we do about
+whole-stack comparisons saying little about any single component. Recent
+agent safety papers also report component ablations, and in each case the
+components are found to be critical.
+
+What survives the re-check is the distinction, not the method. Every one of
+these papers measures *how much* a guardrail contributes, under the
+assumption that it is wired into the execution path. None tests the
+assumption. Our contribution is therefore narrower and sharper than the July
+framing supposed: not "we ablate guardrails", which is now ordinary, but "an
+ablation null is ambiguous between inert and disconnected, and here are two
+mechanisms where it was the second". The paper is written to that claim.
+
+## L11.4 The weak evidence list, cleared
+
+The six items in `SKELETON.md` were to be supported or softened before
+drafting. Each is now resolved, and two of the resolutions changed the
+paper's content rather than only its wording.
+
+**W1, "the mechanisms were designed for novel attacks".** Not supportable. No
+design document says it. The only statement of intent in the source is the
+docstring of `make_unknown_hypothesis`: *"UNKNOWN competes with all others
+and can never be pruned. It starts with moderate confidence to resist
+premature belief."* The stated purpose is **resisting premature belief**, not
+handling novel attacks. The claim is corrected throughout to what the source
+says, which is also an improvement, because premature convergence is one of
+the four live metrics and is therefore measured directly.
+
+**W2 and W3, the conclusion metrics.** Softened as planned. Neither
+`correct_conclusion_rate` on the clear regime nor `false_conclusion_rate`
+appears in the abstract, the findings or the conclusion. They are confined to
+one paragraph of threats to validity, carrying the L8.1.2 reason.
+
+**W4, the repair null at thresholds 0.50 and 0.80.** This was the item flagged
+as "a null with an alternative explanation", and the alternative explanation
+is now named. Two causes bound the convergence score independently of the
+persistence clamp. First, the score is not the dominant hypothesis's
+confidence but a spread statistic, `min(spread * 2 + margin_over_unknown *
+0.5, 1.0)`, further multiplied by a flat distribution penalty. Second, a
+newly generated hypothesis has its confidence constrained to `[0.1, 0.5]` at
+birth by `conf = max(0.1, min(conf, 0.5))`. Both bound the achievable score
+well below 0.80, which is consistent with the measured maximum of 0.4620.
+
+This is reported in the paper as a **second structural ceiling**, labelled as
+code inspection rather than measurement, with an explicit statement that the
+experiment separating the two causes was not run. It converts W4 from an
+unexplained null into a named mechanism with a declared evidence strength.
+
+**W5, "three of four did not survive being measured".** Softened. Asymmetric
+decay is one deviation from zero, which supports "inert at the resolution
+five seeds afford" and does not support "does nothing". The paper uses the
+former wording in the findings and the verdict table.
+
+**W6, generality of the conflation hazard.** Softened and bounded. The paper
+states that the hazard is demonstrated on one system and one uniformly stale
+corpus, and that the threshold behaviour rests on two observations rather
+than a curve. What is claimed to generalise is the scoring rule interaction,
+which is stated as a property of any replay based evaluation that scores
+abstention as correct in most regimes and evaluates staleness against wall
+clock time.
+
+## L11.5 The paper source
+
+`paper/enigma-paper/` holds the LaTeX: a single `main.tex`, `refs.bib`, and
+the four figures under `figures/`. `paper/enigma-paper.zip` is the Overleaf
+upload. The body is roughly 5400 words across ten sections with four figures
+and three tables.
+
+Structural validation passes: environments and braces balanced, 18 of 18
+citations resolve, 12 of 12 cross references resolve, 4 of 4 figures present,
+no em dashes, no American spellings. No LaTeX toolchain is installed on this
+machine, so the document has **not been compiled**; that check remains
+outstanding and should be done on first upload.
+
+## L11.6 What L11 establishes and what it does not
+
+Established. There was no prior bibliography and the four named citations do
+not exist in this repository. The new related work covers the five groups the
+audit framing requires, from 18 verified references. Guardrail ablations have
+been published since July, which narrows the novelty claim to the
+inert-versus-disconnected distinction, and the paper is written to that
+narrower claim. All six weak evidence items are resolved, two of them by
+changing what the paper asserts.
+
+Not established. Whether the document compiles, since no LaTeX is installed
+here. Whether the second structural ceiling is caused by the spread statistic
+or by the birth clamp, since the experiment separating them was not run.
+Whether any venue would accept the narrowed novelty claim, which is a
+judgement rather than a measurement.

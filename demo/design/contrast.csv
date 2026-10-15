@@ -1,0 +1,19 @@
+seed,foreground,background,fg_hex,bg_hex,use,ratio,required,passes
+42,ink,paper,#222127,#dedde5,body text on page,11.85,4.5,True
+42,ink,cream,#222127,#eceaf3,body text on panel,13.41,4.5,True
+42,muted,paper,#5e5d68,#dedde5,secondary text on page,4.81,4.5,True
+42,muted,cream,#5e5d68,#eceaf3,secondary text on panel,5.44,4.5,True
+42,ink,acid,#222127,#d68bc3,primary button label,6.34,4.5,True
+42,cream,ink,#eceaf3,#222127,dark button label,13.41,4.5,True
+42,cream,dark,#eceaf3,#202025,presenter notes text,13.62,4.5,True
+42,dark-text,dark,#aaa9b2,#202025,secondary text on dark,6.97,4.5,True
+42,rust,paper,#6936b4,#dedde5,"focus ring and active marker, non-text",5.59,3.0,True
+42,olive,paper,#7b456e,#dedde5,accent text on page,5.34,4.5,True
+42,works,cream,#2A6F4E,#eceaf3,"verdict text, works",5.06,4.5,True
+42,data,cream,#2B5B84,#eceaf3,sensor text and wires,6.01,4.5,True
+42,cream,works,#eceaf3,#2A6F4E,label on works fill,5.06,4.5,True
+42,cream,data,#eceaf3,#2B5B84,label on data fill,6.01,4.5,True
+42,white,disconnected,#ffffff,#C84B31,label on defect fill,4.66,4.5,True
+42,ink,inert,#222127,#9E9B95,label on inert fill,5.76,4.5,True
+42,disconnected,cream,#C84B31,#eceaf3,"defect wire and cross, non-text",3.91,3.0,True
+42,ink,line,#222127,#bab9c4,"text on a rule colour, never used, sanity",8.23,4.5,True

@@ -1,0 +1,107 @@
+{
+ "threshold": 0.8,
+ "metric": "abstention_rate",
+ "effects": {
+  "U": {
+   "clear": {
+    "effect": {
+     "value": -0.005,
+     "source": "results/ablation/regime_effects_seed42.csv",
+     "field": "switch=U regime=clear metric=abstention_rate effect_mean"
+    },
+    "sd": {
+     "value": 0.01,
+     "source": "results/ablation/regime_effects_seed42.csv",
+     "field": "effect_sd"
+    }
+   },
+   "ambiguous": {
+    "effect": {
+     "value": -0.04,
+     "source": "results/ablation/regime_effects_seed42.csv",
+     "field": "switch=U regime=ambiguous metric=abstention_rate effect_mean"
+    },
+    "sd": {
+     "value": 0.0255,
+     "source": "results/ablation/regime_effects_seed42.csv",
+     "field": "effect_sd"
+    }
+   },
+   "sparse": {
+    "effect": {
+     "value": -0.55,
+     "source": "results/ablation/regime_effects_seed42.csv",
+     "field": "switch=U regime=sparse metric=abstention_rate effect_mean"
+    },
+    "sd": {
+     "value": 0.0158,
+     "source": "results/ablation/regime_effects_seed42.csv",
+     "field": "effect_sd"
+    }
+   },
+   "unknown_attack": {
+    "effect": {
+     "value": -0.0063,
+     "source": "results/ablation/regime_effects_seed42.csv",
+     "field": "switch=U regime=unknown_attack metric=abstention_rate effect_mean"
+    },
+    "sd": {
+     "value": 0.0125,
+     "source": "results/ablation/regime_effects_seed42.csv",
+     "field": "effect_sd"
+    }
+   }
+  },
+  "S": {
+   "clear": {
+    "effect": {
+     "value": -0.005,
+     "source": "results/ablation/regime_effects_seed42.csv",
+     "field": "switch=S regime=clear metric=abstention_rate effect_mean"
+    },
+    "sd": {
+     "value": 0.01,
+     "source": "results/ablation/regime_effects_seed42.csv",
+     "field": "effect_sd"
+    }
+   },
+   "ambiguous": {
+    "effect": {
+     "value": -0.04,
+     "source": "results/ablation/regime_effects_seed42.csv",
+     "field": "switch=S regime=ambiguous metric=abstention_rate effect_mean"
+    },
+    "sd": {
+     "value": 0.0255,
+     "source": "results/ablation/regime_effects_seed42.csv",
+     "field": "effect_sd"
+    }
+   },
+   "sparse": {
+    "effect": {
+     "value": -0.45,
+     "source": "results/ablation/regime_effects_seed42.csv",
+     "field": "switch=S regime=sparse metric=abstention_rate effect_mean"
+    },
+    "sd": {
+     "value": 0.0158,
+     "source": "results/ablation/regime_effects_seed42.csv",
+     "field": "effect_sd"
+    }
+   },
+   "unknown_attack": {
+    "effect": {
+     "value": -0.0063,
+     "source": "results/ablation/regime_effects_seed42.csv",
+     "field": "switch=S regime=unknown_attack metric=abstention_rate effect_mean"
+    },
+    "sd": {
+     "value": 0.0125,
+     "source": "results/ablation/regime_effects_seed42.csv",
+     "field": "effect_sd"
+    }
+   }
+  }
+ },
+ "seed": 42
+}

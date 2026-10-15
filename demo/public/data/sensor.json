@@ -1,0 +1,77 @@
+{
+ "models": [
+  {
+   "key": "mlp",
+   "label": "Neural network, five seeds",
+   "accuracy": {
+    "value": 0.7517,
+    "source": "results/baselines/classifier_comparison.json",
+    "field": "comparison.mlp.accuracy.mean, closed set, natural distribution"
+   },
+   "macro_f1": {
+    "value": 0.4413,
+    "source": "results/baselines/classifier_comparison.json",
+    "field": "comparison.mlp.macro_f1.mean"
+   },
+   "false_positive_rate": {
+    "value": 0.2726,
+    "source": "results/baselines/classifier_comparison.json",
+    "field": "comparison.mlp.false_positive_rate.mean, normal flagged as attack"
+   },
+   "unknown_attack_auroc": {
+    "value": 0.6908,
+    "source": "results/calibration/level4_summary.json",
+    "field": "configs.openset.separation.auroc.negative_calibrated_confidence, five member ensemble"
+   }
+  },
+  {
+   "key": "rf",
+   "label": "Random Forest",
+   "accuracy": {
+    "value": 0.7464,
+    "source": "results/baselines/classifier_comparison.json",
+    "field": "comparison.rf.accuracy.mean, closed set, natural distribution"
+   },
+   "macro_f1": {
+    "value": 0.5047,
+    "source": "results/baselines/classifier_comparison.json",
+    "field": "comparison.rf.macro_f1.mean"
+   },
+   "false_positive_rate": {
+    "value": 0.2375,
+    "source": "results/baselines/classifier_comparison.json",
+    "field": "comparison.rf.false_positive_rate.mean, normal flagged as attack"
+   },
+   "unknown_attack_auroc": {
+    "value": 0.6765,
+    "source": "results/baselines/rf_openset_seed{42,123,456,789,1024}.json",
+    "field": "separation.auroc_negative_calibrated_probability, mean of 5 seeds"
+   }
+  },
+  {
+   "key": "xgb",
+   "label": "XGBoost",
+   "accuracy": {
+    "value": 0.7582,
+    "source": "results/baselines/classifier_comparison.json",
+    "field": "comparison.xgb.accuracy.mean, closed set, natural distribution"
+   },
+   "macro_f1": {
+    "value": 0.5072,
+    "source": "results/baselines/classifier_comparison.json",
+    "field": "comparison.xgb.macro_f1.mean"
+   },
+   "false_positive_rate": {
+    "value": 0.2465,
+    "source": "results/baselines/classifier_comparison.json",
+    "field": "comparison.xgb.false_positive_rate.mean, normal flagged as attack"
+   },
+   "unknown_attack_auroc": {
+    "value": 0.7169,
+    "source": "results/baselines/xgb_openset_seed{42,123,456,789,1024}.json",
+    "field": "separation.auroc_negative_calibrated_probability, mean of 5 seeds"
+   }
+  }
+ ],
+ "seed": 42
+}

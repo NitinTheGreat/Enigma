@@ -1,0 +1,88 @@
+{
+ "bug_off": "separated",
+ "bug_on": "conflated",
+ "modes": {
+  "conflated": {
+   "quiet_fraction": {
+    "value": 1.0,
+    "source": "results/clock_study/study_seed42.json",
+    "field": "summaries[conflated].quiet_fraction_mean"
+   },
+   "abstention_rate": {
+    "value": 0.5273,
+    "source": "results/clock_study/study_seed42.json",
+    "field": "summaries[conflated].abstention_rate_mean"
+   },
+   "correct_conclusion_rate": {
+    "value": 0.5,
+    "source": "results/clock_study/study_seed42.json",
+    "field": "summaries[conflated].correct_conclusion_rate_mean"
+   },
+   "clear_regime_correct_rate": {
+    "value": 0.08,
+    "source": "results/clock_study/study_seed42.json",
+    "field": "cells[clock_mode=conflated].per_regime.clear.correct_conclusion_rate, mean of 5 seeds"
+   },
+   "trend_labels_seen": {
+    "value": 2.0,
+    "source": "results/clock_study/study_seed42.json",
+    "field": "summaries[conflated].trend_labels_seen_mean"
+   }
+  },
+  "wall": {
+   "quiet_fraction": {
+    "value": 0.0,
+    "source": "results/clock_study/study_seed42.json",
+    "field": "summaries[wall].quiet_fraction_mean"
+   },
+   "abstention_rate": {
+    "value": 0.1818,
+    "source": "results/clock_study/study_seed42.json",
+    "field": "summaries[wall].abstention_rate_mean"
+   },
+   "correct_conclusion_rate": {
+    "value": 0.2182,
+    "source": "results/clock_study/study_seed42.json",
+    "field": "summaries[wall].correct_conclusion_rate_mean"
+   },
+   "clear_regime_correct_rate": {
+    "value": 0.13,
+    "source": "results/clock_study/study_seed42.json",
+    "field": "cells[clock_mode=wall].per_regime.clear.correct_conclusion_rate, mean of 5 seeds"
+   },
+   "trend_labels_seen": {
+    "value": 3.0,
+    "source": "results/clock_study/study_seed42.json",
+    "field": "summaries[wall].trend_labels_seen_mean"
+   }
+  },
+  "separated": {
+   "quiet_fraction": {
+    "value": 0.2098,
+    "source": "results/clock_study/study_seed42.json",
+    "field": "summaries[separated].quiet_fraction_mean"
+   },
+   "abstention_rate": {
+    "value": 0.1818,
+    "source": "results/clock_study/study_seed42.json",
+    "field": "summaries[separated].abstention_rate_mean"
+   },
+   "correct_conclusion_rate": {
+    "value": 0.2182,
+    "source": "results/clock_study/study_seed42.json",
+    "field": "summaries[separated].correct_conclusion_rate_mean"
+   },
+   "clear_regime_correct_rate": {
+    "value": 0.13,
+    "source": "results/clock_study/study_seed42.json",
+    "field": "cells[clock_mode=separated].per_regime.clear.correct_conclusion_rate, mean of 5 seeds"
+   },
+   "trend_labels_seen": {
+    "value": 3.0,
+    "source": "results/clock_study/study_seed42.json",
+    "field": "summaries[separated].trend_labels_seen_mean"
+   }
+  }
+ },
+ "seed": 42
+}

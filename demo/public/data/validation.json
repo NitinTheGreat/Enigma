@@ -1,0 +1,195 @@
+{
+ "seed": 42,
+ "checks": [
+  {
+   "check": "Table I, U",
+   "expected": -0.0985,
+   "actual": -0.0985,
+   "tolerance": 0.0005,
+   "passes": true
+  },
+  {
+   "check": "Table I, S",
+   "expected": -0.0833,
+   "actual": -0.0833,
+   "tolerance": 0.0005,
+   "passes": true
+  },
+  {
+   "check": "Table I, A",
+   "expected": -0.003,
+   "actual": -0.003,
+   "tolerance": 0.0005,
+   "passes": true
+  },
+  {
+   "check": "Table I, P",
+   "expected": 0.0,
+   "actual": 0.0,
+   "tolerance": 0.0005,
+   "passes": true
+  },
+  {
+   "check": "Table I, sensor flag, guardrails on",
+   "expected": 0.0,
+   "actual": 0.0,
+   "tolerance": 0.0005,
+   "passes": true
+  },
+  {
+   "check": "Table I, sensor flag, guardrails off",
+   "expected": 0.0,
+   "actual": 0.0,
+   "tolerance": 0.0005,
+   "passes": true
+  },
+  {
+   "check": "Table II, all on",
+   "expected": 0.1818,
+   "actual": 0.1818,
+   "tolerance": 0.0005,
+   "passes": true
+  },
+  {
+   "check": "Table II, minus S",
+   "expected": 0.0212,
+   "actual": 0.0212,
+   "tolerance": 0.0005,
+   "passes": true
+  },
+  {
+   "check": "Table II, minus SA",
+   "expected": 0.0091,
+   "actual": 0.0091,
+   "tolerance": 0.0005,
+   "passes": true
+  },
+  {
+   "check": "Table II, every config with U off",
+   "expected": 0.0,
+   "actual": 0.0,
+   "tolerance": 0.0005,
+   "passes": true
+  },
+  {
+   "check": "Finding 3, sparse U",
+   "expected": -0.55,
+   "actual": -0.55,
+   "tolerance": 0.0005,
+   "passes": true
+  },
+  {
+   "check": "Finding 3, sparse S",
+   "expected": -0.45,
+   "actual": -0.45,
+   "tolerance": 0.0005,
+   "passes": true
+  },
+  {
+   "check": "Finding 3, unknown attack U",
+   "expected": -0.0063,
+   "actual": -0.0063,
+   "tolerance": 0.0005,
+   "passes": true
+  },
+  {
+   "check": "Clock, abstention bug off",
+   "expected": 0.1818,
+   "actual": 0.1818,
+   "tolerance": 0.0005,
+   "passes": true
+  },
+  {
+   "check": "Clock, abstention bug on",
+   "expected": 0.5273,
+   "actual": 0.5273,
+   "tolerance": 0.0005,
+   "passes": true
+  },
+  {
+   "check": "Clock, correct bug off",
+   "expected": 0.22,
+   "actual": 0.2182,
+   "tolerance": 0.005,
+   "passes": true
+  },
+  {
+   "check": "Clock, correct bug on",
+   "expected": 0.5,
+   "actual": 0.5,
+   "tolerance": 0.005,
+   "passes": true
+  },
+  {
+   "check": "Clock, clear bug off",
+   "expected": 0.13,
+   "actual": 0.13,
+   "tolerance": 0.0005,
+   "passes": true
+  },
+  {
+   "check": "Clock, clear bug on",
+   "expected": 0.08,
+   "actual": 0.08,
+   "tolerance": 0.0005,
+   "passes": true
+  },
+  {
+   "check": "Clock, quiet bug on",
+   "expected": 1.0,
+   "actual": 1.0,
+   "tolerance": 0.005,
+   "passes": true
+  },
+  {
+   "check": "Repair, recurrence baseline",
+   "expected": 0.0,
+   "actual": 0.0,
+   "tolerance": 0.0005,
+   "passes": true
+  },
+  {
+   "check": "Repair, recurrence repaired",
+   "expected": 0.2045,
+   "actual": 0.2045,
+   "tolerance": 0.0005,
+   "passes": true
+  },
+  {
+   "check": "Repair, convergence baseline",
+   "expected": 0.0,
+   "actual": 0.0,
+   "tolerance": 0.0005,
+   "passes": true
+  },
+  {
+   "check": "Repair, convergence repaired",
+   "expected": 0.1551,
+   "actual": 0.1551,
+   "tolerance": 0.0005,
+   "passes": true
+  },
+  {
+   "check": "Repair, max score baseline",
+   "expected": 0.29,
+   "actual": 0.29,
+   "tolerance": 0.0005,
+   "passes": true
+  },
+  {
+   "check": "Repair, max score repaired",
+   "expected": 0.453,
+   "actual": 0.453,
+   "tolerance": 0.0005,
+   "passes": true
+  },
+  {
+   "check": "Trace, unknown attack is the paper's Figure 3 situation",
+   "expected": "09e0a866",
+   "actual": "09e0a866",
+   "tolerance": 0,
+   "passes": true
+  }
+ ],
+ "all_pass": true
+}

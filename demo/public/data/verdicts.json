@@ -1,0 +1,105 @@
+{
+ "verdict_text_source": "paper/enigma-paper/main.tex, Table I",
+ "threshold": 0.8,
+ "metric": "abstention rate, guardrail removed minus guardrail kept, five seeds",
+ "mechanisms": [
+  {
+   "key": "U",
+   "name": "UNKNOWN hypothesis",
+   "verdict": "works",
+   "wired": true,
+   "plain": "Keeps 'I do not know' on the table, so the AI can decline.",
+   "effect": {
+    "value": -0.0985,
+    "source": "results/ablation/main_effects_seed42.csv",
+    "field": "switch=U metric=abstention_rate threshold=0.8 effect_mean"
+   },
+   "sd": {
+    "value": 0.008,
+    "source": "results/ablation/main_effects_seed42.csv",
+    "field": "effect_sd"
+   }
+  },
+  {
+   "key": "S",
+   "name": "Sanity gate",
+   "verdict": "works, overlaps U",
+   "wired": true,
+   "plain": "Adds doubt when the evidence is thin.",
+   "effect": {
+    "value": -0.0833,
+    "source": "results/ablation/main_effects_seed42.csv",
+    "field": "switch=S metric=abstention_rate threshold=0.8 effect_mean"
+   },
+   "sd": {
+    "value": 0.0115,
+    "source": "results/ablation/main_effects_seed42.csv",
+    "field": "effect_sd"
+   }
+  },
+  {
+   "key": "A",
+   "name": "Asymmetric decay",
+   "verdict": "inert",
+   "wired": true,
+   "plain": "Lets doubt grow faster than belief. Measured effect is within the noise.",
+   "effect": {
+    "value": -0.003,
+    "source": "results/ablation/main_effects_seed42.csv",
+    "field": "switch=A metric=abstention_rate threshold=0.8 effect_mean"
+   },
+   "sd": {
+    "value": 0.0028,
+    "source": "results/ablation/main_effects_seed42.csv",
+    "field": "effect_sd"
+   }
+  },
+  {
+   "key": "P",
+   "name": "Persistence",
+   "verdict": "not connected",
+   "wired": false,
+   "plain": "Should wait for an idea to lead twice. No idea ever survives a round, so it never fires.",
+   "effect": {
+    "value": 0.0,
+    "source": "results/ablation/main_effects_seed42.csv",
+    "field": "switch=P metric=abstention_rate threshold=0.8 effect_mean"
+   },
+   "sd": {
+    "value": 0.0,
+    "source": "results/ablation/main_effects_seed42.csv",
+    "field": "effect_sd"
+   }
+  },
+  {
+   "key": "flag",
+   "name": "Sensor unsure flag",
+   "verdict": "not connected",
+   "wired": false,
+   "plain": "The sensor marks signals it is unsure about. No step ever reads the mark.",
+   "effect": {
+    "value": 0.0,
+    "source": "results/two_level/two_level_seed42.json",
+    "field": "sensor_effect_with_epistemic_on"
+   },
+   "effect_guardrails_off": {
+    "value": 0.0,
+    "source": "results/two_level/two_level_seed42.json",
+    "field": "sensor_effect_with_epistemic_off"
+   }
+  },
+  {
+   "key": "inertia",
+   "name": "Belief inertia",
+   "verdict": "no effect on convergence",
+   "wired": true,
+   "plain": "Limits how far a belief can move in one round.",
+   "effect": {
+    "value": 0.0,
+    "source": "results/convergence_isolation/isolation_seed42.json",
+    "field": "inertia_effect_on_convergence"
+   }
+  }
+ ],
+ "seed": 42
+}

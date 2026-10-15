@@ -1,0 +1,49 @@
+{
+ "scenarios": {
+  "value": 40,
+  "source": "results/scenarios/sub_suite_manifest.json",
+  "field": "scenario_count"
+ },
+ "signals": {
+  "value": 963,
+  "source": "results/scenarios/sub_suite_manifest.json",
+  "field": "signal_count"
+ },
+ "situations": {
+  "value": 66,
+  "source": "results/scenarios/sub_suite_manifest.json",
+  "field": "situation_count_under_entity_grouping"
+ },
+ "sensor_unsure_fraction": {
+  "value": 0.2285,
+  "source": "results/scenarios/sub_suite_manifest.json",
+  "field": "abstained_signal_fraction"
+ },
+ "suite_hash": {
+  "value": "a2b37f29",
+  "source": "results/scenarios/sub_suite_manifest.json",
+  "field": "sub_suite_hash"
+ },
+ "barrier_fields": {
+  "value": [
+   "evidence_count",
+   "event_rate_per_minute",
+   "active_duration_seconds",
+   "burst_detected",
+   "quiet_detected",
+   "trend",
+   "confidence_level",
+   "source_diversity",
+   "mean_anomaly_score",
+   "iteration"
+  ],
+  "source": "Enigma-AIAgent/enigma_reason/graph/nodes.py",
+  "field": "assemble_context return value"
+ },
+ "max_rounds": {
+  "value": 3,
+  "source": "Enigma-AIAgent/enigma_reason/config.py",
+  "field": "graph_max_iterations default"
+ },
+ "seed": 42
+}

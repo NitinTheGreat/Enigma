@@ -1,0 +1,1188 @@
+{
+ "threshold": 0.8,
+ "configurations": [
+  {
+   "configuration": "allon",
+   "removed": [],
+   "kept": [
+    "U",
+    "S",
+    "A",
+    "P"
+   ],
+   "seeds": 5,
+   "overall": {
+    "abstention_rate": {
+     "value": 0.1818,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=allon threshold=0.8 abstention_rate, mean of 5 seeds"
+    },
+    "premature_convergence_rate": {
+     "value": 0.5182,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=allon threshold=0.8 premature_convergence_rate, mean of 5 seeds"
+    }
+   },
+   "per_regime": {
+    "clear": {
+     "abstention_rate": {
+      "value": 0.01,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=allon per_regime.clear.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=allon per_regime.clear.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "ambiguous": {
+     "abstention_rate": {
+      "value": 0.08,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=allon per_regime.ambiguous.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.92,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=allon per_regime.ambiguous.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "sparse": {
+     "abstention_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=allon per_regime.sparse.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=allon per_regime.sparse.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "unknown_attack": {
+     "abstention_rate": {
+      "value": 0.0125,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=allon per_regime.unknown_attack.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.9875,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=allon per_regime.unknown_attack.premature_convergence_rate, mean of 5 seeds"
+     }
+    }
+   }
+  },
+  {
+   "configuration": "U",
+   "removed": [
+    "U"
+   ],
+   "kept": [
+    "S",
+    "A",
+    "P"
+   ],
+   "seeds": 5,
+   "overall": {
+    "abstention_rate": {
+     "value": 0.0,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=U threshold=0.8 abstention_rate, mean of 5 seeds"
+    },
+    "premature_convergence_rate": {
+     "value": 0.697,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=U threshold=0.8 premature_convergence_rate, mean of 5 seeds"
+    }
+   },
+   "per_regime": {
+    "clear": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=U per_regime.clear.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=U per_regime.clear.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "ambiguous": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=U per_regime.ambiguous.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=U per_regime.ambiguous.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "sparse": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=U per_regime.sparse.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=U per_regime.sparse.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "unknown_attack": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=U per_regime.unknown_attack.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=U per_regime.unknown_attack.premature_convergence_rate, mean of 5 seeds"
+     }
+    }
+   }
+  },
+  {
+   "configuration": "S",
+   "removed": [
+    "S"
+   ],
+   "kept": [
+    "U",
+    "A",
+    "P"
+   ],
+   "seeds": 5,
+   "overall": {
+    "abstention_rate": {
+     "value": 0.0212,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=S threshold=0.8 abstention_rate, mean of 5 seeds"
+    },
+    "premature_convergence_rate": {
+     "value": 0.6758,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=S threshold=0.8 premature_convergence_rate, mean of 5 seeds"
+    }
+   },
+   "per_regime": {
+    "clear": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=S per_regime.clear.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=S per_regime.clear.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "ambiguous": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=S per_regime.ambiguous.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=S per_regime.ambiguous.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "sparse": {
+     "abstention_rate": {
+      "value": 0.14,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=S per_regime.sparse.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.86,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=S per_regime.sparse.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "unknown_attack": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=S per_regime.unknown_attack.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=S per_regime.unknown_attack.premature_convergence_rate, mean of 5 seeds"
+     }
+    }
+   }
+  },
+  {
+   "configuration": "A",
+   "removed": [
+    "A"
+   ],
+   "kept": [
+    "U",
+    "S",
+    "P"
+   ],
+   "seeds": 5,
+   "overall": {
+    "abstention_rate": {
+     "value": 0.1818,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=A threshold=0.8 abstention_rate, mean of 5 seeds"
+    },
+    "premature_convergence_rate": {
+     "value": 0.5182,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=A threshold=0.8 premature_convergence_rate, mean of 5 seeds"
+    }
+   },
+   "per_regime": {
+    "clear": {
+     "abstention_rate": {
+      "value": 0.01,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=A per_regime.clear.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=A per_regime.clear.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "ambiguous": {
+     "abstention_rate": {
+      "value": 0.08,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=A per_regime.ambiguous.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.92,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=A per_regime.ambiguous.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "sparse": {
+     "abstention_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=A per_regime.sparse.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=A per_regime.sparse.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "unknown_attack": {
+     "abstention_rate": {
+      "value": 0.0125,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=A per_regime.unknown_attack.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.9875,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=A per_regime.unknown_attack.premature_convergence_rate, mean of 5 seeds"
+     }
+    }
+   }
+  },
+  {
+   "configuration": "P",
+   "removed": [
+    "P"
+   ],
+   "kept": [
+    "U",
+    "S",
+    "A"
+   ],
+   "seeds": 5,
+   "overall": {
+    "abstention_rate": {
+     "value": 0.1818,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=P threshold=0.8 abstention_rate, mean of 5 seeds"
+    },
+    "premature_convergence_rate": {
+     "value": 0.5182,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=P threshold=0.8 premature_convergence_rate, mean of 5 seeds"
+    }
+   },
+   "per_regime": {
+    "clear": {
+     "abstention_rate": {
+      "value": 0.01,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=P per_regime.clear.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=P per_regime.clear.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "ambiguous": {
+     "abstention_rate": {
+      "value": 0.08,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=P per_regime.ambiguous.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.92,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=P per_regime.ambiguous.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "sparse": {
+     "abstention_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=P per_regime.sparse.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=P per_regime.sparse.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "unknown_attack": {
+     "abstention_rate": {
+      "value": 0.0125,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=P per_regime.unknown_attack.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.9875,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=P per_regime.unknown_attack.premature_convergence_rate, mean of 5 seeds"
+     }
+    }
+   }
+  },
+  {
+   "configuration": "US",
+   "removed": [
+    "U",
+    "S"
+   ],
+   "kept": [
+    "A",
+    "P"
+   ],
+   "seeds": 5,
+   "overall": {
+    "abstention_rate": {
+     "value": 0.0,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=US threshold=0.8 abstention_rate, mean of 5 seeds"
+    },
+    "premature_convergence_rate": {
+     "value": 0.697,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=US threshold=0.8 premature_convergence_rate, mean of 5 seeds"
+    }
+   },
+   "per_regime": {
+    "clear": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=US per_regime.clear.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=US per_regime.clear.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "ambiguous": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=US per_regime.ambiguous.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=US per_regime.ambiguous.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "sparse": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=US per_regime.sparse.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=US per_regime.sparse.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "unknown_attack": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=US per_regime.unknown_attack.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=US per_regime.unknown_attack.premature_convergence_rate, mean of 5 seeds"
+     }
+    }
+   }
+  },
+  {
+   "configuration": "UA",
+   "removed": [
+    "U",
+    "A"
+   ],
+   "kept": [
+    "S",
+    "P"
+   ],
+   "seeds": 5,
+   "overall": {
+    "abstention_rate": {
+     "value": 0.0,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=UA threshold=0.8 abstention_rate, mean of 5 seeds"
+    },
+    "premature_convergence_rate": {
+     "value": 0.697,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=UA threshold=0.8 premature_convergence_rate, mean of 5 seeds"
+    }
+   },
+   "per_regime": {
+    "clear": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UA per_regime.clear.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UA per_regime.clear.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "ambiguous": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UA per_regime.ambiguous.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UA per_regime.ambiguous.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "sparse": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UA per_regime.sparse.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UA per_regime.sparse.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "unknown_attack": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UA per_regime.unknown_attack.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UA per_regime.unknown_attack.premature_convergence_rate, mean of 5 seeds"
+     }
+    }
+   }
+  },
+  {
+   "configuration": "UP",
+   "removed": [
+    "U",
+    "P"
+   ],
+   "kept": [
+    "S",
+    "A"
+   ],
+   "seeds": 5,
+   "overall": {
+    "abstention_rate": {
+     "value": 0.0,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=UP threshold=0.8 abstention_rate, mean of 5 seeds"
+    },
+    "premature_convergence_rate": {
+     "value": 0.697,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=UP threshold=0.8 premature_convergence_rate, mean of 5 seeds"
+    }
+   },
+   "per_regime": {
+    "clear": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UP per_regime.clear.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UP per_regime.clear.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "ambiguous": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UP per_regime.ambiguous.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UP per_regime.ambiguous.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "sparse": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UP per_regime.sparse.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UP per_regime.sparse.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "unknown_attack": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UP per_regime.unknown_attack.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UP per_regime.unknown_attack.premature_convergence_rate, mean of 5 seeds"
+     }
+    }
+   }
+  },
+  {
+   "configuration": "SA",
+   "removed": [
+    "S",
+    "A"
+   ],
+   "kept": [
+    "U",
+    "P"
+   ],
+   "seeds": 5,
+   "overall": {
+    "abstention_rate": {
+     "value": 0.0091,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=SA threshold=0.8 abstention_rate, mean of 5 seeds"
+    },
+    "premature_convergence_rate": {
+     "value": 0.6879,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=SA threshold=0.8 premature_convergence_rate, mean of 5 seeds"
+    }
+   },
+   "per_regime": {
+    "clear": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SA per_regime.clear.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SA per_regime.clear.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "ambiguous": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SA per_regime.ambiguous.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SA per_regime.ambiguous.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "sparse": {
+     "abstention_rate": {
+      "value": 0.06,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SA per_regime.sparse.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.94,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SA per_regime.sparse.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "unknown_attack": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SA per_regime.unknown_attack.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SA per_regime.unknown_attack.premature_convergence_rate, mean of 5 seeds"
+     }
+    }
+   }
+  },
+  {
+   "configuration": "SP",
+   "removed": [
+    "S",
+    "P"
+   ],
+   "kept": [
+    "U",
+    "A"
+   ],
+   "seeds": 5,
+   "overall": {
+    "abstention_rate": {
+     "value": 0.0212,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=SP threshold=0.8 abstention_rate, mean of 5 seeds"
+    },
+    "premature_convergence_rate": {
+     "value": 0.6758,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=SP threshold=0.8 premature_convergence_rate, mean of 5 seeds"
+    }
+   },
+   "per_regime": {
+    "clear": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SP per_regime.clear.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SP per_regime.clear.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "ambiguous": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SP per_regime.ambiguous.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SP per_regime.ambiguous.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "sparse": {
+     "abstention_rate": {
+      "value": 0.14,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SP per_regime.sparse.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.86,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SP per_regime.sparse.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "unknown_attack": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SP per_regime.unknown_attack.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SP per_regime.unknown_attack.premature_convergence_rate, mean of 5 seeds"
+     }
+    }
+   }
+  },
+  {
+   "configuration": "AP",
+   "removed": [
+    "A",
+    "P"
+   ],
+   "kept": [
+    "U",
+    "S"
+   ],
+   "seeds": 5,
+   "overall": {
+    "abstention_rate": {
+     "value": 0.1818,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=AP threshold=0.8 abstention_rate, mean of 5 seeds"
+    },
+    "premature_convergence_rate": {
+     "value": 0.5182,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=AP threshold=0.8 premature_convergence_rate, mean of 5 seeds"
+    }
+   },
+   "per_regime": {
+    "clear": {
+     "abstention_rate": {
+      "value": 0.01,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=AP per_regime.clear.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=AP per_regime.clear.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "ambiguous": {
+     "abstention_rate": {
+      "value": 0.08,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=AP per_regime.ambiguous.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.92,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=AP per_regime.ambiguous.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "sparse": {
+     "abstention_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=AP per_regime.sparse.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=AP per_regime.sparse.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "unknown_attack": {
+     "abstention_rate": {
+      "value": 0.0125,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=AP per_regime.unknown_attack.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.9875,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=AP per_regime.unknown_attack.premature_convergence_rate, mean of 5 seeds"
+     }
+    }
+   }
+  },
+  {
+   "configuration": "USA",
+   "removed": [
+    "U",
+    "S",
+    "A"
+   ],
+   "kept": [
+    "P"
+   ],
+   "seeds": 5,
+   "overall": {
+    "abstention_rate": {
+     "value": 0.0,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=USA threshold=0.8 abstention_rate, mean of 5 seeds"
+    },
+    "premature_convergence_rate": {
+     "value": 0.697,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=USA threshold=0.8 premature_convergence_rate, mean of 5 seeds"
+    }
+   },
+   "per_regime": {
+    "clear": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USA per_regime.clear.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USA per_regime.clear.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "ambiguous": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USA per_regime.ambiguous.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USA per_regime.ambiguous.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "sparse": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USA per_regime.sparse.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USA per_regime.sparse.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "unknown_attack": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USA per_regime.unknown_attack.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USA per_regime.unknown_attack.premature_convergence_rate, mean of 5 seeds"
+     }
+    }
+   }
+  },
+  {
+   "configuration": "USP",
+   "removed": [
+    "U",
+    "S",
+    "P"
+   ],
+   "kept": [
+    "A"
+   ],
+   "seeds": 5,
+   "overall": {
+    "abstention_rate": {
+     "value": 0.0,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=USP threshold=0.8 abstention_rate, mean of 5 seeds"
+    },
+    "premature_convergence_rate": {
+     "value": 0.697,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=USP threshold=0.8 premature_convergence_rate, mean of 5 seeds"
+    }
+   },
+   "per_regime": {
+    "clear": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USP per_regime.clear.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USP per_regime.clear.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "ambiguous": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USP per_regime.ambiguous.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USP per_regime.ambiguous.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "sparse": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USP per_regime.sparse.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USP per_regime.sparse.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "unknown_attack": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USP per_regime.unknown_attack.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USP per_regime.unknown_attack.premature_convergence_rate, mean of 5 seeds"
+     }
+    }
+   }
+  },
+  {
+   "configuration": "UAP",
+   "removed": [
+    "U",
+    "A",
+    "P"
+   ],
+   "kept": [
+    "S"
+   ],
+   "seeds": 5,
+   "overall": {
+    "abstention_rate": {
+     "value": 0.0,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=UAP threshold=0.8 abstention_rate, mean of 5 seeds"
+    },
+    "premature_convergence_rate": {
+     "value": 0.697,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=UAP threshold=0.8 premature_convergence_rate, mean of 5 seeds"
+    }
+   },
+   "per_regime": {
+    "clear": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UAP per_regime.clear.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UAP per_regime.clear.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "ambiguous": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UAP per_regime.ambiguous.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UAP per_regime.ambiguous.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "sparse": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UAP per_regime.sparse.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UAP per_regime.sparse.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "unknown_attack": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UAP per_regime.unknown_attack.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=UAP per_regime.unknown_attack.premature_convergence_rate, mean of 5 seeds"
+     }
+    }
+   }
+  },
+  {
+   "configuration": "SAP",
+   "removed": [
+    "S",
+    "A",
+    "P"
+   ],
+   "kept": [
+    "U"
+   ],
+   "seeds": 5,
+   "overall": {
+    "abstention_rate": {
+     "value": 0.0091,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=SAP threshold=0.8 abstention_rate, mean of 5 seeds"
+    },
+    "premature_convergence_rate": {
+     "value": 0.6879,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=SAP threshold=0.8 premature_convergence_rate, mean of 5 seeds"
+    }
+   },
+   "per_regime": {
+    "clear": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SAP per_regime.clear.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SAP per_regime.clear.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "ambiguous": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SAP per_regime.ambiguous.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SAP per_regime.ambiguous.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "sparse": {
+     "abstention_rate": {
+      "value": 0.06,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SAP per_regime.sparse.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.94,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SAP per_regime.sparse.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "unknown_attack": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SAP per_regime.unknown_attack.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=SAP per_regime.unknown_attack.premature_convergence_rate, mean of 5 seeds"
+     }
+    }
+   }
+  },
+  {
+   "configuration": "USAP",
+   "removed": [
+    "U",
+    "S",
+    "A",
+    "P"
+   ],
+   "kept": [],
+   "seeds": 5,
+   "overall": {
+    "abstention_rate": {
+     "value": 0.0,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=USAP threshold=0.8 abstention_rate, mean of 5 seeds"
+    },
+    "premature_convergence_rate": {
+     "value": 0.697,
+     "source": "results/ablation/cells_detail_seed42.json",
+     "field": "configuration=USAP threshold=0.8 premature_convergence_rate, mean of 5 seeds"
+    }
+   },
+   "per_regime": {
+    "clear": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USAP per_regime.clear.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USAP per_regime.clear.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "ambiguous": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USAP per_regime.ambiguous.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USAP per_regime.ambiguous.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "sparse": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USAP per_regime.sparse.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USAP per_regime.sparse.premature_convergence_rate, mean of 5 seeds"
+     }
+    },
+    "unknown_attack": {
+     "abstention_rate": {
+      "value": 0.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USAP per_regime.unknown_attack.abstention_rate, mean of 5 seeds"
+     },
+     "premature_convergence_rate": {
+      "value": 1.0,
+      "source": "results/ablation/cells_detail_seed42.json",
+      "field": "configuration=USAP per_regime.unknown_attack.premature_convergence_rate, mean of 5 seeds"
+     }
+    }
+   }
+  }
+ ],
+ "seed": 42
+}

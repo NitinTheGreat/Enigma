@@ -33,3 +33,5 @@ results/convergence_isolation/cache_seed*.json
 results/repair/*.jsonl
 results/repair/cache_seed*.json
 results/repair/*_descriptions.json
+
+!demo/public/data/

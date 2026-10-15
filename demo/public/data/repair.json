@@ -1,0 +1,48 @@
+{
+ "threshold": 0.3,
+ "baseline": {
+  "recurrence": {
+   "value": 0.0,
+   "source": "results/repair/repair_summary_seed42.csv",
+   "field": "baseline_recurrence_rate_mean"
+  },
+  "convergence_fraction": {
+   "value": 0.0,
+   "source": "results/repair/repair_summary_seed42.csv",
+   "field": "baseline_convergence_fraction_mean"
+  },
+  "max_convergence": {
+   "value": 0.29,
+   "source": "results/repair/repair_summary_seed42.csv",
+   "field": "baseline_max_convergence_mean"
+  },
+  "max_dominant_iterations": {
+   "value": 1.0,
+   "source": "results/repair/repair_summary_seed42.csv",
+   "field": "baseline_max_dominant_iterations_mean"
+  }
+ },
+ "repair": {
+  "recurrence": {
+   "value": 0.2045,
+   "source": "results/repair/repair_summary_seed42.csv",
+   "field": "repair_recurrence_rate_mean"
+  },
+  "convergence_fraction": {
+   "value": 0.1551,
+   "source": "results/repair/repair_summary_seed42.csv",
+   "field": "repair_convergence_fraction_mean"
+  },
+  "max_convergence": {
+   "value": 0.453,
+   "source": "results/repair/repair_summary_seed42.csv",
+   "field": "repair_max_convergence_mean"
+  },
+  "max_dominant_iterations": {
+   "value": 3.0,
+   "source": "results/repair/repair_summary_seed42.csv",
+   "field": "repair_max_dominant_iterations_mean"
+  }
+ },
+ "seed": 42
+}

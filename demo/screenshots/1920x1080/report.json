@@ -1,0 +1,109 @@
+{
+ "viewport": {
+  "width": 1920,
+  "height": 1080
+ },
+ "errors": [],
+ "requests": [
+  "http://127.0.0.1:4173/",
+  "http://127.0.0.1:4173/_next/static/chunks/3mg50te9cxsgl.css",
+  "http://127.0.0.1:4173/_next/static/chunks/3l04zcqx63h3y.js",
+  "http://127.0.0.1:4173/_next/static/chunks/41qfcvra0dvw4.js",
+  "http://127.0.0.1:4173/_next/static/chunks/1mh6a-0e61pyc.js",
+  "http://127.0.0.1:4173/_next/static/chunks/turbopack-0_i3ve-33z88y.js",
+  "http://127.0.0.1:4173/_next/static/chunks/3fntmmi971322.js",
+  "http://127.0.0.1:4173/_next/static/chunks/36prvpw2ntbkg.js",
+  "http://127.0.0.1:4173/_next/static/media/archivo-latin-wght-normal.1_q0qa17ptz5n.woff2",
+  "http://127.0.0.1:4173/_next/static/media/ibm-plex-mono-latin-400-normal.3xdfs0-p_zi4c.woff2",
+  "http://127.0.0.1:4173/data/verdicts.json",
+  "http://127.0.0.1:4173/data/configurations.json",
+  "http://127.0.0.1:4173/data/regime_effects.json",
+  "http://127.0.0.1:4173/data/clock.json",
+  "http://127.0.0.1:4173/data/repair.json",
+  "http://127.0.0.1:4173/data/sensor.json",
+  "http://127.0.0.1:4173/data/system.json",
+  "http://127.0.0.1:4173/data/traces.json",
+  "http://127.0.0.1:4173/_next/static/media/instrument-serif-latin-400-italic.1bk2-9tco4m7m.woff2"
+ ],
+ "external": [],
+ "report": [
+  {
+   "screen": 0,
+   "state": "initial",
+   "words": 41,
+   "problems": []
+  },
+  {
+   "screen": 1,
+   "state": "initial",
+   "words": 30,
+   "problems": []
+  },
+  {
+   "screen": 1,
+   "state": "after",
+   "words": 35,
+   "problems": []
+  },
+  {
+   "screen": 2,
+   "state": "initial",
+   "words": 35,
+   "problems": []
+  },
+  {
+   "screen": 2,
+   "state": "sensor",
+   "words": 51,
+   "problems": []
+  },
+  {
+   "screen": 3,
+   "state": "initial",
+   "words": 42,
+   "problems": []
+  },
+  {
+   "screen": 3,
+   "state": "verdict",
+   "words": 49,
+   "problems": []
+  },
+  {
+   "screen": 4,
+   "state": "initial",
+   "words": 42,
+   "problems": []
+  },
+  {
+   "screen": 4,
+   "state": "unknown-off",
+   "words": 44,
+   "problems": []
+  },
+  {
+   "screen": 5,
+   "state": "initial",
+   "words": 40,
+   "problems": []
+  },
+  {
+   "screen": 5,
+   "state": "bug-on",
+   "words": 45,
+   "problems": []
+  },
+  {
+   "screen": 6,
+   "state": "initial",
+   "words": 53,
+   "problems": []
+  },
+  {
+   "screen": 4,
+   "state": "drawer-open",
+   "words": 42,
+   "problems": []
+  }
+ ]
+}

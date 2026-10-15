@@ -1,0 +1,15 @@
+seed,token,role,used_for,old,new,hue_old,hue_new,hue_shift,lightness_old,lightness_new
+42,paper,neutral,page background,#e8e4da,#dedde5,42.9,247.5,155.4,0.882,0.882
+42,cream,neutral,"panels, cards, drawer",#f5f1e8,#eceaf3,41.5,253.3,148.2,0.935,0.935
+42,field,neutral,"inputs, raised surfaces",#f8f5ec,#efeef6,45.0,247.5,157.5,0.949,0.949
+42,ink,neutral,"body text, headings, dark button",#29261f,#222127,42.0,250.0,152.0,0.141,0.141
+42,muted,neutral,"secondary text, captions, axis labels",#726e60,#5e5d68,46.7,245.5,161.2,0.412,0.386
+42,line,neutral,"rules, borders, dividers",#c8c3b5,#bab9c4,44.2,245.5,158.8,0.747,0.747
+42,dark,neutral,footer and presenter panel ground,#25271e,#202025,73.3,240.0,166.7,0.135,0.135
+42,dark-hover,neutral,dark button hover,#464633,#383742,60.0,245.5,174.5,0.237,0.237
+42,dark-text,neutral,secondary text on dark ground,#b4b5a6,#aaa9b2,64.0,246.7,177.3,0.68,0.68
+42,dark-rule,neutral,rules on dark ground,#565847,#4c4a55,67.1,250.9,176.1,0.312,0.312
+42,olive,accent,"brand mark, eyebrow markers, checkbox accent",#777b45,#7b456e,64.4,314.4,110.0,0.376,0.376
+42,acid,accent,"primary button, selection, hover fill",#d0d68b,#d68bc3,64.8,315.2,109.6,0.692,0.692
+42,acid-hover,accent,primary button hover,#dfe4a9,#e4a9d5,65.1,315.3,109.8,0.778,0.778
+42,rust,accent,"focus ring, active tab, nav dot",#b45436,#6936b4,14.3,264.3,110.0,0.459,0.459

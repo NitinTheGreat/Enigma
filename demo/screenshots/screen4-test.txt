@@ -1,0 +1,6 @@
+sparse: flip P   1.0000 -> 1.0000  "Nothing changed. Is it weak, or not connected? The audit says: not connected."
+sparse: flip flag 1.0000 -> 1.0000  "Nothing changed. Is it weak, or not connected? The audit says: not connected."
+sparse: flip U   1.0000 -> 0.0000  measured change -1.0000  "Removing UNKNOWN moved it by −1.0000."
+unknown_attack: flip P   0.0125 -> 0.0125  "Nothing changed. Is it weak, or not connected? The audit says: not connected."
+unknown_attack: flip flag 0.0125 -> 0.0125  "Nothing changed. Is it weak, or not connected? The audit says: not connected."
+unknown_attack: flip U   0.0125 -> 0.0000  measured change -0.0125  "Removing UNKNOWN moved it by −0.0125."

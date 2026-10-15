@@ -1,0 +1,433 @@
+{
+  "seed": 42,
+  "threshold": 0.8,
+  "source_log": "results/ablation/allon_t080_42.jsonl",
+  "rule": "median evidence count at the first terminated analysis, per regime, ties broken by smallest situation id; matches paper Figure 3",
+  "abstained_means": "UNKNOWN leads at the final record, as in scenarios/scoring.py",
+  "traces": [
+    {
+      "regime": "clear",
+      "situation_id": "1437f51c-5a94-4d74-ae18-35001d64a6ca",
+      "scenario_id": "s00031",
+      "evidence_count_at_end": 1,
+      "regime_candidates": 20,
+      "should_conclude": true,
+      "verdict": "abstained",
+      "right_call": false,
+      "termination_reason": "max_iterations",
+      "iterations": [
+        {
+          "iteration": 1,
+          "evidence_count": 1,
+          "unknown_confidence": 0.65,
+          "convergence_score": 0.0,
+          "dominant_hypothesis_id": "UNKNOWN",
+          "dominant_iterations": 0,
+          "terminated": false,
+          "termination_reason": null,
+          "hypotheses": [
+            {
+              "id": "27c82591-b80e-4520-ac47-1986e815a4eb",
+              "confidence": 0.3758,
+              "status": "active",
+              "text": "A singular, highly anomalous but benign system event or transient error occurred."
+            },
+            {
+              "id": "540ce290-989d-4e60-a4bf-ea7e1d572355",
+              "confidence": 0.3258,
+              "status": "active",
+              "text": "A brief, highly anomalous reconnaissance probe from a single source was detected."
+            },
+            {
+              "id": "3771e44a-c3e2-48e7-9741-08e638bd8397",
+              "confidence": 0.2258,
+              "status": "active",
+              "text": "An isolated, highly anomalous malicious attempt was initiated and quickly ceased."
+            }
+          ]
+        },
+        {
+          "iteration": 2,
+          "evidence_count": 1,
+          "unknown_confidence": 1.0,
+          "convergence_score": 0.0,
+          "dominant_hypothesis_id": "UNKNOWN",
+          "dominant_iterations": 0,
+          "terminated": false,
+          "termination_reason": null,
+          "hypotheses": [
+            {
+              "id": "f8aa975a-5399-4d6f-b265-6f8e80670e6e",
+              "confidence": 0.3558,
+              "status": "active",
+              "text": "A singular, highly anomalous but benign system event or transient error occurred."
+            },
+            {
+              "id": "fa1db14a-1b58-465a-b995-b2e7c9672b39",
+              "confidence": 0.3058,
+              "status": "active",
+              "text": "A brief, highly anomalous reconnaissance probe from a single source was detected."
+            },
+            {
+              "id": "e82ecdaf-9778-460a-8150-1f0970a34d48",
+              "confidence": 0.2558,
+              "status": "active",
+              "text": "An isolated, highly anomalous malicious attempt was initiated and quickly ceased."
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "evidence_count": 1,
+          "unknown_confidence": 1.0,
+          "convergence_score": 0.0,
+          "dominant_hypothesis_id": "UNKNOWN",
+          "dominant_iterations": 0,
+          "terminated": true,
+          "termination_reason": "max_iterations",
+          "hypotheses": [
+            {
+              "id": "9b175f2c-571b-439d-876d-4fee01b24e83",
+              "confidence": 0.3758,
+              "status": "active",
+              "text": "An isolated, highly anomalous system glitch occurred."
+            },
+            {
+              "id": "1396f0d3-59e6-4194-9d58-acc877ef95da",
+              "confidence": 0.3258,
+              "status": "active",
+              "text": "A brief, highly anomalous reconnaissance probe from a single source."
+            },
+            {
+              "id": "6d483cf7-347f-43c8-86a7-730af0820e2e",
+              "confidence": 0.2758,
+              "status": "active",
+              "text": "An isolated, highly anomalous malicious attempt quickly ceased."
+            },
+            {
+              "id": "db16eb30-7831-4db3-9ff7-1ea26585318f",
+              "confidence": 0.2258,
+              "status": "active",
+              "text": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "regime": "ambiguous",
+      "situation_id": "0d73dc81-86b6-4e61-acda-9c6e7eef51f8",
+      "scenario_id": "s00104",
+      "evidence_count_at_end": 1,
+      "regime_candidates": 20,
+      "should_conclude": false,
+      "verdict": "abstained",
+      "right_call": true,
+      "termination_reason": "max_iterations",
+      "iterations": [
+        {
+          "iteration": 1,
+          "evidence_count": 1,
+          "unknown_confidence": 0.65,
+          "convergence_score": 0.0,
+          "dominant_hypothesis_id": "UNKNOWN",
+          "dominant_iterations": 0,
+          "terminated": false,
+          "termination_reason": null,
+          "hypotheses": [
+            {
+              "id": "b257da18-5e22-49ac-9602-115e37066ea8",
+              "confidence": 0.341,
+              "status": "active",
+              "text": "A single, routine system log entry or heartbeat event."
+            },
+            {
+              "id": "7cf39ce6-e334-4877-8b10-bdd416442179",
+              "confidence": 0.191,
+              "status": "active",
+              "text": "Initial, low-impact probing or reconnaissance attempt."
+            },
+            {
+              "id": "56c1125d-af89-4036-8d25-61c743e371ca",
+              "confidence": 0.141,
+              "status": "active",
+              "text": "A single, highly targeted, stealthy network interaction."
+            }
+          ]
+        },
+        {
+          "iteration": 2,
+          "evidence_count": 1,
+          "unknown_confidence": 0.9,
+          "convergence_score": 0.0,
+          "dominant_hypothesis_id": "UNKNOWN",
+          "dominant_iterations": 0,
+          "terminated": false,
+          "termination_reason": null,
+          "hypotheses": [
+            {
+              "id": "f6f2f9df-bbdf-416f-8cd7-f83d47ce61bc",
+              "confidence": 0.341,
+              "status": "active",
+              "text": "A single, routine system log entry or heartbeat event."
+            },
+            {
+              "id": "fccadc14-c8e7-44fb-bde9-ffe93064ce07",
+              "confidence": 0.141,
+              "status": "active",
+              "text": "An isolated, low-impact network probe from a single source."
+            },
+            {
+              "id": "ffa06a8c-1b63-4c8b-ad30-f9b1265e3f32",
+              "confidence": 0.091,
+              "status": "pruned",
+              "text": "A singular, very low anomaly network interaction."
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "evidence_count": 1,
+          "unknown_confidence": 1.0,
+          "convergence_score": 0.0,
+          "dominant_hypothesis_id": "UNKNOWN",
+          "dominant_iterations": 0,
+          "terminated": true,
+          "termination_reason": "max_iterations",
+          "hypotheses": [
+            {
+              "id": "124f2067-e97a-45e2-a8cc-816f32076b19",
+              "confidence": 0.291,
+              "status": "active",
+              "text": "A single, routine system log entry or heartbeat event."
+            },
+            {
+              "id": "3516bc18-cc88-477b-8eec-bd80bba83f17",
+              "confidence": 0.141,
+              "status": "active",
+              "text": "An isolated, low-impact network probe from a single source."
+            },
+            {
+              "id": "960f9b33-15de-4b4a-95a4-f129020f5be6",
+              "confidence": 0.091,
+              "status": "pruned",
+              "text": "A single, malformed network packet received and dropped."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "regime": "sparse",
+      "situation_id": "00451080-2e17-4885-b8cf-8561c411ffc7",
+      "scenario_id": "s00289",
+      "evidence_count_at_end": 1,
+      "regime_candidates": 10,
+      "should_conclude": false,
+      "verdict": "abstained",
+      "right_call": true,
+      "termination_reason": "max_iterations",
+      "iterations": [
+        {
+          "iteration": 1,
+          "evidence_count": 1,
+          "unknown_confidence": 0.65,
+          "convergence_score": 0.0,
+          "dominant_hypothesis_id": "UNKNOWN",
+          "dominant_iterations": 0,
+          "terminated": false,
+          "termination_reason": null,
+          "hypotheses": [
+            {
+              "id": "ace199c0-cdfb-4dac-ad32-b2871444471c",
+              "confidence": 0.4275,
+              "status": "active",
+              "text": "A single, isolated sensor reading or system artifact."
+            },
+            {
+              "id": "49a697bd-a496-4832-bc80-dff811894163",
+              "confidence": 0.3275,
+              "status": "active",
+              "text": "A very brief, stealthy probe that was partially detected."
+            },
+            {
+              "id": "eb70594c-c3af-4ff4-b776-40d0fc0d8108",
+              "confidence": 0.2275,
+              "status": "active",
+              "text": "An anomaly from a system component that failed to log full event details."
+            },
+            {
+              "id": "03ce3e2f-2289-49c5-9ed7-a0a01fec1ee1",
+              "confidence": 0.2775,
+              "status": "active",
+              "text": ""
+            }
+          ]
+        },
+        {
+          "iteration": 2,
+          "evidence_count": 1,
+          "unknown_confidence": 0.9,
+          "convergence_score": 0.0,
+          "dominant_hypothesis_id": "UNKNOWN",
+          "dominant_iterations": 0,
+          "terminated": false,
+          "termination_reason": null,
+          "hypotheses": [
+            {
+              "id": "78ab28f8-04cd-48f5-a93e-109c81432ba3",
+              "confidence": 0.3275,
+              "status": "active",
+              "text": "A single, routine system health check or heartbeat."
+            },
+            {
+              "id": "1c1da616-48c5-48cb-a26f-baf90c77d423",
+              "confidence": 0.4275,
+              "status": "active",
+              "text": "An isolated, anomalous sensor reading indicating a potential brief probe."
+            },
+            {
+              "id": "9fcd5e19-0634-4691-93d7-74c7403def90",
+              "confidence": 0.3775,
+              "status": "active",
+              "text": "A system component reported an anomaly without generating detailed event logs."
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "evidence_count": 1,
+          "unknown_confidence": 1.0,
+          "convergence_score": 0.0,
+          "dominant_hypothesis_id": "UNKNOWN",
+          "dominant_iterations": 0,
+          "terminated": true,
+          "termination_reason": "max_iterations",
+          "hypotheses": [
+            {
+              "id": "42ffdcd3-5b2a-4ab9-9f63-0602c6df7838",
+              "confidence": 0.3275,
+              "status": "active",
+              "text": "A single, transient sensor fluctuation during normal operation."
+            },
+            {
+              "id": "0921e6b8-856d-4f22-b513-d6ff1d1c799c",
+              "confidence": 0.4775,
+              "status": "active",
+              "text": "An isolated, anomalous data point from a potential brief external scan."
+            },
+            {
+              "id": "a9f4a22e-1348-4654-904c-a5018cc063c1",
+              "confidence": 0.4275,
+              "status": "active",
+              "text": "A single internal system metric exceeded its normal threshold."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "regime": "unknown_attack",
+      "situation_id": "09e0a866-a5e2-4219-8ca4-0e520e803ab0",
+      "scenario_id": "s00357",
+      "evidence_count_at_end": 1,
+      "regime_candidates": 16,
+      "should_conclude": false,
+      "verdict": "abstained",
+      "right_call": true,
+      "termination_reason": "max_iterations",
+      "iterations": [
+        {
+          "iteration": 1,
+          "evidence_count": 1,
+          "unknown_confidence": 0.65,
+          "convergence_score": 0.0,
+          "dominant_hypothesis_id": "UNKNOWN",
+          "dominant_iterations": 0,
+          "terminated": false,
+          "termination_reason": null,
+          "hypotheses": [
+            {
+              "id": "877ea614-d212-4bbe-8011-19d7190b9d9f",
+              "confidence": 0.5377,
+              "status": "active",
+              "text": "A single, highly anomalous data point due to sensor noise or a benign system artifact."
+            },
+            {
+              "id": "8fd6f9ff-1e2b-4f31-8576-c4023e285131",
+              "confidence": 0.5377,
+              "status": "active",
+              "text": "An isolated, highly anomalous reconnaissance probe or a failed attack attempt."
+            },
+            {
+              "id": "cdf6c9e7-c8db-4b57-9500-31fb36bc8b02",
+              "confidence": 0.4377,
+              "status": "active",
+              "text": "System misconfiguration or an internal error generated a single high anomaly alert."
+            }
+          ]
+        },
+        {
+          "iteration": 2,
+          "evidence_count": 1,
+          "unknown_confidence": 1.0,
+          "convergence_score": 0.0,
+          "dominant_hypothesis_id": "UNKNOWN",
+          "dominant_iterations": 0,
+          "terminated": false,
+          "termination_reason": null,
+          "hypotheses": [
+            {
+              "id": "69ebc583-6f62-4d5b-aed3-7882149b04b6",
+              "confidence": 0.5377,
+              "status": "active",
+              "text": "A single, highly anomalous data point from sensor noise or benign artifact."
+            },
+            {
+              "id": "cb5c6682-3b4b-4c20-9e60-ff17c26ca3d4",
+              "confidence": 0.5377,
+              "status": "active",
+              "text": "An isolated, highly anomalous reconnaissance probe or failed attack attempt."
+            },
+            {
+              "id": "d5830d8b-8583-4217-a067-f2c68af4a6c4",
+              "confidence": 0.4877,
+              "status": "active",
+              "text": "System misconfiguration or internal error generated a single high anomaly alert."
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "evidence_count": 1,
+          "unknown_confidence": 1.0,
+          "convergence_score": 0.0,
+          "dominant_hypothesis_id": "UNKNOWN",
+          "dominant_iterations": 0,
+          "terminated": true,
+          "termination_reason": "max_iterations",
+          "hypotheses": [
+            {
+              "id": "a29a696a-3133-4c36-9f8d-c13375ec0741",
+              "confidence": 0.5877,
+              "status": "active",
+              "text": "Isolated sensor noise or benign system artifact."
+            },
+            {
+              "id": "f6872de9-0419-48a0-89bd-632f7261e2f0",
+              "confidence": 0.5377,
+              "status": "active",
+              "text": "A single, highly anomalous reconnaissance probe."
+            },
+            {
+              "id": "f2ddf992-2c0f-40a3-9112-27bfcbfaec94",
+              "confidence": 0.4877,
+              "status": "active",
+              "text": "System misconfiguration triggered a single high anomaly alert."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

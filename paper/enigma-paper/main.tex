@@ -19,35 +19,36 @@
 \IEEEauthorblockA{\textsuperscript{1,2,3,4}School of Computer Science and Engineering, Vellore Institute of Technology,\\
 Vellore, Tamil Nadu, India -- 632014\\
 Email: \textsuperscript{1}abhay.mahantesh2023@vitstudent.ac.in, \textsuperscript{2}guneetkaur.arora2023@vitstudent.ac.in,\\
-\textsuperscript{3}nitinkumar.pandey2023@vitstudent.ac.in, \textsuperscript{4}\textbf{[CORRESPONDING AUTHOR EMAIL REQUIRED]}\\
+\textsuperscript{3}nitinkumar.pandey2023@vitstudent.ac.in, \textsuperscript{4}ebenezer.juliet@vit.ac.in\\
 \textsuperscript{4}Corresponding author}}
 
 \maketitle
 
 \begin{abstract}
-Agentic triage systems are increasingly shipped with hand designed epistemic
-controls: a hypothesis that cannot be pruned, a gate that boosts doubt, a
-decay rule that treats contradicting evidence more harshly than supporting
-evidence, and a requirement that a belief persist before it is acted upon.
-Such mechanisms are easy to write, easy to describe in a system paper, and
-rarely audited. We report an audit of four of them in a working intrusion
-triage system, in which a LangGraph reasoning loop sits behind a deep
-ensemble sensor trained on UNSW-NB15. The audit is a $2^4$ factorial over the
-four mechanisms, crossed with three convergence thresholds and five seeds,
-which is 9600 reasoning units against a real language model. Of the four
-mechanisms, one works, one works and largely duplicates the first, one is
-inert at the resolution five seeds afford, and one is a clamp misdescribed as
-a persistence requirement. The sixteen configurations collapse to five
-distinct outcomes. We further show that the sensor level of the system's two
-level abstention design is never read by the reasoning level: clearing the
-abstention flag on every signal in the suite changes the outcome by
-$0.000000$. A repair confirms the diagnosis rather than merely asserting it.
-Giving a restated hypothesis the identity of its predecessor raises
-hypothesis recurrence from $0$ to $0.2045$ and makes the persistence
-requirement gate convergence for the first time, at zero additional model
-cost. We argue that auditing whether a guardrail is connected should precede
-ablating it, since a null effect in an ablation is ambiguous between a
-mechanism that does little and a mechanism that is not wired in.
+We consider agentic triage systems which come with hand designed epistemic
+controls, for example a hypothesis that cannot be pruned, a gate that adds
+doubt when the evidence is thin, a decay rule that penalises contradicting
+evidence more than it rewards supporting evidence, and a requirement that a
+belief persists for some time before the system acts on it. Mechanisms of this
+kind are short pieces of code and they are easy to describe in a system paper,
+but they are seldom checked. We audit four such mechanisms in a working
+intrusion triage system, in which a LangGraph reasoning loop reads the output
+of a deep ensemble sensor trained on UNSW-NB15. The audit is a $2^4$ factorial
+over the four mechanisms, with three convergence thresholds and five seeds,
+which gives 9600 reasoning units run against a real language model. We find
+that one mechanism works, a second one works but largely repeats the first, a
+third has no effect that five seeds can resolve, and the fourth, which is
+described as a persistence requirement, is in fact a clamp on the convergence
+score. The sixteen configurations give only five distinct outcomes. We also
+show that the sensor level of the two level abstention design is never read by
+the reasoning loop: clearing the abstention flag on every signal of the suite
+changes the outcome by $0.000000$. To test the persistence diagnosis we repair
+it. When a restated hypothesis keeps the identity of its predecessor, the
+recurrence of hypotheses goes up from $0$ to $0.2045$ and the persistence
+requirement starts to gate convergence, with no additional model calls. A null
+result in an ablation can mean that a mechanism does little, or that it is not
+connected at all, and so we suggest that the connection is checked before the
+effect is measured.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -57,240 +58,238 @@ reproducibility
 
 \section{Introduction}
 
-\textbf{Hand designed epistemic controls.}
-A triage agent that reasons over security alerts must decide not only what is
-happening but whether it knows. The common engineering response is to add
-explicit machinery for doubt. A hypothesis representing ignorance is made
-permanent so that it can always compete. A gate inspects the hypothesis set
-and raises doubt when the evidence is thin. Confidence is allowed to fall
-faster than it rises. A belief must lead for several consecutive iterations
-before the system is permitted to act on it. Each of these is a few dozen
-lines of code, each is easy to motivate in prose, and each appears in the
-system description as a contribution.
+\textbf{Background.}
+An agent which triages security alerts has to decide what is happening, and it
+also has to decide whether it has enough evidence to say so. A common way to
+deal with the second question is to add explicit mechanisms for doubt. For
+example, a hypothesis standing for `unknown' may be kept permanently in the
+hypothesis set, so that the named explanations always have something to
+compete with. A gate may look at the hypothesis set and add doubt when there
+is little evidence. Confidence may be allowed to decrease faster than it
+increases. Finally, the system may be required to see the same hypothesis lead
+for a few consecutive iterations before it acts on it. Each such mechanism
+takes a few dozen lines of code, and in a system description each of them is
+usually listed as a contribution.
 
 \textbf{The audit question.}
-Writing such a mechanism is easy. Establishing that it is connected to
-anything is not, and it is almost never attempted. The usual evidence offered
-is an ablation: the mechanism is removed, the headline metric moves, and the
-mechanism is declared to matter. That argument has a gap at its centre. If
-the metric does not move, two very different situations produce the same
-table entry. The mechanism may be doing a small amount of real work, or it
-may be doing nothing at all because no execution path reaches it. An ablation
-alone cannot distinguish them, and the second case is the more alarming of
-the two. Thus the usual evidence is weakest exactly where it most needs to
-be strong.
+It is easy to add a mechanism like this, and much harder to check that it is
+connected to anything. In practice the check is rarely made. The evidence
+usually given is an ablation: the mechanism is removed, the headline metric
+changes, and the mechanism is said to matter. The difficulty comes when the
+metric does not change. There are then two explanations which give the same
+entry in the results table. Either the mechanism does a small amount of real
+work, or no execution path reaches it and it does nothing at all. The ablation
+on its own cannot tell these two cases apart, and the second case is the more
+worrying one. Thus the usual evidence says least in the case where it is most
+needed.
 
-\textbf{The system, and what we find.}
-We audit four such mechanisms in a working system. The sensor is a deep
-ensemble over UNSW-NB15~\cite{moustafa2015} with temperature scaling and a
-reject option; the reasoning layer is a LangGraph loop driven by
-\texttt{gemini-2.5-flash} over a frozen suite of 40 scenarios containing 66
-situations and 963 signals. An information barrier between the two exposes
-exactly ten aggregate fields and no raw signal. The four mechanisms are the
-non-prunable \textsc{unknown} hypothesis ($U$), the sanity gate ($S$),
-asymmetric confidence decay ($A$), and the persistence requirement ($P$).
+\textbf{The system and the results.}
+We audit four mechanisms of this kind in a working system. The sensor is a deep
+ensemble trained on UNSW-NB15~\cite{moustafa2015}, with temperature scaling and
+a reject option. The reasoning layer is a LangGraph loop driven by
+\texttt{gemini-2.5-flash}, and it runs over a frozen suite of 40 scenarios with
+66 situations and 963 signals. Between the sensor and the loop there is an
+information barrier, which passes ten aggregate fields to the loop and no raw
+signal. The four mechanisms are the non-prunable \textsc{unknown} hypothesis
+($U$), the sanity gate ($S$), asymmetric confidence decay ($A$) and the
+persistence requirement ($P$).
 
-The result is largely negative, and the negative part is the contribution.
-Two of the four mechanisms do nothing that five seeds can resolve. The
-sixteen configurations of the factorial collapse to five distinct outcomes,
-and $U$ and $S$ determine all five. The effect is concentrated almost
-entirely in one evidence regime. The persistence requirement turns out not to
-be a persistence requirement at all; it is a clamp that holds the convergence
-score just below whatever threshold is configured, and it can never be
-satisfied, because the generation step replaces the hypothesis list on every
-iteration and no named hypothesis survives long enough to persist. Across 963
-multi-iteration analyses and 10{,}068 named hypotheses, not one appears in
-two iterations.
+Most of what we find is negative, and we regard the negative results as the
+main contribution of the paper. Two of the four mechanisms have no effect that
+five seeds can resolve. The sixteen configurations of the factorial give only
+five distinct outcomes, and these five are determined by $U$ and $S$ alone.
+Almost all of the effect comes from one evidence regime. In the code, the
+persistence requirement is a clamp which keeps the convergence score just below
+the configured threshold. It is never satisfied, because the generation step
+builds a new hypothesis list at every iteration, and so no named hypothesis
+lasts long enough to persist. In 963 analyses with more than one iteration
+there are 10{,}068 named hypotheses, and none of them appears in two
+iterations.
 
-Separately, the system is described as abstaining at two levels, once at the
-sensor and once in the reasoning loop. The sensor level is not enacted. The
-abstention flag is counted into the reasoning snapshot and then read by no
-decision, and clearing it on every signal in the suite moves the outcome by
+The system is also described as abstaining at two levels, first at the sensor
+and then in the reasoning loop. We find that the sensor level is not enacted.
+The abstention flag is counted into the reasoning snapshot but no decision
+reads it, and clearing it on every signal of the suite changes the outcome by
 $0.000000$.
 
-\textbf{A repair, not only a diagnosis.}
-A diagnosis drawn from code reading and a null effect is correlational, and a
-reviewer is entitled to ask whether the mechanism would work if its
-precondition held. We therefore repair the precondition. A newly generated
-hypothesis inherits the identifier of the prior hypothesis it restates, and
-nothing else; descriptions and confidences are left exactly as the model
-produced them, so the prompts are unchanged and the experiment costs no
-additional model calls. Under the repair, recurrence rises from exactly zero
-to $0.2045$, the dominant iteration counter reaches three where it had never
-left one, and the persistence requirement gates convergence for the first
-time. The mechanism was correctly specified and incorrectly coupled.
+\textbf{The repair.}
+The persistence diagnosis comes from reading the code and from a null effect,
+so it is only correlational, and one may ask whether the mechanism would work
+if its precondition held. To answer this we supply the precondition. A newly
+generated hypothesis takes the identifier of the earlier hypothesis it
+restates, and nothing else is changed. The descriptions and the confidences are
+those produced by the model, the prompts are the same as before, and the
+experiment needs no new model calls. With the repair, recurrence goes up from
+zero to $0.2045$, the dominant iteration counter reaches three (before the
+repair it never went above one), and the persistence requirement gates
+convergence for the first time. So the mechanism itself was specified
+correctly, and the defect is in the way it is connected to the generation
+step.
 
-\textbf{Contributions.} We offer four. First, an audit method for epistemic
-controls that separates \emph{inert} from \emph{disconnected}, and a
-five-mechanism verdict table for one real system, see
-Section~\ref{sec:findings}. Second, a $2^4$ factorial at 9600 units which
-confirms a diagnosis made in advance rather than discovering one after the
-fact, see Section~\ref{sec:confirmation}. Third, a prompt-neutral repair
-experiment establishing the coupling defect causally, see
-Section~\ref{sec:repair}. Fourth, an evaluation hazard of independent
-interest, in which a timing defect improves the headline metric by $0.28$
-while making the system worse at the only task that requires it to commit,
-see Section~\ref{sec:hazards}.
+\textbf{Contributions.} The paper has four contributions. (i)~An audit method
+for epistemic controls which distinguishes a mechanism that is \emph{inert}
+from one that is \emph{disconnected}, together with verdicts on five mechanisms
+of one real system (Section~\ref{sec:findings}). (ii)~A $2^4$ factorial at 9600
+units, which tests a diagnosis made before the factorial was run
+(Section~\ref{sec:confirmation}). (iii)~A repair experiment which leaves the
+prompts unchanged and shows that the coupling defect is the cause
+(Section~\ref{sec:repair}). (iv)~An evaluation hazard, in which a timing defect
+raises the headline metric by $0.28$ and at the same time makes the system
+worse at the only task where it has to commit (Section~\ref{sec:hazards}).
 
-Everything reported here is recomputed from committed machine readable
-results by a script that needs no API key and no network; eighteen of
-eighteen quoted numbers reproduce on a clean checkout.
+All numbers in the paper are recomputed from committed machine readable results
+by a script which needs no API key and no network connection. On a clean
+checkout all eighteen of the quoted numbers are reproduced.
 
 \section{Related Work}
 
-\textbf{Machine learning in security, and its evaluation.}
-Anomaly detection carries a long survey literature, of which Chandola et
-al.~\cite{chandola2009} remains the standard reference. Sommer and
-Paxson~\cite{sommer2010} set out why anomaly detection is harder
-to evaluate than its literature suggested, and the argument has aged well.
-Arp et al.~\cite{arp2022} catalogue ten recurring pitfalls in machine
-learning for security and find at least three of them in each of the thirty
-papers they examine; sampling bias and inappropriate baselines are the most
-common. Pendlebury et al.~\cite{pendlebury2019} show that ignoring temporal
-ordering inflates malware classification results to the point of
-meaninglessness. Our work sits in this tradition but moves the object of
-criticism. Those papers ask whether a reported number is trustworthy. We ask
-whether a described mechanism exists in the executed system at all.
+\textbf{Machine learning in security.}
+Chandola et al.~\cite{chandola2009} survey anomaly detection. Sommer and
+Paxson~\cite{sommer2010} explain why anomaly detection is harder to evaluate
+than much of the earlier literature assumed. Arp et al.~\cite{arp2022} list
+ten common pitfalls of machine learning in security, and they find at least
+three of them in each of the thirty papers they examine, the most frequent
+being sampling bias and inappropriate baselines. Pendlebury et
+al.~\cite{pendlebury2019} show that when temporal ordering is ignored, malware
+classification results are inflated so much that they say very little. These
+papers check whether a reported number can be trusted. Here we check something
+slightly different, namely whether a mechanism described in a paper is present
+in the system that actually runs.
 
-\textbf{Technical debt and the specification to implementation gap.}
-Sculley et al.~\cite{sculley2015} introduced the vocabulary for this class of
-defect, naming boundary erosion, undeclared consumers and configuration debt
-among the ways in which machine learning systems accumulate hidden cost. The
-defect we report is precisely an undeclared non-consumer: a field is
-computed, carried through the system, documented, and read by nobody. Amodei
-et al.~\cite{amodei2016} anticipate the general shape of the problem under
-the heading of scalable oversight. Neither line of work supplies a
-measurement procedure, which is the gap this paper addresses.
+\textbf{Technical debt.}
+Sculley et al.~\cite{sculley2015} describe the hidden costs which build up in
+machine learning systems, among them boundary erosion, undeclared consumers and
+configuration debt. The defect we report is close to their undeclared consumer
+but in reverse. A field is computed, passed through the system and documented,
+and then nobody reads it. Amodei et al.~\cite{amodei2016} discuss problems of
+this general type under the heading of scalable oversight. Neither work gives a
+procedure for measuring such defects, and this is what we try to supply.
 
-\textbf{Testing, and the oracle problem.}
-The difficulty of knowing what a correct output looks like is the oracle
-problem, surveyed by Barr et al.~\cite{barr2015}, and it is acute for machine
-learning systems, surveyed by Zhang et al.~\cite{zhang2022}. Metamorphic
-testing~\cite{chen2018metamorphic} addresses it by checking relations between
-executions rather than individual outputs. Our ablation is, in this light, a
-metamorphic relation of a particular kind: disabling a mechanism that is
-genuinely connected must change the output, and we treat a configuration pair
-that agrees to four decimal places as a violated relation rather than as a
-small effect.
+\textbf{Testing and the oracle problem.}
+When it is not clear what the correct output of a program should be, we have
+the oracle problem, which is surveyed by Barr et al.~\cite{barr2015}. The
+problem is particularly hard for machine learning systems, see the survey of
+Zhang et al.~\cite{zhang2022}. Metamorphic testing~\cite{chen2018metamorphic}
+avoids it by checking relations between several executions, instead of
+checking individual outputs. Our ablation can be seen as a metamorphic relation
+of a particular kind. If a mechanism is connected, then disabling it must change
+the output. Hence when two configurations agree to four decimal places, we
+treat this as a violated relation, and we do not read it as a small effect.
 
 \textbf{Selective prediction and abstention.}
-The reject option goes back to Chow~\cite{chow1970}. Modern treatments
-include the maximum softmax baseline of Hendrycks and
-Gimpel~\cite{hendrycks2017}, the integrated reject option of Geifman and
-El-Yaniv~\cite{geifman2019}, and the calibration analysis of Guo et
-al.~\cite{guo2017}; our sensor uses a deep ensemble in the style of
-Lakshminarayanan et al.~\cite{lakshminarayanan2017} with temperature scaling.
-This literature concerns a single classifier that may decline. The system we
-audit claims abstention at two levels, and the contribution here is the
-finding that the two are not connected.
+The reject option goes back to Chow~\cite{chow1970}. Later work includes the
+maximum softmax baseline of Hendrycks and Gimpel~\cite{hendrycks2017}, the
+integrated reject option of Geifman and El-Yaniv~\cite{geifman2019} and the
+calibration study of Guo et al.~\cite{guo2017}. Our sensor is a deep ensemble
+as in Lakshminarayanan et al.~\cite{lakshminarayanan2017}, with temperature
+scaling. All of this work is about a single classifier which may decline to
+answer. The system we audit claims to abstain at two levels, and one of our
+findings is that the two levels are not connected.
 
-\textbf{Guardrails for agents, and their evaluation.}
-Evaluation of agent guardrails has moved quickly. Das Antar et
-al.~\cite{dasantar2025} are closest to this work: they measure the
-contribution of individual moderation guardrails and their interactions using
-a Bayesian procedure, and they observe that existing evaluations compare
-performance with and without the full guardrail stack and so say little about
-any single component. Kumar et al.~\cite{nofreelunch2025} report that
-guardrails impose measurable utility costs. Recent work on agent safety
-reports ablations in which each component is found to be critical.
+\textbf{Evaluation of guardrails.}
+The work of Das Antar et al.~\cite{dasantar2025} is the closest to ours. They
+measure the contribution of individual moderation guardrails, and of their
+interactions, with a Bayesian procedure. They also point out that most
+evaluations compare a system with and without the whole guardrail stack, which
+says little about any one component. Kumar et al.~\cite{nofreelunch2025} report
+that guardrails have a measurable cost in utility. Recent work on agent safety
+also reports ablations in which each component turns out to be critical.
 
-The distinction we draw is simple and, as far as we can establish, not yet
-drawn. All of this work measures \emph{how much} a guardrail contributes,
-under the assumption that the guardrail is wired into the execution path.
-None of it tests the assumption. We report a system in which that assumption
-fails for two of five audited mechanisms, and in which an ordinary ablation
-would have recorded the failure as unimportance.
+As far as we know, the following distinction has not been made before. The
+work above measures how much a guardrail contributes, and it assumes that the
+guardrail is on the execution path. This assumption is not tested. In the
+system we report it fails for two of the five audited mechanisms, and an
+ordinary ablation would have recorded both failures as small effects.
 
 \textbf{LLM agents for triage.}
-Multi-agent architectures for alert triage are an active area; CORTEX, for
-instance, composes behaviour analysis, evidence gathering and reasoning
-agents and reports reduced false positives against single-agent
-baselines~\cite{cortex2025}. Such systems are the natural target for the
-audit we describe. We make no claim that the system audited here is the strongest
-of its kind, and this is deliberate: it is an instrument rather than a
-contribution, and the defects we report are of a kind that a stronger system
-would be no less likely to carry.
+There is active work on multi-agent architectures for alert triage. For
+example, CORTEX~\cite{cortex2025} combines agents for behaviour analysis,
+evidence gathering and reasoning, and it reports fewer false positives than
+single-agent baselines. Systems of this kind are natural candidates for the
+audit we describe. We do not claim that the system audited here is the best of
+its kind. We use it as an instrument, and we see no reason why a stronger
+system would be less likely to have defects of the type we report.
 
 \section{The System Under Audit}
 
-The system has three layers. A sensor consumes UNSW-NB15 flows and emits
-signals carrying an anomaly score, a predicted class and an abstention flag;
-it is a deep ensemble with temperature scaling and a reject option, and it
-abstains on $22.85$\,\% of the signals in the evaluation suite. A situation
-store correlates signals by entity into situations. A LangGraph reasoning
-loop then runs at most three iterations over each situation, generating
-hypotheses with \texttt{gemini-2.5-flash} at temperature $0.2$, evaluating
-them against the evidence, and terminating when a convergence score crosses a
-threshold whose standing value is $0.8$.
+The system has three layers. A sensor reads UNSW-NB15 flows and emits signals,
+each of which carries an anomaly score, a predicted class and an abstention
+flag. The sensor is a deep ensemble with temperature scaling and a reject
+option, and it abstains on $22.85$\,\% of the signals in the evaluation suite.
+A situation store groups the signals by entity into situations. A LangGraph
+reasoning loop then runs at most three iterations on each situation. In each
+iteration it generates hypotheses with \texttt{gemini-2.5-flash} at temperature
+$0.2$, evaluates them against the evidence, and stops if a convergence score
+passes a threshold, which is $0.8$ by default.
 
-Between the store and the loop sits an information barrier. The context
-assembly step exposes exactly ten aggregate fields, among them the evidence
+The store and the loop are separated by an information barrier. The context
+assembly step passes ten aggregate fields to the loop, for example the evidence
 count, the event rate, the burst and quiet indicators, the trend label, the
-source diversity and the mean anomaly score. No raw signal, entity
-identifier, timestamp or signal identifier crosses it. The barrier is a
-deliberate design choice and it has a measurable cost, see
+source diversity and the mean anomaly score. The model does not see raw
+signals, entity identifiers, timestamps or signal identifiers. This is a
+deliberate design choice, and it has a cost which we measure in
 Section~\ref{sec:threats}.
 
-The four audited mechanisms live inside the loop and are individually
-removable from the compiled graph rather than merely disabled by a flag.
-Figure~\ref{fig:arch} marks where each one acts, and marks two further things
-that a conventional block diagram would hide: three adapters that are
-written, tested and routed to by nothing, and the abstention path that the
-system specifies and does not enact.
+The four audited mechanisms are inside the loop. Each of them can be removed
+from the compiled graph, so an ablation does not depend on a flag being
+respected. Figure~\ref{fig:arch} shows where each mechanism acts. It also shows
+two things which a usual block diagram would leave out: three adapters which
+are written and tested but never routed to, and the abstention path which the
+system specifies but does not enact.
 
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig1_architecture.pdf}
-\caption{Architecture and data flow, with the audited mechanisms marked.
-The reasoning loop is drawn in the order the graph is compiled: context
-assembly, hypothesis generation, the sanity gate, evaluation, belief inertia
-and the convergence update, which either returns to context assembly or ends
-with a conclusion or an abstention. Solid arrows carry data that a downstream
-step reads. The dashed green rule is the information barrier; the ten
-aggregate fields listed in the context assembly box are the only data that
-cross it, so the model never sees a raw signal, an entity or a timestamp. The
-three greyed adapters exist in the source and are exercised by unit tests,
-and no experiment in this project routes to them. The dashed orange edge is
-the sensor abstention path, which stops at the barrier: the flag is counted
-into the reasoning snapshot, is not among the ten fields, and is read by no
-decision, so clearing it changes the outcome by $0.000000$, see
-Section~\ref{sec:findings}. Each audited mechanism is marked on the node at
-which it acts; note that the persistence clamp $P$ sits on the convergence
-update, not on evaluation.}
+\caption{Architecture and data flow. The audited mechanisms are marked on the
+nodes where they act. The loop is drawn in the order in which the graph is
+compiled: context assembly, hypothesis generation, the sanity gate, evaluation,
+belief inertia and the convergence update. After the update the loop either
+goes back to context assembly, or it ends with a conclusion or an abstention. A
+solid arrow means that the downstream step reads the data. The dashed green
+line is the information barrier, and only the ten fields listed in the context
+assembly box cross it (so the model never sees a raw signal, an entity or a
+timestamp). The three grey adapters are in the source code and have unit
+tests, but no experiment in this project uses them. The dashed orange edge is
+the sensor abstention path, which stops at the barrier. The flag is counted
+into the reasoning snapshot, but it is not one of the ten fields and no
+decision reads it, so clearing it changes the outcome by $0.000000$
+(Section~\ref{sec:findings}). Note that the persistence clamp $P$ acts on the
+convergence update and not on evaluation.}
 \label{fig:arch}
 \end{figure*}
 
 \section{Audit Method}
 \label{sec:method}
 
-\textbf{A frozen suite with injected ground truth.}
-The evaluation suite is generated once, hashed, and never regenerated. The
-full suite holds 400 scenarios; the sub-suite used for the factorial holds 40
-scenarios, 66 situations and 963 signals, and carries the content hash
-\texttt{a2b37f29}. Each scenario is generated in one of four evidence
-regimes, which fix what the correct behaviour is. In the \emph{clear} regime
-the system should conclude; in the \emph{ambiguous}, \emph{sparse} and
-\emph{unknown attack} regimes it should abstain. Ground truth is therefore
-injected rather than inferred, which removes the oracle problem for the
-abstention metrics, though not for the conclusion metrics, see
-Section~\ref{sec:threats}.
+\textbf{The test suite.}
+The evaluation suite was generated once and hashed, and it has not been
+regenerated since. The full suite has 400 scenarios. The sub-suite used for
+the factorial has 40 scenarios, 66 situations and 963 signals, and its content
+hash begins with \texttt{a2b37f29}. Every scenario belongs to one of four
+evidence regimes, and the regime determines the correct behaviour. In the
+\emph{clear} regime the system should conclude, and in the \emph{ambiguous},
+\emph{sparse} and \emph{unknown attack} regimes it should abstain. Since the
+correct behaviour is fixed when the scenario is generated, the abstention
+metrics do not suffer from the oracle problem. The conclusion metrics still
+do, see Section~\ref{sec:threats}.
 
-\textbf{Metric tiers declared before the run.}
-We declared the metric set in the project evidence file before the factorial
-executed, and we report it as declared. Four metrics are \emph{live}:
-abstention rate, appropriate abstention rate, inappropriate abstention rate,
-and premature convergence rate. Each depends only on whether the system
-concluded or abstained and on the evidence count at termination, so none
-consults a keyword and none depends on narrative identity. Two metrics are
-\emph{carried with a caveat}, and two were declared \emph{dead} in advance
-because they do not move at the standing threshold. The threshold sweep in
-Section~\ref{sec:findings} is the test of whether the dead pair can be
-revived at all.
+\textbf{Metrics.}
+The set of metrics was written down in the project evidence file before the
+factorial was run, and we report it in that form. Four metrics are
+\emph{live}: the abstention rate, the appropriate abstention rate, the
+inappropriate abstention rate and the premature convergence rate. Each of them
+depends only on whether the system concluded or abstained, and on the evidence
+count when it stopped. In particular none of them uses keywords, and none of
+them depends on which narrative the scenario is about. Two further metrics are
+reported with a caveat. Two more were marked as \emph{dead} in advance, because
+they do not move at the standing threshold. The threshold sweep in
+Section~\ref{sec:findings} checks whether a lower threshold brings them back.
 
-\textbf{Removal, not weakening.}
-Each mechanism is ablated by removing its node from the compiled graph, not
-by setting a coefficient to zero. Note that this matters for the interpretation; a cell in which a mechanism
-is ablated contains no residual trace of it.
+\textbf{Ablation by removal.}
+A mechanism is ablated by removing its node from the compiled graph, and not by
+setting a coefficient to zero. This is important when the results are
+interpreted, since a cell in which a mechanism is ablated has no trace of that
+mechanism left in it.
 
 \textbf{Content addressed response caching.}
 Model responses are cached on a hash of the fully assembled prompt. This
@@ -312,8 +311,8 @@ switch when a second is ablated and its effect when that second is not.
 \section{Audit Findings}
 \label{sec:findings}
 
-Table~\ref{tab:verdicts} is the central result. We take the mechanisms in
-turn.
+Table~\ref{tab:verdicts} summarises the results. We now go through the
+mechanisms one at a time.
 
 \begin{table}[t]
 \caption{Verdict on each audited mechanism. Effects are on abstention rate at
@@ -326,36 +325,37 @@ the standing threshold $0.80$, ablated minus enabled, five seeds.}
 Mechanism & Verdict & Effect \\
 \midrule
 \textsc{unknown} hypothesis ($U$) & works & $-0.0985 \pm 0.008$ \\
-Sanity gate ($S$) & works, duplicates $U$ & $-0.0833 \pm 0.012$ \\
+Sanity gate ($S$) & works, overlaps $U$ & $-0.0833 \pm 0.012$ \\
 Asymmetric decay ($A$) & inert & $-0.0030 \pm 0.003$ \\
-Persistence ($P$) & a clamp, not a rule & $0.0000 \pm 0.000$ \\
+Persistence ($P$) & clamp, never satisfied & $0.0000 \pm 0.000$ \\
 Belief inertia & no effect on convergence & $+0.0000$ \\
 Sensor reject option & never read & $+0.000000$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{\finding{Finding 1. Two mechanisms carry the whole effect.}}
-Removing the \textsc{unknown} hypothesis costs $0.0985$ of abstention and
-$0.1391$ of appropriate abstention, and buys $0.0970$ of premature
-convergence. The effect is twelve standard deviations from zero. The sanity
-gate is a genuine second mechanism at roughly five sixths of that size and
-with the same sign on every metric. Asymmetric decay moves abstention by
-$-0.0030$ against a deviation of $0.003$, which is one deviation from zero on
-a metric whose range here is $0.18$; we therefore report it as inert at the
-resolution five seeds afford, rather than as absent. The persistence
-requirement moves nothing at all: not approximately nothing, but $0.0000$
-with deviation $0.0000$ on every live metric.
+\textbf{\finding{Finding 1 ($U$, $S$, $A$ and $P$).}}
+Removing the \textsc{unknown} hypothesis lowers abstention by $0.0985$ and
+appropriate abstention by $0.1391$, and it raises premature convergence by
+$0.0970$. This is twelve standard deviations from zero. The sanity gate is a
+second, separate mechanism. Its effect is roughly five sixths of the effect of
+$U$, with the same sign on every metric. For asymmetric decay the effect on
+abstention is $-0.0030$, with a deviation of $0.003$. That is one deviation from
+zero, on a metric which ranges over about $0.18$ here, and so we call $A$ inert
+at the resolution of five seeds. We do not claim that it has no effect at all.
+Removing the persistence requirement changes nothing. Every live metric moves
+by exactly $0.0000$, with deviation $0.0000$.
 
-\textbf{\finding{Finding 2. The sixteen configurations collapse to five.}}
-Table~\ref{tab:collapse} gives the structure, which is exact rather than
-approximate. The all-on configuration, minus $A$, minus $P$ and minus $AP$
-are identical to four decimal places on every metric. The eight
-configurations with $U$ disabled are identical to one another: once
-\textsc{unknown} is gone, abstention is zero and premature convergence is
-$0.6970$ whatever $S$, $A$ and $P$ are set to. Between these extremes, $S$
-moves abstention from $0.1818$ to $0.0212$, and $A$ moves it from $0.0212$ to
-$0.0091$, but only once $S$ is already off.
+\textbf{\finding{Finding 2 (five distinct outcomes).}}
+Table~\ref{tab:collapse} shows the structure, and the equalities in it are
+exact. The all-on configuration and the configurations without $A$, without
+$P$ and without both agree to four decimal places on every metric. The eight
+configurations with $U$ disabled also agree with each other. Once
+\textsc{unknown} is removed, the abstention rate is zero and premature
+convergence is $0.6970$, whatever the settings of $S$, $A$ and $P$. Between
+these two groups, $S$ lowers abstention from $0.1818$ to $0.0212$, and $A$
+lowers it further from $0.0212$ to $0.0091$, but $A$ has this effect only when
+$S$ is already off.
 
 \begin{table}[t]
 \caption{The sixteen configurations collapse to five distinct outcomes at
@@ -376,30 +376,29 @@ all eight with $U$ off & $0.0000$ & $0.6970$ \\
 \end{tabular}
 \end{table}
 
-Exactly one two way interaction is resolvable at five seeds. The $U \times S$
-term is $+0.0833 \pm 0.0115$, seven times its own spread and as large as the
-sanity gate's entire main effect, and it has an interpretation: the two
-mechanisms are partly redundant, since both push confidence towards
-\textsc{unknown}, so removing both costs less than the sum of removing each.
-The $U \times A$ and $S \times A$ terms are each exactly one deviation from
-zero, and the three terms involving $P$ are exactly zero because $P$ itself
-is exactly zero. We make no interaction claim beyond $U \times S$.
+Only one two way interaction can be resolved with five seeds. The $U \times S$
+term is $+0.0833 \pm 0.0115$, which is about seven times its deviation and the
+same size as the main effect of the sanity gate. It is easy to interpret. Both
+mechanisms push confidence towards \textsc{unknown}, so they partly do the same
+job, and removing both costs less than the sum of removing each one. The
+$U \times A$ and $S \times A$ terms are each one deviation from zero. The three
+terms which involve $P$ are exactly zero, as they must be when the effect of
+$P$ itself is zero. We claim no interaction other than $U \times S$.
 
-\textbf{\finding{Finding 3. The effect lives in one regime.}}
+\textbf{\finding{Finding 3 (the effect by regime).}}
 Broken out by regime, the main effect of $U$ on abstention is $-0.5500 \pm
-0.016$ on sparse evidence and $-0.0063 \pm 0.013$ on unknown attacks; for $S$
+0.016$ on sparse evidence and $-0.0063 \pm 0.013$ on unknown attacks. For $S$
 the corresponding figures are $-0.4500$ and $-0.0063$. On sparse situations
 the all-on configuration abstains at $1.0000$ and the minus-$U$ configuration
-abstains at $0.0000$, so the mechanism is the difference between always
+abstains at $0.0000$, so on this regime the mechanism decides between always
 declining and never declining. On the other three regimes the same switch
 moves the rate by between $0.005$ and $0.04$. Figure~\ref{fig:ablation} shows
 this directly.
 
-Thus the mechanisms act where evidence is scarce and are close to inert
-where the attack is unfamiliar. This is worth stating plainly, because the
-unknown attack regime is the one an intrusion triage system would most want
-them to work on, and it is the regime on which the two level abstention claim
-rests.
+Thus the mechanisms act where the evidence is scarce, and they do very little
+where the attack is unfamiliar. We note that the unknown attack regime is the
+one where an intrusion triage system would most need them, and that the two
+level abstention claim rests on this regime.
 
 \begin{figure*}[t]
 \centering
@@ -416,47 +415,47 @@ $P$ leaves it at $1.00$.}
 \label{fig:ablation}
 \end{figure*}
 
-\textbf{\finding{Finding 4. Persistence is a clamp, not a requirement.}}
-The persistence requirement is implemented by a single line that caps the
-convergence score at the threshold minus $0.01$ whenever the dominant
-hypothesis has not yet led for the required number of consecutive iterations.
-The required number defaults to two, i.e., a belief must lead twice in
-succession before it may be acted upon. It is never reached, and the reason is
-structural rather than statistical.
+\textbf{\finding{Finding 4 (the persistence requirement).}}
+The persistence requirement is a single line of code. If the dominant
+hypothesis has not yet led for the required number of consecutive iterations,
+the line caps the convergence score at the threshold minus $0.01$. By default
+the required number is two, i.e., a belief has to lead twice in a row before
+the system may act on it. This never happens, and the reason lies in the
+structure of the code and not in the statistics.
 
-The generation step replaces the hypothesis list on every iteration. It
-parses a fresh response, builds new hypothesis records with freshly generated
-identifiers, and carries forward only the \textsc{unknown} entry, whose
-identifier is fixed. The previous iteration's named hypotheses are discarded
-rather than updated. Measured over the all-on cell at the standing threshold,
-there are 963 analyses of more than one iteration and 10{,}068 named
-hypotheses, of which exactly zero appear in more than one iteration; the
-dominant iteration counter takes the value $0$ in all 4382 terminated
-records; and \textsc{unknown} recurs in all 963. A requirement of two
-consecutive dominant iterations is thus unsatisfiable by construction.
+At every iteration the generation step builds a new hypothesis list. It parses
+the new response, creates hypothesis records with new identifiers, and keeps
+from before only the \textsc{unknown} entry, whose identifier is fixed. The
+named hypotheses of the previous iteration are dropped instead of being
+updated. In the all-on cell at the standing threshold there are 963 analyses
+with more than one iteration, and 10{,}068 named hypotheses. None of these
+hypotheses appears in more than one iteration. The dominant iteration counter
+is $0$ in all 4382 terminated records, and \textsc{unknown} recurs in all 963
+analyses. Hence a requirement of two consecutive dominant iterations cannot be
+met.
 
-The threshold sweep confirms the consequence. With persistence enabled the
-convergence fraction is $0.0000$ at every threshold, and the maximum
-convergence score reached is exactly the threshold minus $0.01$: $0.2900$ at
-$0.30$ and $0.4900$ at $0.50$. That is not a property of the confidence
-dynamics; it is the literal value of the clamp. With persistence ablated the
-convergence fraction at threshold $0.30$ is $0.5561$. Hence lowering the threshold alone revives
-nothing, which answers the question the dead metric pair was declared to
-test.
+The threshold sweep shows the consequence. With persistence enabled the
+convergence fraction is $0.0000$ at every threshold. The largest convergence
+score reached is the threshold minus $0.01$, that is $0.2900$ at threshold
+$0.30$ and $0.4900$ at threshold $0.50$, and this is simply the value set by
+the clamp. With persistence ablated the convergence fraction at threshold
+$0.30$ is $0.5561$. So lowering the threshold does not, on its own, bring the
+dead metrics back.
 
-We isolated the clamp from belief inertia, the other mechanism that could
-plausibly hold convergence down, by crossing the two at threshold $0.30$ with
-everything else enabled. Removing persistence moves the convergence fraction
-by $+0.3057$; removing inertia moves it by $+0.0000$, and leaves the maximum
-convergence at exactly $0.2900$. Inertia is not entirely idle, but its effect
-appears only once persistence has been removed, and it concerns how
-convergence is reached rather than whether: with persistence off, lifting the
-inertia cap raises the single iteration conclusion rate from $0.0897$ to
-$0.1437$ and lowers mean iterations from $2.6640$ to $2.6000$. That is a
-mechanism behaving as designed, masked completely by one that is not.
+The other mechanism which could hold convergence down is belief inertia. To
+separate the two, we crossed persistence and inertia at threshold $0.30$, with
+all other mechanisms enabled. Removing persistence raises the convergence
+fraction by $+0.3057$. Removing inertia changes it by $+0.0000$, and the
+maximum convergence stays at $0.2900$. Inertia does have an effect, but only
+after persistence has been removed, and the effect is on how the loop
+converges. With persistence off, lifting the inertia cap raises the rate of
+conclusions after one iteration from $0.0897$ to $0.1437$, and it lowers the
+mean number of iterations from $2.6640$ to $2.6000$. So inertia works as it was
+designed to, but while persistence is in place its effect cannot be seen.
 
-Figure~\ref{fig:trajectory} shows the mechanism directly, and it is not the
-figure we set out to draw.
+Figure~\ref{fig:trajectory} shows this for one situation. We had intended to
+plot the belief trajectories of the named hypotheses, but it turns out that
+there are no such trajectories to plot.
 
 \begin{figure}[t]
 \centering
@@ -469,100 +468,105 @@ its regime, ties broken by the smallest identifier. The dashed green line is
 hypothesis that persists. The blue markers are named hypotheses; they are
 markers and not lines because none of the nine proposed during the analysis
 appears in a second iteration. The dotted rule is the active convergence
-threshold. The absent trajectories are the finding: with no named hypothesis
-surviving an iteration, the dominant iteration counter cannot accumulate and
-the persistence requirement cannot be satisfied.}
+threshold. With no named hypothesis surviving an iteration, the dominant
+iteration counter cannot accumulate and the persistence requirement cannot be
+satisfied.}
 \label{fig:trajectory}
 \end{figure}
 
-\textbf{\finding{Finding 5. The second abstention level is never read.}}
-The system is described as abstaining twice, once at the sensor and once in
-the reasoning loop. We tested the sensor level directly on the unknown attack
-regime with a four cell design, crossing the sensor reject option with the
-epistemic controls at five seeds. The sensor level is disabled by clearing
-the abstention flag on every signal before ingestion, which is the strongest
-intervention available.
+\textbf{\finding{Finding 5 (the sensor level of abstention).}}
+According to its description the system abstains at two levels, at the sensor
+and in the reasoning loop. We tested the sensor level directly, on the unknown
+attack regime, with a four cell design which crosses the sensor reject option
+with the epistemic controls, at five seeds. To disable the sensor level we
+clear the abstention flag on every signal before it is ingested. This is the
+strongest intervention available to us.
 
-The two sensor rows are identical. The effect of clearing every abstention
-flag is $+0.000000$ with the epistemic controls on, and $+0.000000$ with them
-off. The levels are neither complementary nor redundant; the second never
-receives the first. Note that the flag is counted into the reasoning snapshot as an abstained
-evidence count and an abstained fraction, and is then read by nothing: it does not filter evidence, it does not enter the mean anomaly
-score, the source diversity or the confidence level, and it is absent from
-the ten fields the information barrier exposes, so the model never sees it.
-The suite carries an abstained fraction of $0.2285$ overall and $0.5467$ on
-the unknown attack regime, and all of it is inert.
+The two sensor rows are the same. Clearing every abstention flag changes the
+outcome by $+0.000000$ with the epistemic controls on, and by $+0.000000$ with
+them off. So the two levels do not complement each other, and they are not
+redundant either, since the second level never receives anything from the
+first. The flag is counted into the reasoning snapshot, as an abstained
+evidence count and an abstained fraction, and after that nothing reads it. It
+does not filter evidence. It is not used in the mean anomaly score, the source
+diversity or the confidence level. It is also not one of the ten fields passed
+through the information barrier, so the model never sees it. In the suite the
+abstained fraction is $0.2285$ overall and $0.5467$ on the unknown attack
+regime, and none of it has any effect.
 
-The honest statement is that the two level abstention design is not
-implemented, and that this experiment is what establishes it, rather than a
-reading of the source. The four cell design was run as specified, and its
-sensor axis has no effect because there is no path through which it could
-act.
+We conclude that the two level abstention design is not implemented. This
+conclusion rests on the experiment and not only on reading the source. The
+four cell design was run as planned, and the sensor axis has no effect because
+there is no path along which it could act.
 
-\section{Ablation as Confirmation}
+\section{Order of the Evidence}
 \label{sec:confirmation}
 
-The order in which the evidence was obtained matters, and we state it
-explicitly, because it is what separates a prediction from a story told
-afterwards.
+In this section we say in which order the evidence was collected. We think
+this matters, since a diagnosis made before an experiment is a prediction,
+while a diagnosis made after it is only an explanation.
 
-The persistence clamp was identified during a mock rehearsal of the grid,
-before any real model call was spent on the factorial. The rehearsal commit
-records that every configuration with persistence enabled sat at a
-convergence score of $0.2900$, which is the threshold minus $0.01$, and names
-the clamp as the cause. The factorial then confirmed it at 9600 units against
-a real model, and the isolation experiment confirmed it again against the one
-competing explanation.
+The persistence clamp was found during a mock rehearsal of the grid, before
+any real model calls had been made for the factorial. The commit for the
+rehearsal records that every configuration with persistence enabled stayed at
+a convergence score of $0.2900$, i.e., the threshold minus $0.01$, and it names
+the clamp as the cause. The factorial, with 9600 units against the real model,
+then confirmed this, and the isolation experiment of
+Section~\ref{sec:findings} confirmed it again against the only other
+explanation we could find.
 
-This ordering is the methodological point of the paper. Had the grid been run
-first, the result would have been a table in which $A$ and $P$ have null
-effects, and the natural reading of such a table is that the two mechanisms
-are unimportant. The correct reading for $P$ is that it is not wired to
-anything it could affect, and for the sensor reject option that no path
-exists at all. Those are different defects with different remedies, and an
-ablation cannot tell them apart. We therefore propose a simple discipline:
-before ablating a mechanism, establish by inspection or by instrumentation
-that a path exists from the mechanism to the metric, and report that check
-alongside the ablation.
+Suppose instead that the grid had been run first. We would then have had a
+table in which $A$ and $P$ have null effects, and the obvious reading of such a
+table is that both mechanisms are unimportant. For $P$ the correct reading is
+that it is not connected to anything it could affect, and for the sensor
+reject option it is that there is no path at all. These are two different
+defects, which need different fixes, and an ablation cannot separate them. We
+therefore suggest a simple rule. Before a mechanism is ablated, one should
+check, by inspection or by instrumentation, that there is a path from the
+mechanism to the metric, and this check should be reported together with the
+ablation.
 
 \section{The Repair Experiment}
 \label{sec:repair}
 
-A diagnosis from code reading plus a null effect is correlational. The direct
-test is to supply the missing precondition and to see whether the mechanism
-then works.
+The diagnosis above combines code reading with a null effect, and so it is
+correlational. A more direct test is to supply the missing precondition and to
+see whether the mechanism then works. We describe this test now.
 
-\textbf{Design, fixed before running.}
-A newly generated hypothesis inherits the identifier and the dominant
-iteration counter of the prior hypothesis it restates, and nothing else. The
-description and the confidence remain exactly as the model produced them. The
-prompt prints only descriptions and confidences, so every prompt a repaired
-run issues is byte identical to one the unrepaired run already issued, and
-early termination can only shorten an analysis. The repair is thus prompt
-neutral by construction, which the budget gate then confirmed: across
-42{,}863 cache lookups the repaired grid produced zero cache misses and cost
-nothing.
+\textbf{Design.}
+The design was fixed before the experiment was run. A newly generated
+hypothesis takes over the identifier and the dominant iteration counter of the
+earlier hypothesis which it restates. Nothing else is carried over, and the
+description and the confidence are those produced by the model. The prompt
+contains only descriptions and confidences. Hence every prompt issued in a
+repaired run is byte for byte equal to a prompt already issued in the
+unrepaired run, and early termination can only make an analysis shorter. In
+this sense the repair leaves the prompts unchanged. The budget gate confirmed
+this: in 42{,}863 cache lookups the repaired grid had no cache misses, so it
+cost nothing to run.
 
 \textbf{The matching rule.}
-Two hypotheses are matched by normalising to lowercase alphanumeric words and
-comparing with a sequence matcher, accepting at or above $0.70$, assigning
-greedily and one to one in descending similarity. The threshold was
-calibrated against the baseline logs before the repair was run. We emphasise
-that this is identity matching \emph{within} one analysis, between
-consecutive iterations of the same loop, which is a far easier problem than
-matching free text to a ground truth catalogue; the two texts are produced
-seconds apart by the same model about the same situation. The calibration
-bears this out: in the baseline logs, 917 consecutive iteration pairs are
-byte identical text that nonetheless received a fresh identifier.
+To match two hypotheses we normalise both of them to lowercase alphanumeric
+words and compare them with a sequence matcher. A pair is accepted if the
+similarity is at least $0.70$, and pairs are assigned greedily and one to one,
+in decreasing order of similarity. The threshold was calibrated on the
+baseline logs before the repair was run. Note that this is matching
+\emph{within} one analysis, between consecutive iterations of the same loop.
+This is much easier than matching free text against a ground truth catalogue,
+since the two texts are written a few seconds apart by the same model about
+the same situation. The calibration agrees with this. In the baseline logs
+there are 917 pairs of consecutive iterations whose texts are byte identical,
+and each of them still received a new identifier.
 
-Thirty matched chains were sampled and read by hand against a bar of 24. All
-thirty are the same hypothesis restated. One is borderline and is recorded as
-such, the subject being unchanged while the severity wording flips; counting
-it against still leaves 29 of 30.
+We sampled thirty matched chains and read them by hand, with a pass mark of 24
+set in advance. In all thirty the matched hypotheses are restatements of the
+same hypothesis. One of them is borderline (the subject stays the same but the
+wording about severity changes), and if we count it as a failure we still have
+29 out of 30.
 
-\textbf{Result.} Table~\ref{tab:repair} gives the comparison. The baseline is
-the all-on cell of the factorial at the same threshold and seed, and is not
-re-run.
+\textbf{Result.} The comparison is in Table~\ref{tab:repair}. For the baseline
+we use the all-on cell of the factorial at the same threshold and seed, so the
+baseline was not run a second time.
 
 \begin{table}[t]
 \caption{Repair against baseline, five seeds, 40 scenarios. Recurrence is the
@@ -585,38 +589,40 @@ $0.80$ & repair   & $0.2029$ & $3$ & $0.0000$ & $0.4620$ \\
 \end{tabular}
 \end{table}
 
-Identity is restored: recurrence rises from exactly zero to $0.2045$, and the
-dominant iteration counter reaches three where it had never left one. The
-distribution of that counter at threshold $0.30$ moves from
-$\{0{:}300,\,1{:}663\}$ in the baseline to
-$\{0{:}300,\,1{:}328,\,2{:}250,\,3{:}85\}$ under the repair, so 335 analyses
-now satisfy a requirement that no analysis had ever satisfied.
+With the repair, the identities of hypotheses are kept. Recurrence goes up from
+$0$ to $0.2045$, and the dominant iteration counter reaches three, whereas
+before it never went above one. At threshold $0.30$ the distribution of the
+counter changes from $\{0{:}300,\,1{:}663\}$ in the baseline to
+$\{0{:}300,\,1{:}328,\,2{:}250,\,3{:}85\}$ with the repair. Thus 335 analyses
+now meet a requirement which no analysis met before.
 
-Persistence then gates convergence. At threshold $0.30$ the convergence
-fraction rises from $0.0000$ to $0.1551$, mean iterations falls below three
-for the first time, and the maximum convergence score rises from $0.2900$,
-which is exactly the clamp, to $0.4530$, which is the dynamics. The verdict
-is that the mechanism was correctly specified and incorrectly coupled.
+Persistence now gates convergence. At threshold $0.30$ the convergence
+fraction goes up from $0.0000$ to $0.1551$, the mean number of iterations falls
+below three for the first time, and the largest convergence score goes up from
+$0.2900$ (the value of the clamp) to $0.4530$ (a value produced by the dynamics
+of the loop). We conclude that the mechanism was specified correctly, and that
+the defect lies in the way it was coupled to the generation step.
 
-\textbf{Two limits, and a second ceiling.}
+\textbf{Limits of the repair.}
 At thresholds $0.50$ and $0.80$ the convergence fraction stays at zero, and
-this is not the clamp. The maximum convergence under the repair is $0.4620$
-at both, below either threshold, so something else binds. Inspection of the
-source identifies two contributing causes. First, the convergence score is
-not the confidence of the dominant hypothesis but a spread statistic, of the
-form $\min(2\sigma + \mu/2,\, 1)$, where $\sigma$ is the gap between the
-largest and the mean confidence and $\mu$ is the margin over \textsc{unknown},
-further multiplied by penalties when the distribution is flat. Second, a
-newly generated hypothesis has its confidence constrained to the interval
-$[0.1, 0.5]$ at birth. Both bound the achievable score well below the
-standing threshold. We report this as a second structural ceiling,
-established by code inspection and consistent with the measurement, and we
-did not run the experiment that would separate the two causes.
+here the clamp is not the reason. Under the repair the largest convergence
+score is $0.4620$ at both thresholds, which is below each of them, so some
+other bound applies. From the source code we can see two causes which
+contribute to it. First, the convergence score is not the confidence of the
+dominant hypothesis. It is a spread statistic of the form
+$\min(2\sigma + \mu/2,\, 1)$, where $\sigma$ is the gap between the largest
+and the mean confidence and $\mu$ is the margin over \textsc{unknown}, and it
+is further multiplied by penalties when the distribution is flat. Second, the
+confidence of a new hypothesis is restricted to the interval $[0.1, 0.5]$ when
+it is created. Both of these keep the score well below the standing threshold.
+We report this as a second structural ceiling. It is based on code inspection
+and it agrees with the measurements, but we did not run the experiment which
+would separate the two causes.
 
-The second limit is that recurrence reaches $0.2045$ and not $1.0$. Four
-named hypotheses in five are still genuinely new at each iteration, so the
-repair helps the fifth. Whether that is a ceiling of the matching rule or of
-the model's generation behaviour is not established here.
+The second limit is that recurrence reaches $0.2045$ and not $1.0$. At each
+iteration about four named hypotheses in five are still new, so the repair can
+help only the remaining one. We have not established whether this is a limit
+of the matching rule or of the way the model generates hypotheses.
 
 \section{An Evaluation Hazard}
 \label{sec:hazards}

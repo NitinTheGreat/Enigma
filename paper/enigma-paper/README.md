@@ -36,8 +36,8 @@ Copy the refreshed PDFs from `figures/` into `figures/` here.
 
 ## Before submission
 
-- Replace the author block in `main.tex`.
+- The author block is final: four authors, Dr. Ebenezer Juliet corresponding.
 - `\balance` is loaded for the final column balance; remove it if the venue
   objects.
-- Check the page count against the venue limit. The body is about 5400
+- Check the page count against the venue limit. The body is about 5700
   words with four floats and three tables.

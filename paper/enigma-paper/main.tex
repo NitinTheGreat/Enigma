@@ -291,22 +291,23 @@ setting a coefficient to zero. This is important when the results are
 interpreted, since a cell in which a mechanism is ablated has no trace of that
 mechanism left in it.
 
-\textbf{Content addressed response caching.}
-Model responses are cached on a hash of the fully assembled prompt. This
-makes a 9600-unit grid affordable, and it makes the grid repeatable. The
-realised cache hit rate was $0.9911$, so the grid required only 5851 real
-model calls and completed in $2.41$ hours with zero failed units, zero
-retries and zero fallback iterations. The caches are scoped per seed, so
+\textbf{Caching of responses.}
+Model responses are cached under a hash of the fully assembled prompt. This
+makes a grid of 9600 units affordable, and it also makes the grid repeatable.
+The cache hit rate was $0.9911$, so the grid needed only 5851 real model
+calls. It finished in $2.41$ hours, with no failed units, no retries and no
+fallback iterations. There is a separate cache for each seed, so the
 replicates remain independent.
 
 \textbf{Design of the factorial.}
-The grid is $2^4$ configurations, by three convergence thresholds ($0.30$,
-$0.50$, $0.80$), by five seeds, by 40 scenarios: 9600 units. Main effects are
-computed per seed as the mean over cells in which a switch is ablated minus
-the mean over cells in which it is not, averaged over every combination of
-the other three, and the deviation is taken across the five seeds. Two way
-interactions are reported as half the difference between the effect of one
-switch when a second is ablated and its effect when that second is not.
+The grid has $2^4$ configurations, three convergence thresholds ($0.30$,
+$0.50$, $0.80$), five seeds and 40 scenarios, which gives 9600 units. For each
+seed, the main effect of a switch is the mean over the cells where it is
+ablated minus the mean over the cells where it is not, averaged over all
+combinations of the other three switches. The deviation is then taken across
+the five seeds. A two way interaction is half the difference between the
+effect of one switch when a second switch is ablated and its effect when the
+second switch is not ablated.
 
 \section{Audit Findings}
 \label{sec:findings}
@@ -403,15 +404,15 @@ level abstention claim rests on this regime.
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.96\textwidth]{figures/fig3_ablation_main_effects.pdf}
-\caption{Single mechanism removals against the two baselines, sub-suite
+\caption{Single mechanism removals compared with the two baselines, sub-suite
 \texttt{a2b37f29}, five seeds, threshold $0.80$. Green is the all-on
-configuration, orange is all four mechanisms off, blue is one mechanism
-removed; error bars are one standard deviation across seeds. The third panel
-is not the inappropriate abstention rate, which sits at $0.01$ or below in
-all six configurations and would draw six bars on the axis. It is replaced by
-the abstention rate on the sparse regime, where the entire effect lives, and
-where removing $U$ takes the rate from $1.00$ to $0.00$ while removing $A$ or
-$P$ leaves it at $1.00$.}
+configuration, orange has all four mechanisms off, and blue has one mechanism
+removed. Error bars are one standard deviation across seeds. The third panel
+does not show the inappropriate abstention rate, since it is at most $0.01$ in
+all six configurations and the bars would lie on the axis. Instead it shows
+the abstention rate on the sparse regime, where almost all of the effect is.
+There, removing $U$ takes the rate from $1.00$ to $0.00$, while removing $A$
+or $P$ leaves it at $1.00$.}
 \label{fig:ablation}
 \end{figure*}
 
@@ -460,17 +461,17 @@ there are no such trajectories to plot.
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.95\columnwidth]{figures/fig6_belief_trajectory.pdf}
-\caption{Belief trajectory for one situation, chosen by a rule fixed before
-any trajectory was plotted: among unknown attack situations of the all-on
-cell at seed 42, the one whose evidence count at termination is the median of
-its regime, ties broken by the smallest identifier. The dashed green line is
-\textsc{unknown}, which climbs from $0.65$ to $0.99$ and is the only
-hypothesis that persists. The blue markers are named hypotheses; they are
-markers and not lines because none of the nine proposed during the analysis
-appears in a second iteration. The dotted rule is the active convergence
-threshold. With no named hypothesis surviving an iteration, the dominant
-iteration counter cannot accumulate and the persistence requirement cannot be
-satisfied.}
+\caption{Belief trajectory for one situation. The situation was chosen by a
+rule fixed before any trajectory was plotted: among the unknown attack
+situations of the all-on cell at seed 42, we take the one whose evidence count
+at termination is the median for its regime, breaking ties by the smallest
+identifier. The dashed green line is \textsc{unknown}, which rises from $0.65$
+to $0.99$, and it is the only hypothesis that persists. The blue points are
+named hypotheses. They are drawn as points and not as lines, since none of the
+nine hypotheses proposed in this analysis appears in a second iteration. The
+dotted line is the convergence threshold. As no named hypothesis lasts beyond
+one iteration, the dominant iteration counter cannot grow and the persistence
+requirement cannot be satisfied.}
 \label{fig:trajectory}
 \end{figure}
 
@@ -627,123 +628,122 @@ of the matching rule or of the way the model generates hypotheses.
 \section{An Evaluation Hazard}
 \label{sec:hazards}
 
-The audit turned up a second result of independent interest, concerning the
+In this section we describe a second result of the audit, which concerns the
 way a timing defect interacts with an abstention metric.
 
 The system reasons over archived events, and a staleness check decides
-whether a situation is quiet. If that check evaluates the age of the evidence
-in host time while the events themselves carry archival timestamps, the two
-clocks are conflated and every situation appears old. We parameterised the
-defect and ran three clock modes at five seeds.
+whether a situation is quiet. Suppose the check measures the age of the
+evidence in host time, while the events carry archival timestamps. Then the
+two clocks are mixed up and every situation looks old. We made this defect a
+parameter of the system and ran three clock modes, each at five seeds.
 
-Under conflation, the quiet fraction is $1.0000$ in all five seeds: every
-situation is marked quiet. Trend detection collapses with it, and the
-conflated mode emits only two distinct trend labels against three for the
-correct mode, the stable label never being emitted across 14{,}445
-iterations.
+With the clocks conflated, the quiet fraction is $1.0000$ in all five seeds,
+i.e., every situation is marked quiet. Trend detection fails as well. The
+conflated mode emits only two of the three trend labels, and the stable label
+does not appear once in 14{,}445 iterations.
 
-The hazard is what then happens to the headline metric, see
-Figure~\ref{fig:clock}. Under conflation the rate of correct conclusions
-rises from $0.22$ to $0.50$. A reader presented with that number alone would
-conclude that the defective configuration is the better one.
+The effect on the headline metric is shown in Figure~\ref{fig:clock}. With the
+clocks conflated, the rate of correct conclusions goes up from $0.22$ to
+$0.50$. Looking only at this number, one would conclude that the defective
+configuration is the better one.
 
-It is an abstention artefact. Marking every situation quiet drives the
-abstention rate from $0.1818$ to $0.5273$, and since three of the four
-regimes score an abstention as correct, abstaining more often scores better.
-On the single regime that requires the system to commit, the defect makes it
-worse, taking the clear regime rate from $0.130$ to $0.080$. The hazard
-generalises beyond this system: any replay based evaluation that scores
-abstention as correct in most regimes, and that evaluates staleness against
-wall clock time rather than against event time, will reward the defect; the
-hazard is a property of the scoring rule, not of this corpus. We note also that the hazard has a
-threshold rather than a gradient; a quiet fraction of $0.21$ changes nothing,
-and a quiet fraction of $1.00$ changes everything.
+The increase comes from abstention. Since every situation is marked quiet, the
+abstention rate goes up from $0.1818$ to $0.5273$, and since three of the four
+regimes count an abstention as correct, the score improves. On the one regime
+where the system has to commit, the defect makes it worse, and the rate on the
+clear regime falls from $0.130$ to $0.080$. We expect the same thing to happen
+in other systems. Any replay based evaluation which counts abstention as
+correct in most regimes, and which measures staleness in wall clock time
+instead of event time, will reward this defect. So the hazard comes from the
+scoring rule, and not from this particular corpus. We also note that the
+effect seems to have a threshold. A quiet fraction of $0.21$ changes nothing,
+while a quiet fraction of $1.00$ changes the outcome completely.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.95\columnwidth]{figures/fig2_clock_collapse.pdf}
-\caption{Collapse of the temporal layer under clock conflation, five seeds.
-The three groups are the conflated mode, in which staleness is evaluated in
-host time while events carry archival timestamps, the wall clock mode, and
-the correctly separated mode. Under conflation the quiet fraction is
-$1.0000$ in every seed and the stable trend label is never emitted. The
-abstention rate rises from $0.1818$ to $0.5273$, which raises the rate of
-correct conclusions from $0.22$ to $0.50$ even though the clear regime, the
-only one in which the system must commit, falls from $0.130$ to $0.080$.}
+\caption{Collapse of the temporal layer when the clocks are conflated, five
+seeds. The three groups are the conflated mode (staleness measured in host
+time while the events carry archival timestamps), the wall clock mode and the
+correctly separated mode. In the conflated mode the quiet fraction is $1.0000$
+in every seed and the stable trend label is never emitted. The abstention rate
+goes up from $0.1818$ to $0.5273$, and this raises the rate of correct
+conclusions from $0.22$ to $0.50$, although on the clear regime, the only one
+where the system must commit, the rate falls from $0.130$ to $0.080$.}
 \label{fig:clock}
 \end{figure}
 
 \section{Threats to Validity}
 \label{sec:threats}
 
-\textbf{Scale and synthesis.} The evaluation is synthetic throughout. There
-is no deployment and no operator study. The sub-suite holds 40 scenarios and
-66 situations, so a per regime cell carries about 16 situations and a
-binomial interval of roughly $\pm 0.245$ at 95\,\%. Five seeds support the
-main effects and the single interaction we claim; we claim no significance
-test.
+\textbf{Scale.} The evaluation is synthetic. There is no deployment and no
+study with operators. The sub-suite has 40 scenarios and 66 situations, so
+each regime has about 16 situations, which gives a binomial interval of
+roughly $\pm 0.245$ at 95\,\%. Five seeds are enough for the main effects and
+for the one interaction we claim, but we do not report significance tests.
 
-\textbf{Narrative identity is not recoverable.} The ten fields the
-information barrier exposes separate the four evidence regimes with a lift of
-$0.288$ over the base rate, and carry no information about which narrative a
-scenario is about, at a lift of $-0.105$. Two of the six narrative categories
-share an identical detector signature and are indistinguishable by
-construction. Hence any metric that checks whether the system named the right attack is
-measuring vocabulary overlap, and we exclude the
-conclusion metrics from every claim in this paper. They are reported in the
-supporting material with the caveat attached.
+\textbf{Narrative identity.} The ten fields passed through the information
+barrier separate the four evidence regimes, with a lift of $0.288$ over the
+base rate. They carry no information about the narrative of a scenario (the
+lift is $-0.105$). Two of the six narrative categories have the same detector
+signature, so they cannot be told apart at all. Hence a metric which checks
+whether the system named the right attack really measures overlap of
+vocabulary, and for this reason we leave the conclusion metrics out of every
+claim in the paper. They are reported, with this caveat, in the supporting
+material.
 
-\textbf{The instrument.} The sensor is a component rather than a
-contribution, and is characterised only to the extent the audit requires. The
-multi source condition in the suite is constructed rather than observed. The
-confidence weighting coefficients inside the evaluation step were never
-swept, so we cannot exclude the possibility that some of the inertia of the
-system is an artefact of their values.
+\textbf{The sensor.} We treat the sensor as a part of the instrument, and we
+characterise it only as far as the audit needs. The multi source condition in
+the suite is constructed and not observed. We did not sweep the confidence
+weighting coefficients inside the evaluation step, so it is possible that part
+of the inertia of the system comes from their values.
 
-\textbf{Non-determinism.} The language model is non-deterministic. Caches are
-scoped per seed so that replicates remain independent, and the grid recorded
-zero fallback iterations, so no result here rests on a degraded path.
+\textbf{Non-determinism.} The language model is not deterministic. The caches
+are kept separately for each seed, so the replicates stay independent. The
+grid recorded no fallback iterations, so none of the results depends on a
+degraded path.
 
-\textbf{Generality.} Every finding is from one system. The conflation hazard
-in particular is demonstrated on one corpus that happens to be uniformly
-stale, and the threshold behaviour rests on two observations rather than on a
-curve. What we claim to generalise is the method, and the ambiguity it
-resolves, rather than the specific verdicts.
+\textbf{Generality.} All findings come from one system. In particular, the
+conflation hazard is shown on a single corpus which happens to be stale
+throughout, and the threshold behaviour is based on two observations, not on a
+curve. What we expect to carry over to other systems is the method, together
+with the ambiguity of null ablation results which it resolves. The particular
+verdicts may well be different elsewhere.
 
 \section{Reproducibility}
 
-A single script at the project root regenerates every figure in this paper
-and recomputes every number it quotes, from committed machine readable
-results, with no API key and no network. On a clean checkout it reports five
-stages passed, zero failed, and eighteen of eighteen quoted numbers
-reproducing within $5 \times 10^{-4}$. Running it on a clean checkout found
-two real defects in our own artefacts, which is the only reason to run such a
-script rather than merely to ship it.
+A single script in the project root regenerates all figures of the paper and
+recomputes all quoted numbers from committed machine readable results, with no
+API key and no network connection. On a clean checkout it reports five stages
+passed, none failed, and all eighteen quoted numbers reproduced to within
+$5 \times 10^{-4}$. When we first ran it on a clean checkout it found two real
+defects in our own artefacts, and both have since been fixed.
 
-Across the project, $91.2$\,\% of 130{,}436 model calls were served from the
-content addressed cache rather than paid for twice. The repair experiment of
-Section~\ref{sec:repair} was served entirely from cache and cost nothing,
-which is a direct consequence of its prompt neutrality rather than a
-convenience.
+Over the whole project, $91.2$\,\% of the 130{,}436 model calls were answered
+from the content addressed cache, so they were not paid for twice. The repair
+experiment of Section~\ref{sec:repair} was answered entirely from the cache and
+cost nothing, as one would expect for a repair which does not change the
+prompts.
 
 \section{Conclusion}
 
-Of four hand designed epistemic controls in a working intrusion triage agent,
-one works, one works and largely duplicates the first, one is inert at the
-resolution five seeds afford, and one is a clamp misdescribed as a
-persistence requirement. A fifth mechanism, the sensor's reject option, is
-specified and not enacted: clearing it on every signal in the suite changes
-the outcome by $0.000000$. A prompt-neutral repair confirms the persistence
-diagnosis causally, raising recurrence from zero to $0.2045$ and making the
-mechanism gate convergence for the first time.
+We audited four hand designed epistemic controls in a working intrusion
+triage agent. One of them works, one works but largely repeats the first, one
+is inert at the resolution of five seeds, and the one described as a
+persistence requirement is in fact a clamp. A fifth mechanism, the reject
+option of the sensor, is specified but not enacted, and clearing it on every
+signal of the suite changes the outcome by $0.000000$. A repair which leaves
+the prompts unchanged confirms the persistence diagnosis. It raises recurrence
+from zero to $0.2045$, and the mechanism then gates convergence for the first
+time.
 
-The general lesson concerns the order of operations. A null effect in an
-ablation is ambiguous between a mechanism that does little and a mechanism
-that is not connected, and the two call for entirely different responses. We
-therefore suggest that establishing the existence of a path from mechanism to
-metric should precede measuring the size of the effect along it. Guardrails
-are easy to write and hard to verify, and in the system examined here three
-of five did not survive being measured.
+The main lesson is about the order in which things are checked. A null effect
+in an ablation may mean that a mechanism does little, or that it is not
+connected, and these two cases need quite different responses. We therefore
+suggest that one should first establish that there is a path from the
+mechanism to the metric, and only then measure the size of the effect along
+it. In the system examined here, two of the five mechanisms fail this check,
+and a third has no effect that we can measure.
 
 \balance
 \bibliographystyle{IEEEtran}
